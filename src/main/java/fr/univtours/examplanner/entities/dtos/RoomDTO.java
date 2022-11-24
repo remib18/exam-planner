@@ -1,5 +1,7 @@
 package fr.univtours.examplanner.entities.dtos;
 
+import fr.univtours.examplanner.enums.ComputerEnvironment;
+import fr.univtours.examplanner.enums.RoomEquipment;
 import fr.univtours.examplanner.enums.RoomType;
 import org.jetbrains.annotations.NotNull;
 
@@ -15,6 +17,16 @@ public class RoomDTO {
 	 */
 	@NotNull
 	private final List<RoomType> type = new ArrayList<>();
+
+	/**
+	 * Description de l'environnement des posts pour les étudiants
+	 */
+	private final List<ComputerEnvironment> computerEnvironments = new ArrayList<>();
+
+	/**
+	 * Équipements de la salle
+	 */
+	private final List<RoomEquipment> equipments = new ArrayList<>();
 	/**
 	 * Créneaux de disponibilité de la salle
 	 */
@@ -73,6 +85,30 @@ public class RoomDTO {
 		this.type.remove(type);
 	}
 
+	public List<ComputerEnvironment> getComputerEnvironments() {
+		return computerEnvironments;
+	}
+
+	public void addComputerEnvironment(ComputerEnvironment computerEnvironment) {
+		this.computerEnvironments.add(computerEnvironment);
+	}
+
+	public void removeComputerEnvironment(ComputerEnvironment computerEnvironment) {
+		this.computerEnvironments.remove(computerEnvironment);
+	}
+
+	public List<RoomEquipment> getEquipments() {
+		return equipments;
+	}
+
+	public void addEquipment(RoomEquipment equipment) {
+		this.equipments.add(equipment);
+	}
+
+	public void removeEquipment(RoomEquipment equipment) {
+		this.equipments.remove(equipment);
+	}
+
 	public @NotNull List<SlotDTO> getAvailableSlots() {
 		return availableSlots;
 	}
@@ -107,7 +143,7 @@ public class RoomDTO {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(name, places, type, availableSlots);
+		return Objects.hash(name, places, type, computerEnvironments, equipments, availableSlots);
 	}
 
 	@Override
@@ -116,6 +152,8 @@ public class RoomDTO {
 				"\n\tname: " + name +
 				", \n\tplaces: " + places +
 				", \n\ttype: " + type +
+				", \n\tcomputerEnvironments: " + computerEnvironments +
+				", \n\tequipments: " + equipments +
 				", \n\tavailableSlots: " + availableSlots +
 				"\n}";
 	}
