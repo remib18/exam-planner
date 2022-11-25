@@ -1,9 +1,12 @@
 package fr.univtours.examplanner;
 
+import fr.univtours.examplanner.enums.Scenes;
+import fr.univtours.examplanner.translations.SupportedLanguages;
+import fr.univtours.examplanner.translations.Translation;
+import fr.univtours.examplanner.ui.SceneController;
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
 
 public class App extends Application {
 	public static void main(String[] args) {
@@ -11,10 +14,15 @@ public class App extends Application {
 	}
 
 	@Override
-	public void start(Stage stage) {
-		Scene scene = new Scene(new Label("Exam Planner"), 320, 240);
-		stage.setTitle("Exam Planner!");
-		stage.setScene(scene);
+	public void start(@NotNull Stage stage) {
+		Storage.setCurrentLanguage(SupportedLanguages.French);
+
+		Storage.currentSceneProperty().addListener((observable, oldValue, newValue) -> {
+			stage.setScene(SceneController.getScene(newValue));
+			stage.setTitle(Translation.get(SceneController.getSceneTitle(newValue)));
+		});
+
+		Storage.setCurrentScene(Scenes.Login);
 		stage.show();
 	}
 }
