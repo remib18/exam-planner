@@ -1,5 +1,7 @@
 package fr.univtours.examplanner.enums;
 
+import fr.univtours.examplanner.translations.Translation;
+
 /**
  * Spécifie des contraintes sur l'environnement de travail d'un utilisateur
  */
@@ -12,5 +14,10 @@ public enum ComputerEnvironment {
 	ProgrammingApplication,
 	PhysicsApplication,
 	MathApplication,
-	ChemistryApplication
+	ChemistryApplication;
+
+	@Override
+	public String toString() {
+		return Translation.get("computerEnvironment." + name());
+	}
 }
