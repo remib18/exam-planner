@@ -1,0 +1,12 @@
+{
+  "app.title.dashboard": "Dashboard — ExamPlanner",
+  "app.title.department": "Departments — ExamPlanner",
+  "app.title.exam": "Exams — ExamPlanner",
+  "app.title.group": "Groups — ExamPlanner",
+  "app.title.login": "Connexion — ExamPlanner",
+  "app.title.manager": "Managers — ExamPlanner",
+  "app.title.room": "Rooms — ExamPlanner",
+  "app.title.user": "Users — ExamPlanner",
+  "ui.login.title": "Connexion (in English please)",
+  "ui.login.button": "Connexion"
+}

@@ -1,44 +1,77 @@
 package fr.univtours.examplanner.translations;
 
 import fr.univtours.examplanner.Storage;
+import fr.univtours.examplanner.utils.Json;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
-import java.util.List;
+import java.util.Objects;
 
-/**
- * loadedLanguage:
- * Contient en clé le nom de la traduction et en valeur, la traduction.
- * Est chargé à partir d'un fichier nommé selon les conventions internationales (A PRECISER) dans le dossier renseigner
- */
 public class Translation {
 
-	private static Translation instance;
-	private final HashMap<String, String> loadedTranslations = new HashMap<>();
+	/**
+	 * Instance pour le singleton
+	 */
+	private static @Nullable Translation instance;
 
+	/**
+	 * Liste des traductions disponibles
+	 */
+	private @Nullable HashMap<String, String> loadedTranslations = null;
+
+	// La classe est un singleton
 	private Translation() {
-		Storage.currentLanguageProperty().addListener((observable, oldValue, newValue) -> {
-			loadLanguage(newValue);
-		});
 	}
 
-	private static Translation getInstance() {
+	/**
+	 * Crée un singleton de la classe Translation<br>
+	 * Permet de ne pas avoir à charger plusieurs fois le fichier de traduction
+	 *
+	 * @return instance de la classe Translation
+	 */
+	private static @NotNull Translation getInstance() {
 		if (instance == null) {
 			instance = new Translation();
 		}
 		return instance;
 	}
 
-	public static List<String> getLanguages() {
-		return SupportedLanguages.getAll();
+	/**
+	 * Obtenir une traduction
+	 *
+	 * @param key La clé de la traduction
+	 * @return La traduction
+	 */
+	public static @NotNull String get(@NotNull String key) {
+		Translation instance = getInstance();
+		if (instance.loadedTranslations == null) {
+			instance.loadLanguage(Storage.getCurrentLanguage());
+		}
+		return Objects.requireNonNull(getInstance().loadedTranslations).getOrDefault(key, key);
 	}
 
-	public static String get(String key) {
-		return getInstance().loadedTranslations.getOrDefault(key, key);
+	/**
+	 * Change la langue courante
+	 *
+	 * @param language Langue à charger
+	 */
+	public static void setLanguage(@NotNull SupportedLanguages language) {
+		getInstance().loadLanguage(language);
+		Storage.setCurrentLanguage(language);
 	}
 
-	private void loadLanguage(SupportedLanguages language) {
+	/**
+	 * Charge le fichier de traduction correspondant à la langue passée en paramètre
+	 *
+	 * @param language Langue à charger
+	 */
+	private void loadLanguage(@NotNull SupportedLanguages language) {
+		if (loadedTranslations == null) {
+			loadedTranslations = new HashMap<>();
+		}
 		loadedTranslations.clear();
-		// Todo load from file
+		loadedTranslations.putAll(Json.JsonObjectToHashMap(Json.parse("translations/" + language.getFileName())));
 	}
 
 }
