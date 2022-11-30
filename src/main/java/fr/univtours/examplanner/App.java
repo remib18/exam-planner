@@ -15,12 +15,14 @@ public class App extends Application {
 
 	@Override
 	public void start(@NotNull Stage stage) {
-		Storage.setCurrentLanguage(SupportedLanguages.French);
+		Translation.setLanguage(SupportedLanguages.French);
 
 		Storage.currentSceneProperty().addListener((observable, oldValue, newValue) -> {
 			stage.setScene(SceneController.getScene(newValue));
 			stage.setTitle(Translation.get(SceneController.getSceneTitle(newValue)));
 		});
+
+		stage.setResizable(false);
 
 		Storage.setCurrentScene(Scenes.Login);
 		stage.show();

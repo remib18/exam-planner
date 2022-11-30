@@ -4,9 +4,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import org.jetbrains.annotations.NotNull;
 
-public class Department {
+public class RoomView {
 
-	public static final String TITLE = "app.title.department";
+	public static final String TITLE = "app.title.room";
 
 	public static @NotNull Scene getScene() {
 		return new Scene(new Label(TITLE), 320, 240);
