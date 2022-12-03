@@ -9,6 +9,6 @@
   "app.title.user": "Users — ExamPlanner",
   "ui.login.title": "Connection",
   "ui.login.button": "Connection",
-  "ui.login.fields.id": "Identifier",
-  "ui.login.fields.password": "Password"
+  "ui.login.labels.id": "Identifier",
+  "ui.login.labels.password": "Password"
 }

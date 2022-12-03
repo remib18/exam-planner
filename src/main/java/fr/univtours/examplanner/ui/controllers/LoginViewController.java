@@ -54,6 +54,18 @@ public class LoginViewController extends BasicViewController {
 	private TextField passwordField;
 
 	/**
+	 * Le label pour le nom d'utilisateur
+	 */
+	@FXML
+	private Label idLabel;
+
+	/**
+	 * Le label pour le mot de passe
+	 */
+	@FXML
+	private Label passwordLabel;
+
+	/**
 	 * Traite le chic sur le bouton de connexion
 	 */
 	@FXML
@@ -97,8 +109,10 @@ public class LoginViewController extends BasicViewController {
 	protected void onLanguageUpdate() {
 		title.setText(Translation.get("ui.login.title"));
 		signInBtn.setText(Translation.get("ui.login.button"));
-		idField.setPromptText(Translation.get("ui.login.fields.id"));
-		passwordField.setPromptText(Translation.get("ui.login.fields.password"));
+		idField.setPromptText(Translation.get(""));
+		passwordField.setPromptText(Translation.get(""));
+		idLabel.setText(Translation.get("ui.login.labels.id"));
+		passwordLabel.setText(Translation.get("ui.login.labels.password"));
 	}
 
 	/**
