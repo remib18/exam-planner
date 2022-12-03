@@ -22,6 +22,10 @@ public class App extends Application {
 			stage.setTitle(Translation.get(SceneController.getSceneTitle(newValue)));
 		});
 
+		Storage.currentLanguageProperty().addListener((observable, oldValue, newValue) -> {
+			stage.setTitle(Translation.get(SceneController.getSceneTitle(Storage.getCurrentScene())));
+		});
+
 		stage.setResizable(false);
 
 		Storage.setCurrentScene(Scenes.Login);
