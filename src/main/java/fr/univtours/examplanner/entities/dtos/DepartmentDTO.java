@@ -15,6 +15,7 @@ public class DepartmentDTO extends WithIDEntity {
 	 */
 	@NotNull
 	private final List<MockUpDTO> MockUpDTOs = new ArrayList<>();
+
 	/**
 	 * Nom du département
 	 */

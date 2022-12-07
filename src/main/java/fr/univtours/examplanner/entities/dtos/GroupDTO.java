@@ -16,32 +16,38 @@ public class GroupDTO extends WithIDEntity {
 	 */
 	@NotNull
 	private final List<GroupDTO> children = new ArrayList<>();
+
 	/**
 	 * Nom du groupe<br/>
 	 * Ne peut pas être null
 	 */
 	@NotNull
 	private String name;
+
 	/**
 	 * Le groupe contient-il des personnes en situation de handicap<br/>
 	 * Donnée utile pour la sélection d'une salle adaptée (rez-de-chaussée, ascenseur, ...)
 	 */
 	private boolean containsStudentsWithReducedMobility;
+
 	/**
 	 * Nombre d'étudiants avec un besoin de secrétaire<br/>
 	 * Pour chaque étudiant, il faut un secrétaire et une salle
 	 */
 	private int numberOfStudentsWithWriterNeeds;
+
 	/**
 	 * Nombre d'étudiants avec un besoin d'isolation = une salle seul<br/>
 	 * Pour chaque étudiant, il faut une salle et un surveillant
 	 */
 	private int numberOfStudentsWithIsolationNeeds;
+
 	/**
 	 * Nombre d'étudiants avec un besoin de temps supplémentaire 1/3 ou 1/4 temps<br/>
 	 * Il faut une salle et un surveillant pour l'ensemble de ces étudiants
 	 */
 	private int numberOfStudentsWithPartTimeNeeds;
+
 	/**
 	 * Nombre d'étudiants total du groupe, sans distinction de besoin
 	 */

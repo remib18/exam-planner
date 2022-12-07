@@ -17,16 +17,19 @@ public class MockUpDTO extends WithIDEntity {
 	 */
 	@NotNull
 	private final String name;
+
 	/**
 	 * Matières de la maquette
 	 */
 	@NotNull
 	private final List<SubjectDTO> subjects = new ArrayList<>();
+
 	/**
 	 * Niveau de la maquette
 	 */
 	@NotNull
 	private Degree degree;
+
 	/**
 	 * Semestre de la maquette
 	 */
