@@ -30,7 +30,7 @@ public class GroupRepo implements BaseRepo<GroupDTO, String> {
         return new ArrayList<>();
     }
 
-@Override
+    @Override
     public @NotNull GroupDTO save(@NotNull GroupDTO entity) {
         // TODO implement here
         throw new UnsupportedOperationException();
