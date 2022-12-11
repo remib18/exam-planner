@@ -6,27 +6,34 @@ import java.util.List;
 public interface BaseRepo<Entity, PK> {
 
     /**
+     * Permet de sauvegarder une entité mise en paramètre
      *
-     * @param entity
-     * @return
+     * @param entity l'entité à sauvegarder
+     * @return l'entité sauvegardée
      */
-    public Entity save(Entity entity);
+    Entity save(Entity entity);
 
     /**
-     * @return
+     * Permet d'obtenir toutes les informations sur une table
+     *
+     * @return une liste d'entité de toutes les informations
      */
-    public List<Entity> getAll();
+    List<Entity> getAll();
 
     /**
-     * @param id 
-     * @return
+     * Permet d'obtenir une entité grâce à son identifiant
+     *
+     * @param id l'identifiant
+     * @return l'entité qui correspond à l'identifiant
      */
-    public Entity getById(PK id);
+    Entity getById(PK id);
 
     /**
-     * @param entity
-     * @return
+     * Permet de supprimer une entité
+     *
+     * @param entity l'entité à supprimer
+     * @return vraie si l'entité à bien été supprimé
      */
-    public boolean delete(Entity entity);
+    boolean delete(Entity entity);
 
 }
