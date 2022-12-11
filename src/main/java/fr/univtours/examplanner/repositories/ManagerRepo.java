@@ -19,6 +19,7 @@ public class ManagerRepo implements BaseRepo<ManagerDTO, String> {
         // TODO implement here
         return new ArrayList<>();
     }
+    
     @Override
     public @NotNull ManagerDTO save(@NotNull ManagerDTO entity) {
         // TODO implement here
