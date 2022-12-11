@@ -28,7 +28,7 @@ public abstract class Exam extends WithIDEntity {
 	/**
 	 * Précédence de l'examen
 	 */
-	//@NotNull
+	@NotNull
 	private final List<Exam> previousExams = new ArrayList<>();
 
 	/**

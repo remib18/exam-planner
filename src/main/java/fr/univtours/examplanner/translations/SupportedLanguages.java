@@ -7,7 +7,7 @@ public enum SupportedLanguages {
 	UsEnglish;
 
 	/**
-	 * Lie les langues supportées à leurs fichiers de traduction.
+	 * Lit les langues supportées à leurs fichiers de traduction.
 	 *
 	 * @return Le nom du fichier de traduction
 	 */
@@ -19,7 +19,7 @@ public enum SupportedLanguages {
 	}
 
 	/**
-	 * Lie les langues supportées à leurs abréviations
+	 * Lit les langues supportées à leurs abréviations
 	 *
 	 * @return L'abréviation de la langue
 	 */

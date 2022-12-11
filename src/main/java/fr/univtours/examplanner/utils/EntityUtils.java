@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 public class EntityUtils {
 
 	/**
-	 * Convertie une liste d'entité en liste d'identifiants
+	 * Convertit une liste d'entité en liste d'identifiants
 	 *
 	 * @param list La liste d'entité à convertir
 	 * @return La liste des identifiants des entités
@@ -20,7 +20,7 @@ public class EntityUtils {
 	}
 
 	/**
-	 * Convertie une liste d'entité en une liste de <code>String</code>
+	 * Convertit une liste d'entité en une liste de <code>String</code>
 	 *
 	 * @param list     La liste d'entité à convertir
 	 * @param toString La fonction permettant de convertir une entité en <code>String</code>
