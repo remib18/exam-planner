@@ -1,0 +1,14 @@
+{
+  "app.title.dashboard": "Tableau de bord — ExamPlanner",
+  "app.title.department": "Départements — ExamPlanner",
+  "app.title.exam": "Examens — ExamPlanner",
+  "app.title.group": "Groupes — ExamPlanner",
+  "app.title.login": "Connexion — ExamPlanner",
+  "app.title.manager": "Surveillants — ExamPlanner",
+  "app.title.room": "Salles — ExamPlanner",
+  "app.title.user": "Utilisateurs — ExamPlanner",
+  "ui.login.title": "Connexion",
+  "ui.login.button": "Connexion",
+  "ui.login.labels.id": "Identifiant",
+  "ui.login.labels.password": "Mot de passe"
+}

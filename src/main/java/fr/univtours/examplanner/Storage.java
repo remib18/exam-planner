@@ -13,11 +13,19 @@ import org.jetbrains.annotations.Nullable;
  * Permet de stocker les données de l'application à travers les différentes vues
  */
 public class Storage {
-
+	/**
+	 * L'instance (singleton)
+	 */
 	private static @Nullable Storage instance;
 
+	/**
+	 * La scène actuelle
+	 */
 	private final @NotNull ObjectProperty<Scenes> currentScene = new SimpleObjectProperty<>();
 
+	/**
+	 * La langue actuelle
+	 */
 	private final @NotNull ObjectProperty<SupportedLanguages> currentLanguage = new SimpleObjectProperty<>();
 
 	private Storage() {
@@ -30,7 +38,7 @@ public class Storage {
 		return instance;
 	}
 
-	public static Scenes getCurrentScene() {
+	public static @NotNull Scenes getCurrentScene() {
 		return getInstance().currentScene.get();
 	}
 
