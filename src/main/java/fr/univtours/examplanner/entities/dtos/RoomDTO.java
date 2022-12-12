@@ -27,19 +27,19 @@ public class RoomDTO {
 	 * Équipements de la salle
 	 */
 	private final List<RoomEquipment> equipments = new ArrayList<>();
-
+  
 	/**
 	 * Créneaux de disponibilité de la salle
 	 */
 	@NotNull
 	private final List<SlotDTO> availableSlots = new ArrayList<>();
-
+  
 	/**
 	 * Nom de la salle
 	 */
 	@NotNull
 	private String name;
-
+  
 	/**
 	 * Capacité de la salle
 	 */
