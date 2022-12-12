@@ -11,6 +11,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.directory>${project.basedir}/target</project.build.directory>
         <junit.version>5.8.2</junit.version>
     </properties>
 
@@ -58,6 +59,20 @@
                 </configuration>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <resources>
+                        <resource>
+                            <directory>src/main/resources</directory>
+                        </resource>
+                    </resources>
+                    <outputDirectory>${project.build.directory}/classes</outputDirectory>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
@@ -67,8 +82,10 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                fr.univtours.examplanner/fr.univtours.examplanner.App
-                            </mainClass>
+                              
+                                fr.univtours.examplanner.App
+
+                          </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>
@@ -80,5 +97,10 @@
                 </executions>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
     </build>
 </project>
