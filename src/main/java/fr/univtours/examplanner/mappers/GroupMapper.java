@@ -15,6 +15,7 @@ public class GroupMapper implements BaseMapper{
      *      numberOfStudentsWithPartTimeNeeds,
      *      numberOfStudents,
      *      childrenIds)
+     *
      * grâce aux éléments de la requête SQL (entity)
      * @param entity  = résultats de la requête SQL
      * @return = classe {@link GroupDTO}
@@ -35,6 +36,7 @@ public class GroupMapper implements BaseMapper{
      *      numberOfStudents,
      *      childrenIds)
      *      dans une requête SQL
+     *
      * @param dto = attributs de la classe {@link GroupDTO}
      * @return = éléments nécessaires à une requête SQL
      */

@@ -10,6 +10,7 @@ public class UserMapper implements BaseMapper{
     /**
      * Créée une nouvelle classe UserDTO(id, mail, department, role)
      * grâce aux éléments de la requête SQL (entity)
+     *
      * @param entity = résultats de la requête SQL
      * @return = classe {@link UserDTO}
      */
@@ -23,6 +24,7 @@ public class UserMapper implements BaseMapper{
     /**
      * Permet l'utilisation des attributs de la classe SlotDTO(id, start, duration)
      * dans une requête SQL
+     *
      * @param dto = attributs de la classe {@link UserDTO}
      * @return = éléments nécessaires à une requête SQL
      */
