@@ -1,0 +1,75 @@
+
+INSERT REQUEST :
+
+INSERT INTO `slot`(
+    `idSlot`,
+    `day`,
+    `hour`,
+    `duration`)
+    VALUES (
+        'fe077396-949e-41ad-a170-558bb16254a1',
+        '2023-01-06',
+        '15',
+        '2');
+
+'slot' = slot U {('fe077396-949e-41ad-a170-558bb16254a1', '2023-01-06', '15', '2')}
+
+
+
+INSERT INTO `exam`(
+    `idExam`,
+    `name`,
+    `duration`,
+    `type`,
+    `idSlot`)
+    VALUES (
+    'c72a6e37-21b9-49f0-a929-708079897009',
+    'CC2',
+    '2',
+    'Final Exam',
+    'fe077396-949e-41ad-a170-558bb16254a1');
+
+'exam' = exam U {('c72a6e37-21b9-49f0-a929-708079897009','CC2','2','Final Exam','fe077396-949e-41ad-a170-558bb16254a1')}
+
+UPDATE REQUEST :
+
+UPDATE `slot`
+SET `duration`='1,30'
+WHERE `idSlot` = 'fe077396-949e-41ad-a170-558bb16254a1';
+
+slot' = (π * (σ idSlot = 'fe077396-949e-41ad-a170-558bb16254a1' (slot))) U {duration → '1,30'}
+
+
+DELETE REQUEST :
+
+DELETE FROM `slot`
+WHERE `idSlot` = 'fe077396-949e-41ad-a170-558bb16254a1';
+
+⊥ (π * (σ idSlot = 'fe077396-949e-41ad-a170-558bb16254a1' (slot)))
+
+
+SELECT REQUEST :
+
+SELECT COUNT(idExam) FROM exam E
+INNER JOIN slot S ON S.idSlot = E.idSlot
+WHERE duration = '1.30';
+
+π idExam (σ duration = '1.30' (exam ⋈ slot))
+
+
+SELECT idExam, type FROM exam E
+INNER JOIN slot S ON S.idSlot = E.idSlot
+WHERE date = '2023-01-06' AND hour = 15;
+
+π idExam, type (σ date = '2023-01-06' AND hour = 15 (exam ⋈ slot))
+
+
+SELECT * FROM exam;
+
+SOUS REQUETE
+
+SELECT *
+FROM exam
+WHERE idExam IN (SELECT * FROM room WHERE places > 50);
+
+π * (σ idExam IN (π * (σ places > 50 (room))) (exam))
