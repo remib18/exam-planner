@@ -74,7 +74,7 @@ CREATE TABLE Exam
 CREATE TABLE Manager
 (
     id        Char(36)                     NOT NULL PRIMARY KEY,
-    civility  Enum ('Men','Women','Other') NOT NULL,
+    civility  Enum ('Man','Woman','Other') NOT NULL,
     lastname  Varchar(63)                  NOT NULL,
     firstname Varchar(63)                  NOT NULL
 
