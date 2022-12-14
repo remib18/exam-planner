@@ -44,10 +44,11 @@ CREATE TABLE MockUp
 
 CREATE TABLE Slot
 (
-    id       Char(36) NOT NULL PRIMARY KEY,
+    id       Char(36) NOT NULL PRIMARY KEY DEFAULT UUID(),
     `day`    Date     NOT NULL,
     `hour`   Float    NOT NULL,
     duration Float    NOT NULL
+
 ) ENGINE = InnoDB;
 
 
@@ -57,13 +58,13 @@ CREATE TABLE Slot
 
 CREATE TABLE Exam
 (
-    id        Char(36)                     NOT NULL PRIMARY KEY,
-    `name`    Varchar(50)                  NOT NULL,
-    duration  Float                        NOT NULL,
-    type      Enum ('Final', 'Continuous') NOT NULL,
-    `subject` Varchar(50)                  NOT NULL,
+    id       Char(36)                     NOT NULL PRIMARY KEY DEFAULT UUID(),
+    `name`   Varchar(50)                  NOT NULL,
+    duration Float                        NOT NULL,
+    type     Enum ('Final', 'Continuous') NOT NULL,
+    subject  Varchar(50)                  NOT NULL,
 
-    CONSTRAINT Exam_Subject_FK FOREIGN KEY (`subject`) REFERENCES Subject (name)
+    CONSTRAINT Exam_Subject_FK FOREIGN KEY (subject) REFERENCES Subject (name)
 ) ENGINE = InnoDB;
 
 
@@ -73,7 +74,7 @@ CREATE TABLE Exam
 
 CREATE TABLE Manager
 (
-    id        Char(36)                     NOT NULL PRIMARY KEY,
+    id        Char(36)                     NOT NULL PRIMARY KEY DEFAULT UUID(),
     civility  Enum ('Men','Women','Other') NOT NULL,
     lastname  Varchar(63)                  NOT NULL,
     firstname Varchar(63)                  NOT NULL
@@ -87,7 +88,7 @@ CREATE TABLE Manager
 
 CREATE TABLE Room
 (
-    `name`              Varchar(63) NOT NULL PRIMARY KEY,
+    `name`              Varchar(63) NOT NULL PRIMARY KEY DEFAULT UUID(),
     places              Int         NOT NULL,
     types               SET (
         'Amphitheater',
@@ -119,10 +120,11 @@ CREATE TABLE Room
 
 CREATE TABLE `User`
 (
-    id         Char(36)     NOT NULL PRIMARY KEY,
+    id         Char(36)     NOT NULL PRIMARY KEY DEFAULT UUID(),
     mail       Varchar(100) NOT NULL,
-    department Varchar(63) DEFAULT NULL,
-    manager    Char(36)    DEFAULT NULL,
+    department Varchar(63)                       DEFAULT NULL,
+    manager    Char(36)                          DEFAULT NULL,
+    password   Varchar(63)  NOT NULL,
 
     CONSTRAINT User_Department_FK FOREIGN KEY (department) REFERENCES Department (`name`),
     CONSTRAINT User_Manager0_FK FOREIGN KEY (manager) REFERENCES Manager (id)
@@ -135,13 +137,13 @@ CREATE TABLE `User`
 
 CREATE TABLE `Group`
 (
-    id                                Char(36)    NOT NULL PRIMARY KEY,
+    id                                Char(36)    NOT NULL PRIMARY KEY DEFAULT UUID(),
     `name`                            Varchar(63) NOT NULL,
-    containReducedMobilityPerson      Bool        NOT NULL DEFAULT false,
-    personsWithoutAdjustmentNumber    Int         NOT NULL DEFAULT 0,
-    numberOfStudentsWithWritingNeeds  Int         NOT NULL DEFAULT 0,
-    numberOfStudentsWithIsolatedRooms Int         NOT NULL DEFAULT 0,
-    numberOfStudentsWithPartTime      Int         NOT NULL DEFAULT 0
+    containReducedMobilityPerson      Bool        NOT NULL             DEFAULT false,
+    personsWithoutAdjustmentNumber    Int         NOT NULL             DEFAULT 0,
+    numberOfStudentsWithWritingNeeds  Int         NOT NULL             DEFAULT 0,
+    numberOfStudentsWithIsolatedRooms Int         NOT NULL             DEFAULT 0,
+    numberOfStudentsWithPartTime      Int         NOT NULL             DEFAULT 0
 ) ENGINE = InnoDB;
 
 
@@ -153,6 +155,7 @@ CREATE TABLE _SubjectToMockUp
 (
     `subject` Varchar(50) NOT NULL,
     mockUp    Varchar(50) NOT NULL,
+
     CONSTRAINT SubjectToMockUp_PK PRIMARY KEY (`subject`, mockUp),
 
     CONSTRAINT SubjectToMockUp_Subject_FK FOREIGN KEY (`subject`) REFERENCES Subject (name),
