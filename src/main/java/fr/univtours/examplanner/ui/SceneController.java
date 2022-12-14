@@ -3,7 +3,10 @@ package fr.univtours.examplanner.ui;
 import fr.univtours.examplanner.enums.Scenes;
 import fr.univtours.examplanner.ui.views.*;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import org.jetbrains.annotations.NotNull;
+
+import java.io.IOException;
 
 public class SceneController {
 
@@ -14,18 +17,23 @@ public class SceneController {
 	 * @return La scène correspondante
 	 */
 	public static @NotNull Scene getScene(@NotNull Scenes scene) {
-		return switch (scene) {
-			case Dashboard -> Dashboard.getScene();
-			case Department -> Department.getScene();
-			case Exam -> Exam.getScene();
-			case Group -> Group.getScene();
-			case Login -> Login.getScene();
-			case Manager -> Manager.getScene();
-			case Room -> Room.getScene();
-			case Slot -> Slot.getScene();
-			case User -> User.getScene();
-			default -> throw new IllegalArgumentException("Unknown scene: " + scene);
-		};
+  
+		try {
+			return switch (scene) {
+				case Dashboard -> DashboardView.getScene();
+				case Department -> DepartmentView.getScene();
+				case Exam -> ExamView.getScene();
+				case Group -> GroupView.getScene();
+				case Login -> LoginView.getScene();
+				case Manager -> ManagerView.getScene();
+				case Room -> RoomView.getScene();
+				case Slot -> SlotView.getScene();
+				case User -> UserView.getScene();
+			};
+		} catch (IOException e) {
+			e.printStackTrace();
+			return new Scene(new Label("Erreur lors du chargement de la scène"));
+		}
 	}
 
 	/**
@@ -36,16 +44,15 @@ public class SceneController {
 	 */
 	public static @NotNull String getSceneTitle(@NotNull Scenes scene) {
 		return switch (scene) {
-			case Dashboard -> Dashboard.TITLE;
-			case Department -> Department.TITLE;
-			case Exam -> Exam.TITLE;
-			case Group -> Group.TITLE;
-			case Login -> Login.TITLE;
-			case Manager -> Manager.TITLE;
-			case Room -> Room.TITLE;
-			case Slot -> Slot.TITLE;
-			case User -> User.TITLE;
-			default -> throw new IllegalArgumentException("Unknown scene: " + scene);
+			case Dashboard -> DashboardView.TITLE;
+			case Department -> DepartmentView.TITLE;
+			case Exam -> ExamView.TITLE;
+			case Group -> GroupView.TITLE;
+			case Login -> LoginView.TITLE;
+			case Manager -> ManagerView.TITLE;
+			case Room -> RoomView.TITLE;
+			case Slot -> SlotView.TITLE;
+			case User -> UserView.TITLE;
 		};
 	}
 

@@ -18,26 +18,31 @@ public abstract class Exam extends WithIDEntity {
 	 */
 	@NotNull
 	private final List<GroupDTO> groups = new ArrayList<>();
+
 	/**
 	 * Surveillants de l'examen
 	 */
 	@NotNull
 	private final List<ManagerDTO> managers = new ArrayList<>();
+
 	/**
 	 * Précédence de l'examen
 	 */
-	//@NotNull
+	@NotNull
 	private final List<Exam> previousExams = new ArrayList<>();
+
 	/**
 	 * Nom de l'examen
 	 */
 	@NotNull
 	private String name;
+  
 	/**
 	 * Sujet de l'examen
 	 */
 	@NotNull
 	private SubjectDTO subject;
+
 	/**
 	 * Durée de l'examen en heures
 	 */
