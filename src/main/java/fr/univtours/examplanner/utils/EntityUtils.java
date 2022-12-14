@@ -20,7 +20,7 @@ public class EntityUtils {
 	}
 
 	/**
-	 * Convertie une liste d'entité en une liste de <code>String</code>
+	 * Convertit une liste d'entité en une liste de <code>String</code>
 	 *
 	 * @param list     La liste d'entité à convertir
 	 * @param toString La fonction permettant de convertir une entité en <code>String</code>
