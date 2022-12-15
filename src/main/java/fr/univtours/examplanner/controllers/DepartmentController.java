@@ -13,7 +13,7 @@ public class DepartmentController implements BaseController<DepartmentDTO> {
      * Interface avec la base de données permettant d'effectuer des opérations standards sur les départements
      */
     @NotNull
-    private final Object repo;
+    private final DepartmentRepo repo;
 
     public DepartmentController() {
         repo = new Object();
