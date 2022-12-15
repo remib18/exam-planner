@@ -5,8 +5,6 @@ import org.jetbrains.annotations.NotNull;
 
 public class GroupMapper implements BaseMapper{
 
-    // Todo(@gab): Remplacer Object avec retour de Benoit (repo)
-
     /**
      * Créée une nouvelle classe GroupDTO(id, name,
      *      containsStudentsWithReducedMobility,
@@ -15,17 +13,15 @@ public class GroupMapper implements BaseMapper{
      *      numberOfStudentsWithPartTimeNeeds,
      *      numberOfStudents,
      *      childrenIds)
-     *
      * grâce aux éléments de la requête SQL (entity)
-     * @param entity  = résultats de la requête SQL
+     *
+     * @param entities  = résultats de la requête SQL
      * @return = classe {@link GroupDTO}
      */
-    public @NotNull GroupDTO EntityToDTO(@NotNull Object entity) {
+    public @NotNull GroupDTO EntityToDTO(@NotNull Object entities) {
         // TODO implement here
         throw new UnsupportedOperationException();
     }
-
-    // Todo(@gab): same
 
     /**
      * Permet l'utilisation des attributs de la classe GroupDTO(id, name,

@@ -5,21 +5,17 @@ import org.jetbrains.annotations.NotNull;
 
 public class UserMapper implements BaseMapper{
 
-    // Todo(@gab): Remplacer Object avec retour de Benoit (repo)
-
     /**
      * Créée une nouvelle classe UserDTO(id, mail, department, role)
-     * grâce aux éléments de la requête SQL (entity)
+     * grâce aux éléments de la requête SQL (entities)
      *
-     * @param entity = résultats de la requête SQL
+     * @param entities = résultats de la requête SQL
      * @return = classe {@link UserDTO}
      */
-    public @NotNull UserDTO EntityToCommonDTO(@NotNull Object entity) {
+    public @NotNull UserDTO EntityToDTO(@NotNull Object entities) {
         // TODO implement here
         throw new UnsupportedOperationException();
     }
-
-    // Todo(@gab): Remplacer Object avec retour de Benoit (repo)
 
     /**
      * Permet l'utilisation des attributs de la classe SlotDTO(id, start, duration)
@@ -28,7 +24,7 @@ public class UserMapper implements BaseMapper{
      * @param dto = attributs de la classe {@link UserDTO}
      * @return = éléments nécessaires à une requête SQL
      */
-    public @NotNull Object CommonDTOToEntity(@NotNull UserDTO dto) {
+    public @NotNull Object DTOToEntity(@NotNull UserDTO dto) {
         // TODO implement here
         throw new UnsupportedOperationException();
     }
