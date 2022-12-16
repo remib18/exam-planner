@@ -38,7 +38,7 @@ public class GroupMapper implements BaseMapper{
      * @param dto = attributs de la classe {@link GroupDTO}
      * @return = éléments nécessaires à une requête SQL
      */
-    public @NotNull String[] DTOToEntity( @NotNull GroupDTO dto) {
+    public @NotNull PreparedStatement DTOToEntity( @NotNull GroupDTO dto) {
         // TODO implement here
         throw new UnsupportedOperationException();
     }
