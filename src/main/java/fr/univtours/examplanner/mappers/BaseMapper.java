@@ -1,7 +1,7 @@
 package fr.univtours.examplanner.mappers;
 
 import org.jetbrains.annotations.NotNull;
-
+import java.sql.PreparedStatement
 import java.sql.ResultSet;
 
 public interface BaseMapper {
