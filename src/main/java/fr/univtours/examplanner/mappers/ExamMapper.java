@@ -26,7 +26,7 @@ public class ExamMapper implements BaseMapper{
      * @param dto = attributs de la classe {@link FinalExamDTO}
      * @return = éléments nécessaires à une requête SQL
      */
-    public  @NotNull String[] DTOToEntity( @NotNull FinalExamDTO dto) {
+    public  @NotNull PreparedStatement DTOToEntity( @NotNull FinalExamDTO dto) {
         // TODO implement here
         throw new UnsupportedOperationException() ;
     }
