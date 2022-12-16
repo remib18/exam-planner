@@ -29,7 +29,7 @@ public interface BaseMapper {
      *
      * @param <DTO> On indique une classe générique pour pouvoir utiliser la même méthode sur différents DTO
      */
-    static <DTO> @NotNull String[] DTOToEntity( @NotNull DTO DTO) {
+    static <DTO> @NotNull PreparedStatement DTOToEntity( @NotNull DTO DTO) {
         throw new UnsupportedOperationException();
     }
 
