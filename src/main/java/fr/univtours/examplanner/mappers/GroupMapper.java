@@ -2,7 +2,7 @@ package fr.univtours.examplanner.mappers;
 
 import fr.univtours.examplanner.entities.dtos.GroupDTO;
 import org.jetbrains.annotations.NotNull;
-
+import java.sql.PreparedStatement
 import java.sql.ResultSet;
 
 public class GroupMapper implements BaseMapper{
