@@ -26,7 +26,7 @@ public class UserMapper implements BaseMapper{
      * @param dto = attributs de la classe {@link UserDTO}
      * @return = éléments nécessaires à une requête SQL
      */
-    public @NotNull String[] DTOToEntity( @NotNull UserDTO dto) {
+    public @NotNull PreparedStatement DTOToEntity( @NotNull UserDTO dto) {
         // TODO implement here
         throw new UnsupportedOperationException();
     }
