@@ -26,7 +26,7 @@ public class SlotMapper implements BaseMapper{
      * @param dto = attributs de la classe {@link SlotDTO}
      * @return = éléments nécessaires à une requête SQL
      */
-    public @NotNull String[] DTOToEntity( @NotNull SlotDTO dto) {
+    public @NotNull PreparedStatement DTOToEntity( @NotNull SlotDTO dto) {
         // TODO implement here
         throw new UnsupportedOperationException();
     }
