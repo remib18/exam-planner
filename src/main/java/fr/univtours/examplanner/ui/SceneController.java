@@ -17,6 +17,7 @@ public class SceneController {
 	 * @return La scène correspondante
 	 */
 	public static @NotNull Scene getScene(@NotNull Scenes scene) {
+  
 		try {
 			return switch (scene) {
 				case Dashboard -> DashboardView.getScene();

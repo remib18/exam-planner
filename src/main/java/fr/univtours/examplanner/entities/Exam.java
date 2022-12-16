@@ -18,7 +18,7 @@ public abstract class Exam extends WithIDEntity {
 	 */
 	@NotNull
 	private final List<GroupDTO> groups = new ArrayList<>();
-  
+
 	/**
 	 * Surveillants de l'examen
 	 */
@@ -36,13 +36,12 @@ public abstract class Exam extends WithIDEntity {
 	 */
 	@NotNull
 	private String name;
-
 	/**
 	 * Sujet de l'examen
 	 */
 	@NotNull
 	private SubjectDTO subject;
-  
+
 	/**
 	 * Durée de l'examen en heures
 	 */
