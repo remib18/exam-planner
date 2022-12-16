@@ -27,8 +27,6 @@ public class AuthenticationController {
         return false;
     }
 
-    // todo(@mya): Specify type for filter
-
     /**
      * Vérifie si l'utilisateur a l'autorisation d'accéder à la ressource
      *
@@ -36,7 +34,7 @@ public class AuthenticationController {
      * @param filter condition d'accès
      * @return vrai si l'utilisateur est autorisé et faux sinon
      */
-    public boolean checkAccessRights(@NotNull UserDTO user, Object filter) {
+    public boolean checkAccessRights( @NotNull UserDTO user, String filter ) {
         // TODO implement here
         return false;
     }

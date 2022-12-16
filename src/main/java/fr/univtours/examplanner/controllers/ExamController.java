@@ -1,6 +1,8 @@
 package fr.univtours.examplanner.controllers;
 
 import fr.univtours.examplanner.entities.Exam;
+import fr.univtours.examplanner.exceptions.ControllerException;
+import fr.univtours.examplanner.repositories.ExamRepo;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -8,15 +10,14 @@ import java.util.List;
 
 public class ExamController implements BaseController<Exam> {
 
-    // todo(@benoît): Repo
     /**
      * Interface avec la base de données permettant d'effectuer des opérations standards sur les examens
      */
     @NotNull
-    private final Object repo;
+    private final ExamRepo repo;
 
     public ExamController() {
-        repo = new Object();
+        repo = new ExamRepo();
     }
 
     /**
@@ -59,9 +60,9 @@ public class ExamController implements BaseController<Exam> {
      *
      * @param entity l'examen à modifier
      */
-    public void save(@NotNull Exam entity) throws Exception {
+    public void save( @NotNull Exam entity ) throws ControllerException {
         // TODO implement here
-        throw new Exception();
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -69,9 +70,9 @@ public class ExamController implements BaseController<Exam> {
      *
      * @param entity l'examen à supprimer
      */
-    public void delete(@NotNull Exam entity) throws Exception {
+    public void delete( @NotNull Exam entity ) throws ControllerException {
         // TODO implement here
-        throw new Exception();
+        throw new UnsupportedOperationException();
     }
 
 

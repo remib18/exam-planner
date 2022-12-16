@@ -1,6 +1,8 @@
 package fr.univtours.examplanner.controllers;
 
 import fr.univtours.examplanner.entities.dtos.RoomDTO;
+import fr.univtours.examplanner.exceptions.ControllerException;
+import fr.univtours.examplanner.repositories.RoomRepo;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -9,14 +11,15 @@ import java.util.List;
 public class RoomController implements BaseController<RoomDTO> {
 
     // todo(@benoît): Repo
+
     /**
      * Interface avec la base de donnée permettant d'effectuer des opérations standards sur les salles
      */
     @NotNull
-    private final Object repo;
+    private final RoomRepo repo;
 
     public RoomController() {
-        repo = new Object();
+        repo = new RoomRepo();
     }
 
     /**
@@ -49,9 +52,9 @@ public class RoomController implements BaseController<RoomDTO> {
      *
      * @param entity la salle à modifier
      */
-    public void save(@NotNull RoomDTO entity) throws Exception {
+    public void save( @NotNull RoomDTO entity ) throws ControllerException {
         // TODO implement here
-        throw new Exception();
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -59,9 +62,9 @@ public class RoomController implements BaseController<RoomDTO> {
      *
      * @param entity la salle à modifier
      */
-    public void delete(@NotNull RoomDTO entity) throws Exception {
+    public void delete( @NotNull RoomDTO entity ) throws ControllerException {
         // TODO implement here
-        throw new Exception();
+        throw new UnsupportedOperationException();
     }
 
 

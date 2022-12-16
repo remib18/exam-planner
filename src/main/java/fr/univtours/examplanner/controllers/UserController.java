@@ -2,6 +2,8 @@ package fr.univtours.examplanner.controllers;
 
 import fr.univtours.examplanner.entities.dtos.UserDTO;
 import fr.univtours.examplanner.enums.UserRole;
+import fr.univtours.examplanner.exceptions.ControllerException;
+import fr.univtours.examplanner.repositories.UserRepo;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -10,14 +12,15 @@ import java.util.List;
 public class UserController implements BaseController<UserDTO> {
 
     // todo(@benoît): Repo
+
     /**
      * Interface avec la base de données permettant d'effectuer des opérations standards sur les utilisateurs
      */
     @NotNull
-    private final Object repo;
+    private final UserRepo repo;
 
     public UserController() {
-        repo = new Object();
+        repo = new UserRepo();
     }
 
     /**
@@ -49,9 +52,9 @@ public class UserController implements BaseController<UserDTO> {
      *
      * @param entity l'utilisateur à modifier
      */
-    public void save(@NotNull UserDTO entity) throws Exception {
+    public void save( @NotNull UserDTO entity ) throws ControllerException {
         // TODO implement here
-        throw new Exception();
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -59,9 +62,9 @@ public class UserController implements BaseController<UserDTO> {
      *
      * @param entity l'utilisateur à supprimer
      */
-    public void delete(@NotNull UserDTO entity) throws Exception {
+    public void delete( @NotNull UserDTO entity ) throws ControllerException {
         // TODO implement here
-        throw new Exception();
+        throw new UnsupportedOperationException();
     }
 
 

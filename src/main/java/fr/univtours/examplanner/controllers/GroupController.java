@@ -1,6 +1,8 @@
 package fr.univtours.examplanner.controllers;
 
 import fr.univtours.examplanner.entities.dtos.GroupDTO;
+import fr.univtours.examplanner.exceptions.ControllerException;
+import fr.univtours.examplanner.repositories.GroupRepo;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -8,15 +10,14 @@ import java.util.List;
 
 public class GroupController implements BaseController<GroupDTO> {
 
-    // todo(@benoît): Repo
     /**
      * Interface avec la base de données permettant d'effectuer des opérations standards sur les groupes
      */
     @NotNull
-    private final Object repo;
+    private final GroupRepo repo;
 
     public GroupController() {
-        repo = new Object();
+        repo = new GroupRepo();
     }
 
     /**
@@ -47,9 +48,9 @@ public class GroupController implements BaseController<GroupDTO> {
      *
      * @param entity le groupe à modifier
      */
-    public void save(@NotNull GroupDTO entity) throws Exception {
+    public void save( @NotNull GroupDTO entity ) throws ControllerException {
         // TODO implement here
-        throw new Exception();
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -57,9 +58,9 @@ public class GroupController implements BaseController<GroupDTO> {
      *
      * @param entity le groupe à supprimer
      */
-    public void delete(@NotNull GroupDTO entity) throws Exception {
+    public void delete( @NotNull GroupDTO entity ) throws ControllerException {
         // TODO implement here
-        throw new Exception();
+        throw new UnsupportedOperationException();
     }
 
 

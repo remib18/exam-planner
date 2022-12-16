@@ -1,6 +1,8 @@
 package fr.univtours.examplanner.controllers;
 
 import fr.univtours.examplanner.entities.dtos.DepartmentDTO;
+import fr.univtours.examplanner.exceptions.ControllerException;
+import fr.univtours.examplanner.repositories.DepartmentRepo;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -8,15 +10,14 @@ import java.util.List;
 
 public class DepartmentController implements BaseController<DepartmentDTO> {
 
-    // todo(@benoît): Repo
     /**
      * Interface avec la base de données permettant d'effectuer des opérations standards sur les départements
      */
     @NotNull
-    private final Object repo;
+    private final DepartmentRepo repo;
 
     public DepartmentController() {
-        repo = new Object();
+        repo = new DepartmentRepo();
     }
 
     /**
@@ -45,9 +46,9 @@ public class DepartmentController implements BaseController<DepartmentDTO> {
      *
      * @param entity le département à modifier
      */
-    public void save(@NotNull DepartmentDTO entity) throws Exception {
+    public void save( @NotNull DepartmentDTO entity ) throws ControllerException {
         // TODO implement here
-        throw new Exception();
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -55,9 +56,9 @@ public class DepartmentController implements BaseController<DepartmentDTO> {
      *
      * @param entity le département à supprimer
      */
-    public void delete(@NotNull DepartmentDTO entity) throws Exception {
+    public void delete( @NotNull DepartmentDTO entity ) throws ControllerException {
         // TODO implement here
-        throw new Exception();
+        throw new UnsupportedOperationException();
     }
 
 }

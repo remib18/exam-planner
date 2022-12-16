@@ -1,6 +1,8 @@
 package fr.univtours.examplanner.controllers;
 
 import fr.univtours.examplanner.entities.dtos.SlotDTO;
+import fr.univtours.examplanner.exceptions.ControllerException;
+import fr.univtours.examplanner.repositories.SlotRepo;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDateTime;
@@ -10,14 +12,15 @@ import java.util.List;
 public class SlotController implements BaseController<SlotDTO> {
 
     // todo(@benoît): Repo
+
     /**
      * Interface avec la base de données permettant d'effectuer des opérations standards sur les horaires
      */
     @NotNull
-    private final Object repo;
+    private final SlotRepo repo;
 
     public SlotController() {
-        repo = new Object();
+        repo = new SlotRepo();
     }
 
     /**
@@ -48,9 +51,9 @@ public class SlotController implements BaseController<SlotDTO> {
      *
      * @param entity l'horaire à modifier
      */
-    public void save(@NotNull SlotDTO entity) throws Exception {
+    public void save( @NotNull SlotDTO entity ) throws ControllerException {
         // TODO implement here
-        throw new Exception();
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -58,9 +61,9 @@ public class SlotController implements BaseController<SlotDTO> {
      *
      * @param entity l'horaire à modifier
      */
-    public void delete(@NotNull SlotDTO entity) throws Exception {
+    public void delete( @NotNull SlotDTO entity ) throws ControllerException {
         // TODO implement here
-        throw new Exception();
+        throw new UnsupportedOperationException();
     }
 
 }

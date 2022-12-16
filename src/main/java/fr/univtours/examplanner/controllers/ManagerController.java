@@ -2,6 +2,8 @@ package fr.univtours.examplanner.controllers;
 
 import fr.univtours.examplanner.entities.dtos.ManagerDTO;
 import fr.univtours.examplanner.enums.Civility;
+import fr.univtours.examplanner.exceptions.ControllerException;
+import fr.univtours.examplanner.repositories.ManagerRepo;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -9,15 +11,14 @@ import java.util.List;
 
 public class ManagerController implements BaseController<ManagerDTO> {
 
-    //todo(@benoît): Repo
     /**
      * Interface avec la base de données permettant d'effectuer des opérations standards sur les surveillants
      */
     @NotNull
-    private final Object repo;
+    private final ManagerRepo repo;
 
     public ManagerController() {
-        repo = new Object();
+        repo = new ManagerRepo();
     }
 
     /**
@@ -48,9 +49,9 @@ public class ManagerController implements BaseController<ManagerDTO> {
      *
      * @param entity le surveillant à modifier
      */
-    public void save(@NotNull ManagerDTO entity) throws Exception {
+    public void save( @NotNull ManagerDTO entity ) throws ControllerException {
         // TODO implement here
-        throw new Exception();
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -58,9 +59,9 @@ public class ManagerController implements BaseController<ManagerDTO> {
      *
      * @param entity le surveillant à supprimer
      */
-    public void delete(@NotNull ManagerDTO entity) throws Exception {
+    public void delete( @NotNull ManagerDTO entity ) throws ControllerException {
         // TODO implement here
-        throw new Exception();
+        throw new UnsupportedOperationException();
     }
 
 
