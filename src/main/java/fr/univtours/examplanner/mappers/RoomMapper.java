@@ -26,7 +26,7 @@ public class RoomMapper implements BaseMapper{
      * @param dto = attributs de la classe {@link RoomDTO}
      * @return = éléments nécessaires à une requête SQL
      */
-    public @NotNull String[] DTOToEntity( @NotNull RoomDTO dto) {
+    public @NotNull PreparedStatement DTOToEntity( @NotNull RoomDTO dto) {
         // TODO implement here
         throw new UnsupportedOperationException();
     }
