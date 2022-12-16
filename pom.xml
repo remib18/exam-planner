@@ -82,8 +82,10 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
+                              
                                 fr.univtours.examplanner.App
-                            </mainClass>
+
+                          </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

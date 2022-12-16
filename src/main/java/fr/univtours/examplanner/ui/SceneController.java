@@ -44,6 +44,7 @@ public class SceneController {
 	 */
 	public static @NotNull String getSceneTitle(@NotNull Scenes scene) {
 		return switch (scene) {
+        
 			case Dashboard -> DashboardView.TITLE;
 			case Department -> DepartmentView.TITLE;
 			case Exam -> ExamView.TITLE;

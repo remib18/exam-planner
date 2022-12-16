@@ -13,6 +13,7 @@ import org.jetbrains.annotations.Nullable;
  * Permet de stocker les données de l'application à travers les différentes vues
  */
 public class Storage {
+
 	/**
 	 * L'instance (singleton)
 	 */
