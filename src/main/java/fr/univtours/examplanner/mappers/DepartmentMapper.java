@@ -2,6 +2,7 @@ package fr.univtours.examplanner.mappers;
 
 import fr.univtours.examplanner.entities.dtos.DepartmentDTO;
 import org.jetbrains.annotations.NotNull;
+import java.sql.PreparedStatement
 
 import java.sql.ResultSet;
 
@@ -26,7 +27,7 @@ public class DepartmentMapper implements BaseMapper {
      * @param dto = attributs de la classe {@link DepartmentDTO}
      * @return = éléments nécessaires à une requête SQL
      */
-    public @NotNull String[] DTOToEntity( @NotNull DepartmentDTO dto) {
+    public @NotNull PreparedStatement DTOToEntity( @NotNull DepartmentDTO dto) {
         // TODO implement here
         throw new UnsupportedOperationException() ;
     }
