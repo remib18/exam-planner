@@ -3,6 +3,8 @@ package fr.univtours.examplanner.mappers;
 import fr.univtours.examplanner.entities.dtos.UserDTO;
 import org.jetbrains.annotations.NotNull;
 
+import java.sql.ResultSet;
+
 public class UserMapper implements BaseMapper{
 
     /**
@@ -12,7 +14,7 @@ public class UserMapper implements BaseMapper{
      * @param entities = résultats de la requête SQL
      * @return = classe {@link UserDTO}
      */
-    public @NotNull UserDTO EntityToDTO(@NotNull Object entities) {
+    public @NotNull UserDTO EntityToDTO(@NotNull ResultSet entities) {
         // TODO implement here
         throw new UnsupportedOperationException();
     }
@@ -24,7 +26,7 @@ public class UserMapper implements BaseMapper{
      * @param dto = attributs de la classe {@link UserDTO}
      * @return = éléments nécessaires à une requête SQL
      */
-    public @NotNull Object DTOToEntity(@NotNull UserDTO dto) {
+    public @NotNull String[] DTOToEntity( @NotNull UserDTO dto) {
         // TODO implement here
         throw new UnsupportedOperationException();
     }

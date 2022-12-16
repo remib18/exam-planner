@@ -3,6 +3,8 @@ package fr.univtours.examplanner.mappers;
 import fr.univtours.examplanner.entities.dtos.DepartmentDTO;
 import org.jetbrains.annotations.NotNull;
 
+import java.sql.ResultSet;
+
 public class DepartmentMapper implements BaseMapper {
 
     /**
@@ -12,7 +14,7 @@ public class DepartmentMapper implements BaseMapper {
      * @param entities = résultats de la requête SQL
      * @return = classe {@link DepartmentDTO}
      */
-    public static @NotNull DepartmentDTO EntityToDTO( @NotNull Object entities) {
+    public @NotNull DepartmentDTO EntityToDTO( @NotNull ResultSet entities) {
         // TODO implement here
         throw new UnsupportedOperationException();
     }
@@ -24,7 +26,7 @@ public class DepartmentMapper implements BaseMapper {
      * @param dto = attributs de la classe {@link DepartmentDTO}
      * @return = éléments nécessaires à une requête SQL
      */
-    public static @NotNull Object DTOToEntity(@NotNull DepartmentDTO dto) {
+    public @NotNull String[] DTOToEntity( @NotNull DepartmentDTO dto) {
         // TODO implement here
         throw new UnsupportedOperationException() ;
     }

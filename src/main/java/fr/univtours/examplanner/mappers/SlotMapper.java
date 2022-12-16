@@ -3,6 +3,8 @@ package fr.univtours.examplanner.mappers;
 import fr.univtours.examplanner.entities.dtos.SlotDTO;
 import org.jetbrains.annotations.NotNull;
 
+import java.sql.ResultSet;
+
 public class SlotMapper implements BaseMapper{
 
     /**
@@ -12,7 +14,7 @@ public class SlotMapper implements BaseMapper{
      * @param entities = résultats de la requête SQL
      * @return = classe {@link SlotDTO}
      */
-    public @NotNull SlotDTO EntityToDTO(@NotNull Object entities) {
+    public @NotNull SlotDTO EntityToDTO(@NotNull ResultSet entities) {
         // TODO implement here
         throw new UnsupportedOperationException();
     }
@@ -24,7 +26,7 @@ public class SlotMapper implements BaseMapper{
      * @param dto = attributs de la classe {@link SlotDTO}
      * @return = éléments nécessaires à une requête SQL
      */
-    public @NotNull Object DTOToEntity(@NotNull SlotDTO dto) {
+    public @NotNull String[] DTOToEntity( @NotNull SlotDTO dto) {
         // TODO implement here
         throw new UnsupportedOperationException();
     }
