@@ -1,0 +1,13 @@
+module:fr.univtours.examplanner
+fr.univtours.examplanner
+fr.univtours.examplanner.controllers
+fr.univtours.examplanner.entities
+fr.univtours.examplanner.enums
+fr.univtours.examplanner.exceptions
+fr.univtours.examplanner.repositories
+fr.univtours.examplanner.translations
+fr.univtours.examplanner.ui
+fr.univtours.examplanner.ui.controllers
+fr.univtours.examplanner.ui.states
+fr.univtours.examplanner.ui.views
+fr.univtours.examplanner.utils

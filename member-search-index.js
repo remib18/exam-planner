@@ -1,0 +1,1099 @@
+memberSearchIndex = [{
+    "p": "fr.univtours.examplanner.entities",
+    "c": "Exam",
+    "l": "addGroup(GroupDTO)",
+    "u": "addGroup(fr.univtours.examplanner.entities.dtos.GroupDTO)"
+}, {
+    "p": "fr.univtours.examplanner.entities",
+    "c": "Exam",
+    "l": "addGroup(List<GroupDTO>)",
+    "u": "addGroup(java.util.List)"
+}, {
+    "p": "fr.univtours.examplanner.entities",
+    "c": "Exam",
+    "l": "addManager(List<ManagerDTO>)",
+    "u": "addManager(java.util.List)"
+}, {
+    "p": "fr.univtours.examplanner.entities",
+    "c": "Exam",
+    "l": "addManager(ManagerDTO)",
+    "u": "addManager(fr.univtours.examplanner.entities.dtos.ManagerDTO)"
+}, {
+    "p": "fr.univtours.examplanner.entities",
+    "c": "Exam",
+    "l": "addPreviousExam(Exam)",
+    "u": "addPreviousExam(fr.univtours.examplanner.entities.Exam)"
+}, {
+    "p": "fr.univtours.examplanner.entities",
+    "c": "Exam",
+    "l": "addPreviousExam(List<Exam>)",
+    "u": "addPreviousExam(java.util.List)"
+}, {"p": "fr.univtours.examplanner.enums", "c": "RoomType", "l": "Amphitheater"}, {
+    "p": "fr.univtours.examplanner",
+    "c": "App",
+    "l": "App()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "AuthenticationController",
+    "l": "AuthenticationController()",
+    "u": "%3Cinit%3E()"
+}, {"p": "fr.univtours.examplanner.enums", "c": "Degree", "l": "Bachelor"}, {
+    "p": "fr.univtours.examplanner.ui",
+    "c": "BasicViewController",
+    "l": "BasicViewController()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "fr.univtours.examplanner.enums",
+    "c": "RoomEquipment",
+    "l": "Board"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "AuthenticationController",
+    "l": "checkAccessRights(UserDTO, String)",
+    "u": "checkAccessRights(fr.univtours.examplanner.entities.dtos.UserDTO,java.lang.String)"
+}, {
+    "p": "fr.univtours.examplanner.enums",
+    "c": "ComputerEnvironment",
+    "l": "ChemistryApplication"
+}, {
+    "p": "fr.univtours.examplanner.enums",
+    "c": "RoomType",
+    "l": "ComputerRoom"
+}, {
+    "p": "fr.univtours.examplanner.exceptions",
+    "c": "ControllerException",
+    "l": "ControllerException(String)",
+    "u": "%3Cinit%3E(java.lang.String)"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "ManagerController",
+    "l": "create(Civility, String, String)",
+    "u": "create(fr.univtours.examplanner.enums.Civility,java.lang.String,java.lang.String)"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "SlotController",
+    "l": "create(LocalDateTime, LocalDateTime, Float)",
+    "u": "create(java.time.LocalDateTime,java.time.LocalDateTime,java.lang.Float)"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "DepartmentController",
+    "l": "create(String)",
+    "u": "create(java.lang.String)"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "GroupController",
+    "l": "create(String, int, List<Integer>)",
+    "u": "create(java.lang.String,int,java.util.List)"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "RoomController",
+    "l": "create(String, int, List<Object>)",
+    "u": "create(java.lang.String,int,java.util.List)"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "ExamController",
+    "l": "create(String, String, String, float, List<Integer>, List<Integer>, List<Integer>)",
+    "u": "create(java.lang.String,java.lang.String,java.lang.String,float,java.util.List,java.util.List,java.util.List)"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "UserController",
+    "l": "create(String, String, UserRole)",
+    "u": "create(java.lang.String,java.lang.String,fr.univtours.examplanner.enums.UserRole)"
+}, {
+    "p": "fr.univtours.examplanner",
+    "c": "Storage",
+    "l": "currentLanguageProperty()"
+}, {
+    "p": "fr.univtours.examplanner",
+    "c": "Storage",
+    "l": "currentSceneProperty()"
+}, {"p": "fr.univtours.examplanner.enums", "c": "Scenes", "l": "Dashboard"}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "Dashboard",
+    "l": "Dashboard()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "DashboardView",
+    "l": "DashboardView()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "DepartmentController",
+    "l": "delete(DepartmentDTO)",
+    "u": "delete(fr.univtours.examplanner.entities.dtos.DepartmentDTO)"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "DepartmentRepo",
+    "l": "delete(DepartmentDTO)",
+    "u": "delete(fr.univtours.examplanner.entities.dtos.DepartmentDTO)"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "BaseRepo",
+    "l": "delete(Entity)"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "ExamController",
+    "l": "delete(Exam)",
+    "u": "delete(fr.univtours.examplanner.entities.Exam)"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "ExamRepo",
+    "l": "delete(Exam)",
+    "u": "delete(fr.univtours.examplanner.entities.Exam)"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "GroupController",
+    "l": "delete(GroupDTO)",
+    "u": "delete(fr.univtours.examplanner.entities.dtos.GroupDTO)"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "GroupRepo",
+    "l": "delete(GroupDTO)",
+    "u": "delete(fr.univtours.examplanner.entities.dtos.GroupDTO)"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "ManagerController",
+    "l": "delete(ManagerDTO)",
+    "u": "delete(fr.univtours.examplanner.entities.dtos.ManagerDTO)"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "ManagerRepo",
+    "l": "delete(ManagerDTO)",
+    "u": "delete(fr.univtours.examplanner.entities.dtos.ManagerDTO)"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "RoomController",
+    "l": "delete(RoomDTO)",
+    "u": "delete(fr.univtours.examplanner.entities.dtos.RoomDTO)"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "RoomRepo",
+    "l": "delete(RoomDTO)",
+    "u": "delete(fr.univtours.examplanner.entities.dtos.RoomDTO)"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "SlotController",
+    "l": "delete(SlotDTO)",
+    "u": "delete(fr.univtours.examplanner.entities.dtos.SlotDTO)"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "SlotRepo",
+    "l": "delete(SlotDTO)",
+    "u": "delete(fr.univtours.examplanner.entities.dtos.SlotDTO)"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "BaseController",
+    "l": "delete(T)"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "UserController",
+    "l": "delete(UserDTO)",
+    "u": "delete(fr.univtours.examplanner.entities.dtos.UserDTO)"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "UserRepo",
+    "l": "delete(UserDTO)",
+    "u": "delete(fr.univtours.examplanner.entities.dtos.UserDTO)"
+}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "DeleteConfirmPopUp",
+    "l": "DeleteConfirmPopUp()",
+    "u": "%3Cinit%3E()"
+}, {"p": "fr.univtours.examplanner.enums", "c": "Scenes", "l": "Department"}, {
+    "p": "fr.univtours.examplanner.enums",
+    "c": "UserRole",
+    "l": "Department"
+}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "Department",
+    "l": "Department()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "DepartmentController",
+    "l": "DepartmentController()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "DepartmentRepo",
+    "l": "DepartmentRepo()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "DepartmentView",
+    "l": "DepartmentView()",
+    "u": "%3Cinit%3E()"
+}, {"p": "fr.univtours.examplanner.enums", "c": "Degree", "l": "Doctorate"}, {
+    "p": "fr.univtours.examplanner.utils",
+    "c": "EntityUtils",
+    "l": "EntityUtils()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "fr.univtours.examplanner.entities",
+    "c": "Exam",
+    "l": "equals(Object)",
+    "u": "equals(java.lang.Object)"
+}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "ErrorPopUp",
+    "l": "ErrorPopUp()",
+    "u": "%3Cinit%3E()"
+}, {"p": "fr.univtours.examplanner.enums", "c": "Scenes", "l": "Exam"}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "Exam",
+    "l": "Exam()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "fr.univtours.examplanner.entities",
+    "c": "Exam",
+    "l": "Exam(String, String, List<GroupDTO>, List<ManagerDTO>, SubjectDTO, float, List<Exam>)",
+    "u": "%3Cinit%3E(java.lang.String,java.lang.String,java.util.List,java.util.List,fr.univtours.examplanner.entities.dtos.SubjectDTO,float,java.util.List)"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "ExamController",
+    "l": "ExamController()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "ExamRepo",
+    "l": "ExamRepo()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "ExamView",
+    "l": "ExamView()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "fr.univtours.examplanner.translations",
+    "c": "SupportedLanguages",
+    "l": "French"
+}, {
+    "p": "fr.univtours.examplanner.translations",
+    "c": "Translation",
+    "l": "get(String)",
+    "u": "get(java.lang.String)"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "BaseController",
+    "l": "getAll()"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "DepartmentController",
+    "l": "getAll()"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "ExamController",
+    "l": "getAll()"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "GroupController",
+    "l": "getAll()"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "ManagerController",
+    "l": "getAll()"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "RoomController",
+    "l": "getAll()"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "SlotController",
+    "l": "getAll()"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "UserController",
+    "l": "getAll()"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "BaseRepo",
+    "l": "getAll()"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "DepartmentRepo",
+    "l": "getAll()"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "ExamRepo",
+    "l": "getAll()"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "GroupRepo",
+    "l": "getAll()"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "ManagerRepo",
+    "l": "getAll()"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "RoomRepo",
+    "l": "getAll()"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "SlotRepo",
+    "l": "getAll()"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "UserRepo",
+    "l": "getAll()"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "UserRepo",
+    "l": "getAllAdmin()"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "UserRepo",
+    "l": "getAllFromDepartment(DepartmentDTO)",
+    "u": "getAllFromDepartment(fr.univtours.examplanner.entities.dtos.DepartmentDTO)"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "ExamRepo",
+    "l": "getAllFromExam(Exam)",
+    "u": "getAllFromExam(fr.univtours.examplanner.entities.Exam)"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "ManagerRepo",
+    "l": "getAllFromExam(Exam)",
+    "u": "getAllFromExam(fr.univtours.examplanner.entities.Exam)"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "GroupRepo",
+    "l": "getAllFromExam(GroupDTO)",
+    "u": "getAllFromExam(fr.univtours.examplanner.entities.dtos.GroupDTO)"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "GroupRepo",
+    "l": "getAllFromGroup(GroupDTO)",
+    "u": "getAllFromGroup(fr.univtours.examplanner.entities.dtos.GroupDTO)"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "SlotRepo",
+    "l": "getAllFromManager(ManagerDTO)",
+    "u": "getAllFromManager(fr.univtours.examplanner.entities.dtos.ManagerDTO)"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "SlotRepo",
+    "l": "getAllFromRoom(RoomDTO)",
+    "u": "getAllFromRoom(fr.univtours.examplanner.entities.dtos.RoomDTO)"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "UserRepo",
+    "l": "getAllNonAdmin()"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "RoomRepo",
+    "l": "getAllWithConstraint(RoomType)",
+    "u": "getAllWithConstraint(fr.univtours.examplanner.enums.RoomType)"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "RoomRepo",
+    "l": "getAllWithConstraints(List<RoomType>)",
+    "u": "getAllWithConstraints(java.util.List)"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "BaseRepo",
+    "l": "getById(PK)"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "DepartmentRepo",
+    "l": "getById(String)",
+    "u": "getById(java.lang.String)"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "ExamRepo",
+    "l": "getById(String)",
+    "u": "getById(java.lang.String)"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "GroupRepo",
+    "l": "getById(String)",
+    "u": "getById(java.lang.String)"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "ManagerRepo",
+    "l": "getById(String)",
+    "u": "getById(java.lang.String)"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "RoomRepo",
+    "l": "getById(String)",
+    "u": "getById(java.lang.String)"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "SlotRepo",
+    "l": "getById(String)",
+    "u": "getById(java.lang.String)"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "UserRepo",
+    "l": "getById(String)",
+    "u": "getById(java.lang.String)"
+}, {"p": "fr.univtours.examplanner.utils", "c": "Database", "l": "getConnection()"}, {
+    "p": "fr.univtours.examplanner",
+    "c": "Storage",
+    "l": "getCurrentLanguage()"
+}, {
+    "p": "fr.univtours.examplanner",
+    "c": "Storage",
+    "l": "getCurrentScene()"
+}, {
+    "p": "fr.univtours.examplanner.entities",
+    "c": "Exam",
+    "l": "getDuration()"
+}, {
+    "p": "fr.univtours.examplanner.translations",
+    "c": "SupportedLanguages",
+    "l": "getFileName()"
+}, {
+    "p": "fr.univtours.examplanner.entities",
+    "c": "Exam",
+    "l": "getGroups()"
+}, {
+    "p": "fr.univtours.examplanner.entities",
+    "c": "WithIDEntity",
+    "l": "getId()"
+}, {
+    "p": "fr.univtours.examplanner.ui.states",
+    "c": "LoginState",
+    "l": "getIsLanguageMenuOpen()"
+}, {
+    "p": "fr.univtours.examplanner.entities",
+    "c": "Exam",
+    "l": "getManagers()"
+}, {"p": "fr.univtours.examplanner.entities", "c": "Exam", "l": "getName()"}, {
+    "p": "fr.univtours.examplanner.entities",
+    "c": "Exam",
+    "l": "getPreviousExams()"
+}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "Dashboard",
+    "l": "getScene()"
+}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "DashboardView",
+    "l": "getScene()"
+}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "DeleteConfirmPopUp",
+    "l": "getScene()"
+}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "Department",
+    "l": "getScene()"
+}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "DepartmentView",
+    "l": "getScene()"
+}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "ErrorPopUp",
+    "l": "getScene()"
+}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "Exam",
+    "l": "getScene()"
+}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "ExamView",
+    "l": "getScene()"
+}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "Group",
+    "l": "getScene()"
+}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "GroupView",
+    "l": "getScene()"
+}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "Login",
+    "l": "getScene()"
+}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "LoginView",
+    "l": "getScene()"
+}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "Manager",
+    "l": "getScene()"
+}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "ManagerView",
+    "l": "getScene()"
+}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "Room",
+    "l": "getScene()"
+}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "RoomView",
+    "l": "getScene()"
+}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "Slot",
+    "l": "getScene()"
+}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "SlotView",
+    "l": "getScene()"
+}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "User",
+    "l": "getScene()"
+}, {"p": "fr.univtours.examplanner.ui.views", "c": "UserView", "l": "getScene()"}, {
+    "p": "fr.univtours.examplanner.ui",
+    "c": "SceneController",
+    "l": "getScene(Scenes)",
+    "u": "getScene(fr.univtours.examplanner.enums.Scenes)"
+}, {
+    "p": "fr.univtours.examplanner.ui",
+    "c": "SceneController",
+    "l": "getSceneTitle(Scenes)",
+    "u": "getSceneTitle(fr.univtours.examplanner.enums.Scenes)"
+}, {
+    "p": "fr.univtours.examplanner.utils",
+    "c": "Ressource",
+    "l": "getStream(String)",
+    "u": "getStream(java.lang.String)"
+}, {
+    "p": "fr.univtours.examplanner.utils",
+    "c": "Ressource",
+    "l": "getStream(String, boolean)",
+    "u": "getStream(java.lang.String,boolean)"
+}, {"p": "fr.univtours.examplanner.entities", "c": "Exam", "l": "getSubject()"}, {
+    "p": "fr.univtours.examplanner.enums",
+    "c": "Scenes",
+    "l": "Group"
+}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "Group",
+    "l": "Group()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "GroupController",
+    "l": "GroupController()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "GroupRepo",
+    "l": "GroupRepo()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "GroupView",
+    "l": "GroupView()",
+    "u": "%3Cinit%3E()"
+}, {"p": "fr.univtours.examplanner.entities", "c": "Exam", "l": "hashCode()"}, {
+    "p": "fr.univtours.examplanner.enums",
+    "c": "ComputerEnvironment",
+    "l": "InternetAccess"
+}, {
+    "p": "fr.univtours.examplanner.ui.states",
+    "c": "LoginState",
+    "l": "isLanguageMenuOpenProperty()"
+}, {
+    "p": "fr.univtours.examplanner.utils",
+    "c": "Json",
+    "l": "Json()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "fr.univtours.examplanner.utils",
+    "c": "Json",
+    "l": "JsonObjectToHashMap(JSONObject)",
+    "u": "JsonObjectToHashMap(org.json.simple.JSONObject)"
+}, {"p": "fr.univtours.examplanner.enums", "c": "RoomType", "l": "Laboratory"}, {
+    "p": "fr.univtours.examplanner.enums",
+    "c": "RoomType",
+    "l": "Library"
+}, {
+    "p": "fr.univtours.examplanner.enums",
+    "c": "ComputerEnvironment",
+    "l": "LinuxEnvironment"
+}, {
+    "p": "fr.univtours.examplanner.utils",
+    "c": "EntityUtils",
+    "l": "listToIdString(List<? extends WithIDEntity>)",
+    "u": "listToIdString(java.util.List)"
+}, {
+    "p": "fr.univtours.examplanner.utils",
+    "c": "EntityUtils",
+    "l": "listToString(List<T>, Function<T, String>)",
+    "u": "listToString(java.util.List,java.util.function.Function)"
+}, {"p": "fr.univtours.examplanner.enums", "c": "Scenes", "l": "Login"}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "Login",
+    "l": "Login()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "AuthenticationController",
+    "l": "login(String, String)",
+    "u": "login(java.lang.String,java.lang.String)"
+}, {
+    "p": "fr.univtours.examplanner.ui.states",
+    "c": "LoginState",
+    "l": "LoginState()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "LoginView",
+    "l": "LoginView()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "fr.univtours.examplanner.ui.controllers",
+    "c": "LoginViewController",
+    "l": "LoginViewController()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "fr.univtours.examplanner.enums",
+    "c": "ComputerEnvironment",
+    "l": "MacOsEnvironment"
+}, {
+    "p": "fr.univtours.examplanner",
+    "c": "App",
+    "l": "main(String[])",
+    "u": "main(java.lang.String[])"
+}, {"p": "fr.univtours.examplanner.enums", "c": "Scenes", "l": "Manager"}, {
+    "p": "fr.univtours.examplanner.enums",
+    "c": "UserRole",
+    "l": "Manager"
+}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "Manager",
+    "l": "Manager()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "ManagerController",
+    "l": "ManagerController()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "ManagerRepo",
+    "l": "ManagerRepo()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "ManagerView",
+    "l": "ManagerView()",
+    "u": "%3Cinit%3E()"
+}, {"p": "fr.univtours.examplanner.enums", "c": "Degree", "l": "Master"}, {
+    "p": "fr.univtours.examplanner.enums",
+    "c": "ComputerEnvironment",
+    "l": "MathApplication"
+}, {"p": "fr.univtours.examplanner.enums", "c": "Civility", "l": "Men"}, {
+    "p": "fr.univtours.examplanner.enums",
+    "c": "RoomType",
+    "l": "Office"
+}, {
+    "p": "fr.univtours.examplanner.enums",
+    "c": "ComputerEnvironment",
+    "l": "OfficeApplication"
+}, {"p": "fr.univtours.examplanner.enums", "c": "Civility", "l": "Other"}, {
+    "p": "fr.univtours.examplanner.utils",
+    "c": "Json",
+    "l": "parse(String)",
+    "u": "parse(java.lang.String)"
+}, {
+    "p": "fr.univtours.examplanner.enums",
+    "c": "ComputerEnvironment",
+    "l": "PhysicsApplication"
+}, {
+    "p": "fr.univtours.examplanner.enums",
+    "c": "ComputerEnvironment",
+    "l": "ProgrammingApplication"
+}, {
+    "p": "fr.univtours.examplanner.enums",
+    "c": "RoomEquipment",
+    "l": "Projector"
+}, {
+    "p": "fr.univtours.examplanner.entities",
+    "c": "Exam",
+    "l": "removeGroup(GroupDTO)",
+    "u": "removeGroup(fr.univtours.examplanner.entities.dtos.GroupDTO)"
+}, {
+    "p": "fr.univtours.examplanner.entities",
+    "c": "Exam",
+    "l": "removeGroup(List<GroupDTO>)",
+    "u": "removeGroup(java.util.List)"
+}, {
+    "p": "fr.univtours.examplanner.entities",
+    "c": "Exam",
+    "l": "removeManager(List<ManagerDTO>)",
+    "u": "removeManager(java.util.List)"
+}, {
+    "p": "fr.univtours.examplanner.entities",
+    "c": "Exam",
+    "l": "removeManager(ManagerDTO)",
+    "u": "removeManager(fr.univtours.examplanner.entities.dtos.ManagerDTO)"
+}, {
+    "p": "fr.univtours.examplanner.entities",
+    "c": "Exam",
+    "l": "removePreviousExam(Exam)",
+    "u": "removePreviousExam(fr.univtours.examplanner.entities.Exam)"
+}, {
+    "p": "fr.univtours.examplanner.entities",
+    "c": "Exam",
+    "l": "removePreviousExam(List<Exam>)",
+    "u": "removePreviousExam(java.util.List)"
+}, {
+    "p": "fr.univtours.examplanner.utils",
+    "c": "Ressource",
+    "l": "resolve(String)",
+    "u": "resolve(java.lang.String)"
+}, {
+    "p": "fr.univtours.examplanner.utils",
+    "c": "Ressource",
+    "l": "resolve(String, boolean)",
+    "u": "resolve(java.lang.String,boolean)"
+}, {
+    "p": "fr.univtours.examplanner.utils",
+    "c": "Ressource",
+    "l": "Ressource()",
+    "u": "%3Cinit%3E()"
+}, {"p": "fr.univtours.examplanner.enums", "c": "Scenes", "l": "Room"}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "Room",
+    "l": "Room()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "RoomController",
+    "l": "RoomController()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "RoomRepo",
+    "l": "RoomRepo()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "RoomView",
+    "l": "RoomView()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "DepartmentController",
+    "l": "save(DepartmentDTO)",
+    "u": "save(fr.univtours.examplanner.entities.dtos.DepartmentDTO)"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "DepartmentRepo",
+    "l": "save(DepartmentDTO)",
+    "u": "save(fr.univtours.examplanner.entities.dtos.DepartmentDTO)"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "BaseRepo",
+    "l": "save(Entity)"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "ExamController",
+    "l": "save(Exam)",
+    "u": "save(fr.univtours.examplanner.entities.Exam)"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "ExamRepo",
+    "l": "save(Exam)",
+    "u": "save(fr.univtours.examplanner.entities.Exam)"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "GroupController",
+    "l": "save(GroupDTO)",
+    "u": "save(fr.univtours.examplanner.entities.dtos.GroupDTO)"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "GroupRepo",
+    "l": "save(GroupDTO)",
+    "u": "save(fr.univtours.examplanner.entities.dtos.GroupDTO)"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "ManagerController",
+    "l": "save(ManagerDTO)",
+    "u": "save(fr.univtours.examplanner.entities.dtos.ManagerDTO)"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "ManagerRepo",
+    "l": "save(ManagerDTO)",
+    "u": "save(fr.univtours.examplanner.entities.dtos.ManagerDTO)"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "RoomController",
+    "l": "save(RoomDTO)",
+    "u": "save(fr.univtours.examplanner.entities.dtos.RoomDTO)"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "RoomRepo",
+    "l": "save(RoomDTO)",
+    "u": "save(fr.univtours.examplanner.entities.dtos.RoomDTO)"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "SlotController",
+    "l": "save(SlotDTO)",
+    "u": "save(fr.univtours.examplanner.entities.dtos.SlotDTO)"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "SlotRepo",
+    "l": "save(SlotDTO)",
+    "u": "save(fr.univtours.examplanner.entities.dtos.SlotDTO)"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "BaseController",
+    "l": "save(T)"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "UserController",
+    "l": "save(UserDTO)",
+    "u": "save(fr.univtours.examplanner.entities.dtos.UserDTO)"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "UserRepo",
+    "l": "save(UserDTO)",
+    "u": "save(fr.univtours.examplanner.entities.dtos.UserDTO)"
+}, {
+    "p": "fr.univtours.examplanner.ui",
+    "c": "SceneController",
+    "l": "SceneController()",
+    "u": "%3Cinit%3E()"
+}, {"p": "fr.univtours.examplanner.enums", "c": "UserRole", "l": "Schooling"}, {
+    "p": "fr.univtours.examplanner",
+    "c": "Storage",
+    "l": "setCurrentLanguage(SupportedLanguages)",
+    "u": "setCurrentLanguage(fr.univtours.examplanner.translations.SupportedLanguages)"
+}, {
+    "p": "fr.univtours.examplanner",
+    "c": "Storage",
+    "l": "setCurrentScene(Scenes)",
+    "u": "setCurrentScene(fr.univtours.examplanner.enums.Scenes)"
+}, {
+    "p": "fr.univtours.examplanner.entities",
+    "c": "Exam",
+    "l": "setDuration(float)"
+}, {
+    "p": "fr.univtours.examplanner.entities",
+    "c": "WithIDEntity",
+    "l": "setId(String)",
+    "u": "setId(java.lang.String)"
+}, {
+    "p": "fr.univtours.examplanner.ui.states",
+    "c": "LoginState",
+    "l": "setIsLanguageMenuOpen(Boolean)",
+    "u": "setIsLanguageMenuOpen(java.lang.Boolean)"
+}, {
+    "p": "fr.univtours.examplanner.translations",
+    "c": "Translation",
+    "l": "setLanguage(SupportedLanguages)",
+    "u": "setLanguage(fr.univtours.examplanner.translations.SupportedLanguages)"
+}, {
+    "p": "fr.univtours.examplanner.entities",
+    "c": "Exam",
+    "l": "setName(String)",
+    "u": "setName(java.lang.String)"
+}, {
+    "p": "fr.univtours.examplanner.entities",
+    "c": "Exam",
+    "l": "setSubject(SubjectDTO)",
+    "u": "setSubject(fr.univtours.examplanner.entities.dtos.SubjectDTO)"
+}, {
+    "p": "fr.univtours.examplanner.translations",
+    "c": "SupportedLanguages",
+    "l": "shortHand()"
+}, {"p": "fr.univtours.examplanner.enums", "c": "Scenes", "l": "Slot"}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "Slot",
+    "l": "Slot()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "SlotController",
+    "l": "SlotController()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "SlotRepo",
+    "l": "SlotRepo()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "SlotView",
+    "l": "SlotView()",
+    "u": "%3Cinit%3E()"
+}, {"p": "fr.univtours.examplanner.enums", "c": "RoomEquipment", "l": "Speaker"}, {
+    "p": "fr.univtours.examplanner",
+    "c": "App",
+    "l": "start(Stage)",
+    "u": "start(javafx.stage.Stage)"
+}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "Dashboard",
+    "l": "TITLE"
+}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "DashboardView",
+    "l": "TITLE"
+}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "DeleteConfirmPopUp",
+    "l": "TITLE"
+}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "Department",
+    "l": "TITLE"
+}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "DepartmentView",
+    "l": "TITLE"
+}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "ErrorPopUp",
+    "l": "TITLE"
+}, {"p": "fr.univtours.examplanner.ui.views", "c": "Exam", "l": "TITLE"}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "ExamView",
+    "l": "TITLE"
+}, {"p": "fr.univtours.examplanner.ui.views", "c": "Group", "l": "TITLE"}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "GroupView",
+    "l": "TITLE"
+}, {"p": "fr.univtours.examplanner.ui.views", "c": "Login", "l": "TITLE"}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "LoginView",
+    "l": "TITLE"
+}, {"p": "fr.univtours.examplanner.ui.views", "c": "Manager", "l": "TITLE"}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "ManagerView",
+    "l": "TITLE"
+}, {"p": "fr.univtours.examplanner.ui.views", "c": "Room", "l": "TITLE"}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "RoomView",
+    "l": "TITLE"
+}, {"p": "fr.univtours.examplanner.ui.views", "c": "Slot", "l": "TITLE"}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "SlotView",
+    "l": "TITLE"
+}, {"p": "fr.univtours.examplanner.ui.views", "c": "User", "l": "TITLE"}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "UserView",
+    "l": "TITLE"
+}, {"p": "fr.univtours.examplanner.entities", "c": "Exam", "l": "toString()"}, {
+    "p": "fr.univtours.examplanner.enums",
+    "c": "Civility",
+    "l": "toString()"
+}, {
+    "p": "fr.univtours.examplanner.enums",
+    "c": "ComputerEnvironment",
+    "l": "toString()"
+}, {"p": "fr.univtours.examplanner.enums", "c": "Degree", "l": "toString()"}, {
+    "p": "fr.univtours.examplanner.enums",
+    "c": "RoomEquipment",
+    "l": "toString()"
+}, {"p": "fr.univtours.examplanner.enums", "c": "RoomType", "l": "toString()"}, {
+    "p": "fr.univtours.examplanner.enums",
+    "c": "Scenes",
+    "l": "toString()"
+}, {
+    "p": "fr.univtours.examplanner.enums",
+    "c": "UserRole",
+    "l": "toString()"
+}, {
+    "p": "fr.univtours.examplanner.translations",
+    "c": "SupportedLanguages",
+    "l": "UsEnglish"
+}, {"p": "fr.univtours.examplanner.enums", "c": "Scenes", "l": "User"}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "User",
+    "l": "User()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "fr.univtours.examplanner.controllers",
+    "c": "UserController",
+    "l": "UserController()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "fr.univtours.examplanner.repositories",
+    "c": "UserRepo",
+    "l": "UserRepo()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "fr.univtours.examplanner.ui.views",
+    "c": "UserView",
+    "l": "UserView()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "fr.univtours.examplanner.enums",
+    "c": "Civility",
+    "l": "valueOf(String)",
+    "u": "valueOf(java.lang.String)"
+}, {
+    "p": "fr.univtours.examplanner.enums",
+    "c": "ComputerEnvironment",
+    "l": "valueOf(String)",
+    "u": "valueOf(java.lang.String)"
+}, {
+    "p": "fr.univtours.examplanner.enums",
+    "c": "Degree",
+    "l": "valueOf(String)",
+    "u": "valueOf(java.lang.String)"
+}, {
+    "p": "fr.univtours.examplanner.enums",
+    "c": "RoomEquipment",
+    "l": "valueOf(String)",
+    "u": "valueOf(java.lang.String)"
+}, {
+    "p": "fr.univtours.examplanner.enums",
+    "c": "RoomType",
+    "l": "valueOf(String)",
+    "u": "valueOf(java.lang.String)"
+}, {
+    "p": "fr.univtours.examplanner.enums",
+    "c": "Scenes",
+    "l": "valueOf(String)",
+    "u": "valueOf(java.lang.String)"
+}, {
+    "p": "fr.univtours.examplanner.enums",
+    "c": "UserRole",
+    "l": "valueOf(String)",
+    "u": "valueOf(java.lang.String)"
+}, {
+    "p": "fr.univtours.examplanner.translations",
+    "c": "SupportedLanguages",
+    "l": "valueOf(String)",
+    "u": "valueOf(java.lang.String)"
+}, {"p": "fr.univtours.examplanner.enums", "c": "Civility", "l": "values()"}, {
+    "p": "fr.univtours.examplanner.enums",
+    "c": "ComputerEnvironment",
+    "l": "values()"
+}, {"p": "fr.univtours.examplanner.enums", "c": "Degree", "l": "values()"}, {
+    "p": "fr.univtours.examplanner.enums",
+    "c": "RoomEquipment",
+    "l": "values()"
+}, {"p": "fr.univtours.examplanner.enums", "c": "RoomType", "l": "values()"}, {
+    "p": "fr.univtours.examplanner.enums",
+    "c": "Scenes",
+    "l": "values()"
+}, {
+    "p": "fr.univtours.examplanner.enums",
+    "c": "UserRole",
+    "l": "values()"
+}, {
+    "p": "fr.univtours.examplanner.translations",
+    "c": "SupportedLanguages",
+    "l": "values()"
+}, {"p": "fr.univtours.examplanner.enums", "c": "RoomEquipment", "l": "Webcam"}, {
+    "p": "fr.univtours.examplanner.enums",
+    "c": "ComputerEnvironment",
+    "l": "WindowsEnvironment"
+}, {
+    "p": "fr.univtours.examplanner.entities",
+    "c": "WithIDEntity",
+    "l": "WithIDEntity()",
+    "u": "%3Cinit%3E()"
+}, {
+    "p": "fr.univtours.examplanner.entities",
+    "c": "WithIDEntity",
+    "l": "WithIDEntity(String)",
+    "u": "%3Cinit%3E(java.lang.String)"
+}, {"p": "fr.univtours.examplanner.enums", "c": "Civility", "l": "Women"}];
+updateSearchResults();
