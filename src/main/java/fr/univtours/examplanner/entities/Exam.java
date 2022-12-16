@@ -36,7 +36,6 @@ public abstract class Exam extends WithIDEntity {
 	 */
 	@NotNull
 	private String name;
-  
 	/**
 	 * Sujet de l'examen
 	 */
