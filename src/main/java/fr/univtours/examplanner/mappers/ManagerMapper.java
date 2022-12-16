@@ -26,7 +26,7 @@ public class ManagerMapper implements BaseMapper{
      * @param dto = attributs de la classe {@link ManagerDTO}
      * @return = éléments nécessaires à une requête SQL
      */
-    public @NotNull String[] DTOToEntity( @NotNull ManagerDTO dto) {
+    public @NotNull PreparedStatement DTOToEntity( @NotNull ManagerDTO dto) {
         // TODO implement here
         throw new UnsupportedOperationException();
     }
