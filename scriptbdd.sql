@@ -2,6 +2,8 @@
 #               Script MySQL. EXAM-PLANNER
 #------------------------------------------------------------
 
+use exam_planner;
+
 #------------------------------------------------------------
 # Table: Department
 #------------------------------------------------------------
@@ -44,7 +46,7 @@ CREATE TABLE MockUp
 
 CREATE TABLE Slot
 (
-    id       Char(36) NOT NULL PRIMARY KEY DEFAULT UUID(),
+    id       CHAR(36) NOT NULL PRIMARY KEY,
     `day`    Date     NOT NULL,
     `hour`   Float    NOT NULL,
     duration Float    NOT NULL
@@ -57,7 +59,7 @@ CREATE TABLE Slot
 
 CREATE TABLE Exam
 (
-    id       Char(36)                     NOT NULL PRIMARY KEY DEFAULT UUID(),
+    id       CHAR(36)                     NOT NULL PRIMARY KEY,
     `name`   Varchar(50)                  NOT NULL,
     duration Float                        NOT NULL,
     type     Enum ('Final', 'Continuous') NOT NULL,
@@ -73,7 +75,7 @@ CREATE TABLE Exam
 
 CREATE TABLE Manager
 (
-    id        Char(36)                     NOT NULL PRIMARY KEY DEFAULT UUID(),
+    id        CHAR(36)                     NOT NULL PRIMARY KEY,
     civility  Enum ('Man','Woman','Other') NOT NULL,
     lastname  Varchar(63)                  NOT NULL,
     firstname Varchar(63)                  NOT NULL
@@ -87,7 +89,7 @@ CREATE TABLE Manager
 
 CREATE TABLE Room
 (
-    `name`              Varchar(63) NOT NULL PRIMARY KEY DEFAULT UUID(),
+    `name`              Varchar(63) NOT NULL PRIMARY KEY,
     places              Int         NOT NULL,
     types               SET (
         'Amphitheater',
@@ -119,14 +121,14 @@ CREATE TABLE Room
 
 CREATE TABLE `User`
 (
-    id         Char(36)     NOT NULL PRIMARY KEY DEFAULT UUID(),
+    id         CHAR(36)     NOT NULL PRIMARY KEY,
     mail       Varchar(100) NOT NULL,
-    department Varchar(63)                       DEFAULT NULL,
-    manager    Char(36)                          DEFAULT NULL,
+    department Varchar(63) DEFAULT NULL,
+    manager    CHAR(36)    DEFAULT NULL,
     `password` Varchar(63)  NOT NULL,
 
     CONSTRAINT User_Department_FK FOREIGN KEY (department) REFERENCES Department (`name`),
-    CONSTRAINT User_Manager0_FK FOREIGN KEY (manager) REFERENCES Manager (id)
+    CONSTRAINT User_Manager_FK FOREIGN KEY (manager) REFERENCES Manager (id)
 ) ENGINE = InnoDB;
 
 
@@ -136,13 +138,13 @@ CREATE TABLE `User`
 
 CREATE TABLE `Group`
 (
-    id                                Char(36)    NOT NULL PRIMARY KEY DEFAULT UUID(),
+    id                                CHAR(36)    NOT NULL PRIMARY KEY,
     `name`                            Varchar(63) NOT NULL,
-    containReducedMobilityPerson      Bool        NOT NULL             DEFAULT false,
-    personsWithoutAdjustmentNumber    Int         NOT NULL             DEFAULT 0,
-    numberOfStudentsWithWritingNeeds  Int         NOT NULL             DEFAULT 0,
-    numberOfStudentsWithIsolatedRooms Int         NOT NULL             DEFAULT 0,
-    numberOfStudentsWithPartTime      Int         NOT NULL             DEFAULT 0
+    containReducedMobilityPerson      Bool        NOT NULL DEFAULT false,
+    personsWithoutAdjustmentNumber    Int         NOT NULL DEFAULT 0,
+    numberOfStudentsWithWritingNeeds  Int         NOT NULL DEFAULT 0,
+    numberOfStudentsWithIsolatedRooms Int         NOT NULL DEFAULT 0,
+    numberOfStudentsWithPartTime      Int         NOT NULL DEFAULT 0
 ) ENGINE = InnoDB;
 
 
@@ -157,7 +159,7 @@ CREATE TABLE _SubjectToMockUp
 
     CONSTRAINT SubjectToMockUp_PK PRIMARY KEY (`subject`, mockUp),
     CONSTRAINT SubjectToMockUp_Subject_FK FOREIGN KEY (`subject`) REFERENCES Subject (name),
-    CONSTRAINT SubjectToMockUp_MockUp0_FK FOREIGN KEY (mockUp) REFERENCES MockUp (name)
+    CONSTRAINT SubjectToMockUp_MockUp_FK FOREIGN KEY (mockUp) REFERENCES MockUp (name)
 ) ENGINE = InnoDB;
 
 #------------------------------------------------------------
@@ -166,12 +168,12 @@ CREATE TABLE _SubjectToMockUp
 
 CREATE TABLE _ExamToManager
 (
-    exam    Char(36) NOT NULL,
-    manager Char(36) NOT NULL,
+    exam    CHAR(36) NOT NULL,
+    manager CHAR(36) NOT NULL,
 
-    CONSTRAINT manage_PK PRIMARY KEY (exam, manager),
-    CONSTRAINT manage_Exam_FK FOREIGN KEY (exam) REFERENCES Exam (id),
-    CONSTRAINT manage_Manager0_FK FOREIGN KEY (manager) REFERENCES Manager (id)
+    CONSTRAINT _ExamToManager_PK PRIMARY KEY (exam, manager),
+    CONSTRAINT _ExamToManager_Exam_FK FOREIGN KEY (exam) REFERENCES Exam (id),
+    CONSTRAINT _ExamToManager_Manager_FK FOREIGN KEY (manager) REFERENCES Manager (id)
 ) ENGINE = InnoDB;
 
 
@@ -181,12 +183,12 @@ CREATE TABLE _ExamToManager
 
 CREATE TABLE _ExamToExam
 (
-    parent Char(36) NOT NULL,
-    child  Char(36) NOT NULL,
+    parent CHAR(36) NOT NULL,
+    child  CHAR(36) NOT NULL,
 
-    CONSTRAINT previousExam_PK PRIMARY KEY (parent, child),
-    CONSTRAINT previousExam_Exam_FK FOREIGN KEY (parent) REFERENCES Exam (id),
-    CONSTRAINT previousExam_Exam0_FK FOREIGN KEY (child) REFERENCES Exam (id)
+    CONSTRAINT _ExamToExam_PK PRIMARY KEY (parent, child),
+    CONSTRAINT _ExamToExam_Exam_parent_FK FOREIGN KEY (parent) REFERENCES Exam (id),
+    CONSTRAINT _ExamToExam_Exam_child_FK FOREIGN KEY (child) REFERENCES Exam (id)
 ) ENGINE = InnoDB;
 
 #------------------------------------------------------------
@@ -195,12 +197,12 @@ CREATE TABLE _ExamToExam
 
 CREATE TABLE _ExamToDepartment
 (
-    exam       Char(36)    NOT NULL,
+    exam       CHAR(36)    NOT NULL,
     department Varchar(50) NOT NULL,
 
-    CONSTRAINT ExamToDepartment_PK PRIMARY KEY (exam, department),
-    CONSTRAINT ExamToDepartment_Exam_FK FOREIGN KEY (exam) REFERENCES Exam (id),
-    CONSTRAINT ExamToDepartment_Department0_FK FOREIGN KEY (department) REFERENCES Department (name)
+    CONSTRAINT _ExamToDepartment_PK PRIMARY KEY (exam, department),
+    CONSTRAINT _ExamToDepartment_Exam_FK FOREIGN KEY (exam) REFERENCES Exam (id),
+    CONSTRAINT _ExamToDepartment_Department_FK FOREIGN KEY (department) REFERENCES Department (name)
 ) ENGINE = InnoDB;
 
 #------------------------------------------------------------
@@ -209,12 +211,12 @@ CREATE TABLE _ExamToDepartment
 
 CREATE TABLE _ExamToRoom
 (
-    exam Char(36)    NOT NULL,
+    exam CHAR(36)    NOT NULL,
     room Varchar(63) NOT NULL,
 
-    CONSTRAINT require_PK PRIMARY KEY (exam, room),
-    CONSTRAINT require_Room_FK FOREIGN KEY (room) REFERENCES Room (name),
-    CONSTRAINT require_Exam0_FK FOREIGN KEY (exam) REFERENCES Exam (id)
+    CONSTRAINT _ExamToRoom_PK PRIMARY KEY (exam, room),
+    CONSTRAINT _ExamToRoom_Room_FK FOREIGN KEY (room) REFERENCES Room (name),
+    CONSTRAINT _ExamToRoom_Exam_FK FOREIGN KEY (exam) REFERENCES Exam (id)
 ) ENGINE = InnoDB;
 
 #------------------------------------------------------------
@@ -223,12 +225,12 @@ CREATE TABLE _ExamToRoom
 
 CREATE TABLE _SlotToRoom
 (
-    slot Char(36)    NOT NULL,
+    slot CHAR(36)    NOT NULL,
     room Varchar(63) NOT NULL,
 
-    CONSTRAINT require_PK PRIMARY KEY (slot, room),
-    CONSTRAINT require_Room_FK FOREIGN KEY (room) REFERENCES Room (name),
-    CONSTRAINT require_Exam0_FK FOREIGN KEY (slot) REFERENCES Slot (id)
+    CONSTRAINT _SlotToRoom_PK PRIMARY KEY (slot, room),
+    CONSTRAINT _SlotToRoom_Room_FK FOREIGN KEY (room) REFERENCES Room (name),
+    CONSTRAINT _SlotToRoom_Exam_FK FOREIGN KEY (slot) REFERENCES Slot (id)
 ) ENGINE = InnoDB;
 
 #------------------------------------------------------------
@@ -237,12 +239,12 @@ CREATE TABLE _SlotToRoom
 
 CREATE TABLE _ExamToGroup
 (
-    exam    Char(36) NOT NULL,
-    `group` Char(36) NOT NULL,
+    exam    CHAR(36) NOT NULL,
+    `group` CHAR(36) NOT NULL,
 
-    CONSTRAINT ExamToGroup_PK PRIMARY KEY (exam, `group`),
-    CONSTRAINT ExamToGroup_Exam_FK FOREIGN KEY (exam) REFERENCES Exam (id),
-    CONSTRAINT ExamToGroup__Group0_FK FOREIGN KEY (`group`) REFERENCES `Group` (id)
+    CONSTRAINT _ExamToGroup_PK PRIMARY KEY (exam, `group`),
+    CONSTRAINT _ExamToGroup_Exam_FK FOREIGN KEY (exam) REFERENCES Exam (id),
+    CONSTRAINT _ExamToGroup_Group_FK FOREIGN KEY (`group`) REFERENCES `Group` (id)
 ) ENGINE = InnoDB;
 
 #------------------------------------------------------------
@@ -251,10 +253,10 @@ CREATE TABLE _ExamToGroup
 
 CREATE TABLE _ExamToSlot
 (
-    exam Char(36) NOT NULL,
-    slot Char(36) NOT NULL,
+    exam CHAR(36) NOT NULL,
+    slot CHAR(36) NOT NULL,
 
-    CONSTRAINT ExamToGroup_PK PRIMARY KEY (exam, slot),
-    CONSTRAINT ExamToGroup_Exam_FK FOREIGN KEY (exam) REFERENCES Exam (id),
-    CONSTRAINT ExamToGroup__Group0_FK FOREIGN KEY (slot) REFERENCES Slot (id)
+    CONSTRAINT _ExamToSlot_PK PRIMARY KEY (exam, slot),
+    CONSTRAINT _ExamToSlot_Exam_FK FOREIGN KEY (exam) REFERENCES Exam (id),
+    CONSTRAINT _ExamToSlot_Group_FK FOREIGN KEY (slot) REFERENCES Slot (id)
 ) ENGINE = InnoDB;
