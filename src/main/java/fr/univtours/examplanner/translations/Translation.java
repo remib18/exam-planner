@@ -31,7 +31,7 @@ public class Translation {
 	 * @return instance de la classe Translation
 	 */
 	private static @NotNull Translation getInstance() {
-		if (instance == null) {
+		if ( null == instance ) {
 			instance = new Translation();
 		}
 		return instance;
@@ -45,8 +45,8 @@ public class Translation {
 	 */
 	public static @NotNull String get(@NotNull String key) {
 		Translation instance = getInstance();
-		if (instance.loadedTranslations == null) {
-			instance.loadLanguage(Storage.getCurrentLanguage());
+		if ( null == instance.loadedTranslations ) {
+			instance.loadLanguage(Storage.getLanguage());
 		}
 		return Objects.requireNonNull(getInstance().loadedTranslations).getOrDefault(key, key);
 	}
@@ -58,7 +58,7 @@ public class Translation {
 	 */
 	public static void setLanguage(@NotNull SupportedLanguages language) {
 		getInstance().loadLanguage(language);
-		Storage.setCurrentLanguage(language);
+		Storage.setLanguage(language);
 	}
 
 	/**
@@ -67,7 +67,7 @@ public class Translation {
 	 * @param language Langue à charger
 	 */
 	private void loadLanguage(@NotNull SupportedLanguages language) {
-		if (loadedTranslations == null) {
+		if ( null == loadedTranslations ) {
 			loadedTranslations = new HashMap<>();
 		}
 		loadedTranslations.clear();
