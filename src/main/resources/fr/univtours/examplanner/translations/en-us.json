@@ -7,8 +7,21 @@
   "app.title.manager": "Managers — ExamPlanner",
   "app.title.room": "Rooms — ExamPlanner",
   "app.title.user": "Users — ExamPlanner",
+  "app.title.mockup": "Mockups — ExamPlanner",
+  "app.title.subjects": "Subjects — ExamPlanner",
+  "feature.exam": "Exams",
+  "feature.manager": "Managers",
+  "feature.mockup": "Mockups",
+  "feature.subject": "Subjects",
+  "feature.department": "Departments",
+  "feature.group": "Groups",
+  "feature.room": "Rooms",
+  "feature.slot": "Slots",
+  "feature.user": "Users",
   "ui.login.title": "Connection",
   "ui.login.button": "Connection",
   "ui.login.labels.id": "Identifier",
-  "ui.login.labels.password": "Password"
+  "ui.login.labels.password": "Password",
+  "ui.dashboard.hello": "Hello",
+  "ui.dashboard.signout": "Log out"
 }
