@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles/global.css"
+            xmlns="http://javafx.com/javafx/19">
+    <children>
+        <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="32.0"
+                    AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="24.0">
+            <bottom>
+                <ImageView fitHeight="21.0" fitWidth="200.0" opacity="0.3" pickOnBounds="true" preserveRatio="true"
+                           BorderPane.alignment="CENTER">
+                    <image>
+                        <Image url="@../images/logo.png"/>
+                    </image>
+                    <BorderPane.margin>
+                        <Insets top="32.0"/>
+                    </BorderPane.margin>
+                </ImageView>
+            </bottom>
+            <top>
+                <VBox alignment="CENTER" fillWidth="false" prefHeight="73.0" prefWidth="536.0" scaleShape="false"
+                      spacing="5.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <HBox alignment="TOP_CENTER" prefHeight="24.0" prefWidth="536.0" spacing="5.0">
+                            <children>
+                                <Text fx:id="helloText" fill="#ffffffe6" strokeType="OUTSIDE" strokeWidth="0.0"
+                                      text="ui.dashboard.hello">
+                                    <font>
+                                        <Font name="System Bold" size="18.0"/>
+                                    </font>
+                                </Text>
+                                <Text fx:id="userName" fill="#ffffffe6" strokeType="OUTSIDE" strokeWidth="0.0"
+                                      text="user.name">
+                                    <font>
+                                        <Font name="System Bold" size="18.0"/>
+                                    </font>
+                                </Text>
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER" onMouseClicked="#handleDisconnect" prefHeight="24.0" prefWidth="225.0"
+                              scaleShape="false" spacing="5.0">
+                            <children>
+                                <Text fx:id="signOutText" fill="#ffffffe6" strokeType="OUTSIDE" strokeWidth="0.0"
+                                      text="ui.dashboard.signout"/>
+                                <ImageView fitHeight="16.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/log-out-outline.png"/>
+                                    </image>
+                                </ImageView>
+                            </children>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </HBox>
+                    </children>
+                    <padding>
+                        <Insets top="10.0"/>
+                    </padding>
+                </VBox>
+            </top>
+            <center>
+                <FlowPane
+                        fx:id="tiles"
+                        alignment="CENTER"
+                        columnHalignment="CENTER"
+                        hgap="24.0"
+                        vgap="24.0"
+                        prefHeight="236.0"
+                        prefWidth="536.0"
+                        BorderPane.alignment="CENTER"/>
+            </center>
+        </BorderPane>
+    </children>
+    <opaqueInsets>
+        <Insets/>
+    </opaqueInsets>
+</AnchorPane>

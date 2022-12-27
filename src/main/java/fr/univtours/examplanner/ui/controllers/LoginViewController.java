@@ -1,6 +1,8 @@
 package fr.univtours.examplanner.ui.controllers;
 
 import fr.univtours.examplanner.Storage;
+import fr.univtours.examplanner.controllers.AuthenticationController;
+import fr.univtours.examplanner.enums.Scenes;
 import fr.univtours.examplanner.translations.SupportedLanguages;
 import fr.univtours.examplanner.translations.Translation;
 import fr.univtours.examplanner.ui.BasicViewController;
@@ -70,7 +72,8 @@ public class LoginViewController extends BasicViewController {
 	 */
 	@FXML
 	private void handleSignInBtnClick() {
-		// Todo: implement
+		AuthenticationController.login(idField.getText(), passwordField.getText());
+		Storage.setScene(Scenes.Dashboard);
 	}
 
 	/**

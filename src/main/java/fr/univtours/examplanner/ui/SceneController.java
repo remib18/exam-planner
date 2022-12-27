@@ -8,27 +8,30 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
-public class SceneController {
+public enum SceneController {
+    ;
 
-	/**
-	 * Obtiens la scène correspondante
-	 *
-	 * @param scene La scène à obtenir
-	 * @return La scène correspondante
-	 */
-	public static @NotNull Scene getScene(@NotNull Scenes scene) {
-  
-		try {
-			return switch (scene) {
-				case Dashboard -> DashboardView.getScene();
-				case Department -> DepartmentView.getScene();
-				case Exam -> ExamView.getScene();
-				case Group -> GroupView.getScene();
-				case Login -> LoginView.getScene();
-				case Manager -> ManagerView.getScene();
-				case Room -> RoomView.getScene();
-				case Slot -> SlotView.getScene();
-				case User -> UserView.getScene();
+    /**
+     * Obtiens la scène correspondante
+     *
+     * @param scene La scène à obtenir
+     * @return La scène correspondante
+     */
+    public static @NotNull Scene getScene( @NotNull Scenes scene ) {
+
+        try {
+			return switch ( scene ) {
+                case Dashboard -> DashboardView.getScene();
+                case Department -> DepartmentView.getScene();
+                case Exam -> ExamView.getScene();
+                case Group -> GroupView.getScene();
+                case Login -> LoginView.getScene();
+                case Manager -> ManagerView.getScene();
+                case Room -> RoomView.getScene();
+                case Slot -> SlotView.getScene();
+                case User -> UserView.getScene();
+                case Subject -> new Scene(new Label("Subject"));
+                case Mockup -> new Scene(new Label("Mockup"));
 			};
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -43,17 +46,19 @@ public class SceneController {
 	 * @return Le titre de la scène correspondante
 	 */
 	public static @NotNull String getSceneTitle(@NotNull Scenes scene) {
-		return switch (scene) {
-        
-			case Dashboard -> DashboardView.TITLE;
-			case Department -> DepartmentView.TITLE;
-			case Exam -> ExamView.TITLE;
-			case Group -> GroupView.TITLE;
-			case Login -> LoginView.TITLE;
-			case Manager -> ManagerView.TITLE;
-			case Room -> RoomView.TITLE;
-			case Slot -> SlotView.TITLE;
-			case User -> UserView.TITLE;
+		return switch ( scene ) {
+
+            case Dashboard -> DashboardView.TITLE;
+            case Department -> DepartmentView.TITLE;
+            case Exam -> ExamView.TITLE;
+            case Group -> GroupView.TITLE;
+            case Login -> LoginView.TITLE;
+            case Manager -> ManagerView.TITLE;
+            case Room -> RoomView.TITLE;
+            case Slot -> SlotView.TITLE;
+            case User -> UserView.TITLE;
+            case Subject -> "app.title.subject";
+            case Mockup -> "app.title.mockup";
 		};
 	}
 
