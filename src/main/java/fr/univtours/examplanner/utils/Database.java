@@ -47,9 +47,10 @@ public enum Database {
      *
      * @return L'UUID généré
      */
-    public static String getNewUUID() {
+    public static @NotNull String getNewUUID() {
         UUID uuid = UUID.randomUUID();
         return "'" + uuid + "'";
     }
+	}
 
 }

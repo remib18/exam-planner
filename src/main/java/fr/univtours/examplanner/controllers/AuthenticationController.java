@@ -1,6 +1,10 @@
 package fr.univtours.examplanner.controllers;
 
+import fr.univtours.examplanner.Storage;
 import fr.univtours.examplanner.entities.dtos.UserDTO;
+import fr.univtours.examplanner.enums.Scenes;
+import fr.univtours.examplanner.enums.UserRole;
+import fr.univtours.examplanner.utils.Database;
 import org.jetbrains.annotations.NotNull;
 
 public class AuthenticationController {
@@ -22,21 +26,27 @@ public class AuthenticationController {
      * @param password mot de passe de l'utilisateur
      * @return vrai si les informations de connexions sont correctes et faux sinon
      */
-    public boolean login(String login, String password) {
+    public static boolean login( String login, String password ) {
         // TODO implement here
+        // Temporary code for testing
+        Storage.setUser(new UserDTO(Database.getNewUUID(), "testMail", null, UserRole.Schooling));
         return false;
     }
 
+    public static void logout() {
+        Storage.setUser(null);
+        Storage.setScene(Scenes.Login);
+    }
+
     /**
-     * Vérifie si l'utilisateur a l'autorisation d'accéder à la ressource
+     * Vérifie si l'utilisateur courant possède l'autorisation d'accéder à la ressource
      *
-     * @param user   utilisateur demandant un accès
      * @param filter condition d'accès
      * @return vrai si l'utilisateur est autorisé et faux sinon
      */
-    public boolean checkAccessRights( @NotNull UserDTO user, String filter ) {
+    public static boolean checkAccessRights( UserRole filter ) {
         // TODO implement here
-        return false;
+        return true;
     }
 
 }

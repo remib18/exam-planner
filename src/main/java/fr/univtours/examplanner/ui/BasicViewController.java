@@ -12,7 +12,7 @@ public abstract class BasicViewController {
 	@FXML
 	private void initialize() {
 
-		Storage.currentLanguageProperty().addListener((observable, oldValue, newValue) -> {
+		Storage.languageProperty().addListener(( observable, oldValue, newValue ) -> {
 			onLanguageUpdate();
 		});
 		onLanguageUpdate();

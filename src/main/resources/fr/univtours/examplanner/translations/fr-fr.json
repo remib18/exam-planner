@@ -7,8 +7,21 @@
   "app.title.manager": "Surveillants — ExamPlanner",
   "app.title.room": "Salles — ExamPlanner",
   "app.title.user": "Utilisateurs — ExamPlanner",
+  "app.title.mockup": "Maquettes — ExamPlanner",
+  "app.title.subjects": "Matières — ExamPlanner",
+  "feature.exam": "Examens",
+  "feature.manager": "Surveillants",
+  "feature.mockup": "Maquettes",
+  "feature.subject": "Matières",
+  "feature.department": "Départements",
+  "feature.group": "Groupes",
+  "feature.room": "Salles",
+  "feature.slot": "Créneaux",
+  "feature.user": "Utilisateurs",
   "ui.login.title": "Connexion",
   "ui.login.button": "Connexion",
   "ui.login.labels.id": "Identifiant",
-  "ui.login.labels.password": "Mot de passe"
+  "ui.login.labels.password": "Mot de passe",
+  "ui.dashboard.hello": "Bonjour",
+  "ui.dashboard.signout": "Déconnexion"
 }
