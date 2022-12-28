@@ -51,5 +51,4 @@ public enum Database {
         UUID uuid = UUID.randomUUID();
         return "'" + uuid + "'";
     }
-
 }

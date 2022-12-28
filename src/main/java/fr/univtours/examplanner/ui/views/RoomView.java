@@ -1,15 +1,21 @@
 package fr.univtours.examplanner.ui.views;
 
+import fr.univtours.examplanner.ui.controllers.RoomViewController;
+import fr.univtours.examplanner.utils.Ressource;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import org.jetbrains.annotations.NotNull;
 
-public class RoomView {
+import java.io.IOException;
 
-	public static final String TITLE = "app.title.room";
+public enum RoomView {
+    ;
 
-	public static @NotNull Scene getScene() {
-		return new Scene(new Label(TITLE), 320, 240);
-	}
+    public static final String TITLE = "app.title.room";
 
+    public static @NotNull Scene getScene() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Ressource.resolve("views/rooms.fxml"));
+        fxmlLoader.setController(new RoomViewController());
+        return new Scene(fxmlLoader.load());
+    }
 }
