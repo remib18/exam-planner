@@ -1,5 +1,7 @@
 package fr.univtours.examplanner.entities.dtos;
 
+import fr.univtours.examplanner.controllers.DepartmentController;
+import fr.univtours.examplanner.controllers.ManagerController;
 import fr.univtours.examplanner.entities.WithIDEntity;
 import fr.univtours.examplanner.enums.UserRole;
 import org.jetbrains.annotations.NotNull;
@@ -9,87 +11,138 @@ import java.util.Objects;
 
 public class UserDTO extends WithIDEntity {
 
-	/**
-	 * Adresse mail de l'utilisateur
-	 */
-	@NotNull
-	private String mail;
+    /**
+     * Information manager correspondantes à l'utilisateur<br/> Si null, l'utilisateur n'est pas un manager
+     */
+    @Nullable
+    private final String managerID;
 
-	/**
-	 * Département de l'utilisateur<br/>
-	 * Si null, l'utilisateur possède le rôle de scolarité
-	 */
-	@Nullable
-	private DepartmentDTO department;
+    /**
+     * Adresse mail de l'utilisateur
+     */
+    @NotNull
+    private String mail;
 
-	/**
-	 * Rôle de l'utilisateur
-	 */
-	@NotNull
-	private UserRole role;
+    /**
+     * Département de l'utilisateur<br/> Si null, l'utilisateur possède soit le rôle de manager, soit celui de
+     * scolarité
+     */
+    @Nullable
+    private String departmentID;
 
-	/**
-	 * Utilisateur
-	 *
-	 * @param id         Identifiant de l'utilisateur dans la base de donnée, null si l'utilisateur n'est pas encore enregistré
-	 * @param mail       Adresse mail de l'utilisateur
-	 * @param department Département de l'utilisateur
-	 * @param role       Rôle de l'utilisateur
-	 */
-	public UserDTO(@Nullable String id, @NotNull String mail, @Nullable DepartmentDTO department, @NotNull UserRole role) {
-		super(id);
-		this.mail = mail;
-		this.department = department;
-		this.role = role;
-	}
+    /**
+     * Mot de passe de l'utilisateur (crypté)
+     */
+    @NotNull
+    private String password;
 
-	public @NotNull String getMail() {
-		return mail;
-	}
+    /**
+     * Utilisateur
+     *
+     * @param id           Identifiant de l'utilisateur dans la base de donnée, null si l'utilisateur n'est pas encore
+     *                     enregistré
+     * @param mail         Adresse mail de l'utilisateur
+     * @param password     Mot de passe de l'utilisateur
+     * @param departmentID Identifiant du département de l'utilisateur, s'il existe
+     * @param managerID    Identifiant du manager correspondant à l'utilisateur, s'il existe
+     */
+    public UserDTO(
+            @Nullable String id,
+            @NotNull String mail,
+            @NotNull String password,
+            @Nullable String departmentID,
+            @Nullable String managerID
+    ) {
+        super(id);
+        this.mail = mail;
+        this.password = password;
+        this.departmentID = departmentID;
+        this.managerID = managerID;
+    }
 
-	public void setMail(@NotNull String mail) {
-		this.mail = mail;
-	}
+    public @NotNull String getMail() {
+        return mail;
+    }
 
-	public @Nullable DepartmentDTO getDepartment() {
-		return department;
-	}
+    public void setMail( @NotNull String mail ) {
+        this.mail = mail;
+    }
 
-	public void setDepartment(@Nullable DepartmentDTO department) {
-		if (Objects.isNull(department) && role != UserRole.Schooling) {
-			throw new IllegalArgumentException("A department is required for a user with a role other than schooling");
-		}
-		this.department = department;
-	}
+    public @NotNull String getPassword() {
+        return password;
+    }
 
-	public @NotNull UserRole getRole() {
-		return role;
-	}
+    public void setPassword( @NotNull String password ) {
+        this.password = password;
+    }
 
-	public void setRole(@NotNull UserRole role) {
-		this.role = role;
-	}
+    public @Nullable String getDepartmentID() {
+        return departmentID;
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		UserDTO userDTO = (UserDTO) o;
-		return Objects.equals(id, userDTO.id);
-	}
+    public @Nullable DepartmentDTO getDepartment() {
+        DepartmentController dCtrl = new DepartmentController();
+        return dCtrl.getByID(departmentID);
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, mail, department, role);
-	}
+    public void setDepartment( @Nullable DepartmentDTO department ) {
+        this.departmentID = Objects.isNull(department) ? null : department.getId();
+    }
 
-	@Override
-	public String toString() {
-		return "UserDTO{" +
-				"\n\tid: " + id +
-				", \n\tmail: " + mail +
-				", \n\tdepartment: " + department +
-				", \n\trole: " + role +
-				"\n}";
-	}
+    public @Nullable String getManagerID() {
+        return managerID;
+    }
+
+    public @Nullable ManagerDTO getManager() {
+        ManagerController mCtrl = new ManagerController();
+        return mCtrl.getByID(managerID);
+    }
+
+    public void setManager( @Nullable ManagerDTO manager ) {
+        this.departmentID = Objects.isNull(manager) ? null : manager.getId();
+    }
+
+    @Override
+    public boolean equals( Object o ) {
+        if ( this == o ) return true;
+        if ( null == o || getClass() != o.getClass() ) return false;
+        UserDTO userDTO = (UserDTO) o;
+        return Objects.equals(id, userDTO.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, mail, departmentID);
+    }
+
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+               "\n\tid: " +
+               id +
+               ", \n\tmail: " +
+               mail +
+               ", \n\tdepartment: " +
+               departmentID +
+               ", \n\tmanager profile: " +
+               managerID +
+               ", \n\trole: " +
+               getRole() +
+               "\n}";
+    }
+
+    /**
+     * Calcule le rôle de l'utilisateur
+     *
+     * @return le rôle de l'utilisateur
+     */
+    public @NotNull UserRole getRole() {
+        if ( Objects.isNull(departmentID) && Objects.isNull(managerID) ) {
+            return UserRole.Schooling;
+        }
+        if ( Objects.isNull(departmentID) ) {
+            return UserRole.Manager;
+        }
+        return UserRole.Department;
+    }
 }

@@ -4,6 +4,7 @@ import fr.univtours.examplanner.entities.dtos.DepartmentDTO;
 import fr.univtours.examplanner.exceptions.ControllerException;
 import fr.univtours.examplanner.repositories.DepartmentRepo;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +26,20 @@ public class DepartmentController implements BaseController<DepartmentDTO> {
      *
      * @return la liste des départements
      */
-    public @NotNull List<DepartmentDTO> getAll() {
+    public @NotNull List< DepartmentDTO > getAll() {
         // TODO implement here
         return new ArrayList<>();
+    }
+
+    /**
+     * Obtient un département
+     *
+     * @param id l'identifiant du département
+     * @return le département correspondant à l'identifiant
+     */
+    public @Nullable DepartmentDTO getByID( String id ) {
+        // TODO implement here
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -36,7 +48,7 @@ public class DepartmentController implements BaseController<DepartmentDTO> {
      * @param name le nom du département
      * @return le département créé
      */
-    public @NotNull DepartmentDTO create(@NotNull String name) {
+    public @NotNull DepartmentDTO create( @NotNull String name ) {
         // TODO implement here
         throw new UnsupportedOperationException();
     }

@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.SQLNonTransientConnectionException;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -31,10 +32,13 @@ public enum Database {
      */
     public static @NotNull Connection getConnection() throws DatabaseConnectionException {
         try {
-            if ( Objects.isNull(connection) ) {
+            if ( Objects.isNull(connection) || connection.isClosed() ) {
                 connection = DriverManager.getConnection(HOST, USER, PASS);
             }
             return connection;
+        } catch ( SQLNonTransientConnectionException e ) {
+            connection = null;
+            return getConnection();
         } catch ( SQLException e ) {
             throw new DatabaseConnectionException("Impossible de se connecter à la base de données : " + e.getMessage(),
                     e
@@ -48,9 +52,7 @@ public enum Database {
      * @return L'UUID généré
      */
     public static @NotNull String getNewUUID() {
-        UUID uuid = UUID.randomUUID();
-        return "'" + uuid + "'";
+        return UUID.randomUUID().toString();
     }
-	}
 
 }
