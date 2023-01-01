@@ -12,30 +12,34 @@
 
 .table-view .column-header-background .label {
     -fx-background-color: transparent;
-    -fx-text-fill: white;
+    -fx-text-fill: rgba(255, 255, 255, 0.8);
+    text-size: 10px;
 }
 
 .table-view .column-header {
     -fx-background-color: transparent;
 }
 
-.table-view .table-cell {
-    -fx-text-fill: white;
+.table-view .tree-table-cell {
+    -fx-text-fill: #fff;
+    -fx-border-color: transparent transparent transparent transparent;
+    -fx-border-width: 0 0 0 0;
 }
 
-.table-row-cell {
+.tree-table-row-cell {
     -fx-background-color: transparent;
     -fx-background-insets: 0, 0 0 1 0;
     -fx-padding: 0.0em; /* 0 */
+    /* -fx-text-background-color: #fff; */
 }
 
-.table-row-cell:odd {
+.tree-table-row-cell:odd {
     -fx-background-color: rgba(255, 255, 255, .1);
     -fx-background-insets: 0, 0 0 1 0;
     -fx-padding: 0.0em; /* 0 */
 }
 
-.table-row-cell:selected {
+.tree-table-row-cell:selected {
     -fx-background-color: rgba(255, 255, 255, .2);
     -fx-background-insets: 0;
     -fx-background-radius: 1;
