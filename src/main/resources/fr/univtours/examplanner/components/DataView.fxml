@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<fx:root xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles/global.css"
+         type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/19">
+   <children>
+      <BorderPane prefHeight="400" prefWidth="600" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+                  AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+         <top>
+            <BorderPane prefHeight="2.0" prefWidth="600.0" style="-fx-background-color: #5E5C77;"
+                        BorderPane.alignment="CENTER">
+               <left>
+                  <HBox accessibleRole="BUTTON" accessibleRoleDescription="Navigation back" accessibleText="back"
+                        alignment="CENTER_LEFT" onMouseClicked="#handleBackNavigation" prefHeight="24.0"
+                        prefWidth="95.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Back.png"/>
+                           </image>
+                        </ImageView>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="ui.actions.back"/>
+                     </children>
+                     <cursor>
+                        <Cursor fx:constant="HAND"/>
+                     </cursor>
+                  </HBox>
+               </left>
+               <center>
+                  <HBox alignment="CENTER" prefHeight="24.0" prefWidth="313.0" spacing="4.0"
+                        BorderPane.alignment="CENTER">
+                     <children>
+                        <ImageView fx:id="icon" fitHeight="12.0" fitWidth="12.0" pickOnBounds="true"
+                                   preserveRatio="true"/>
+                        <Text fx:id="headerTitle" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0"
+                              text="feature.name"/>
+                     </children>
+                  </HBox>
+               </center>
+               <right>
+                  <ImageView fitHeight="24.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true"
+                             BorderPane.alignment="CENTER">
+                     <image>
+                        <Image url="@../images/logo.png"/>
+                     </image>
+                     <BorderPane.margin>
+                        <Insets/>
+                     </BorderPane.margin>
+                  </ImageView>
+               </right>
+               <BorderPane.margin>
+                  <Insets bottom="16.0"/>
+               </BorderPane.margin>
+               <padding>
+                  <Insets bottom="8.0" left="16.0" right="16.0" top="8.0"/>
+               </padding>
+            </BorderPane>
+         </top>
+         <center>
+            <ScrollPane fx:id="scrollContainer" prefHeight="280.0" BorderPane.alignment="CENTER" fitToWidth="true"
+                        hbarPolicy="NEVER" style="-fx-border-color: transparent;"/>
+         </center>
+         <bottom>
+            <BorderPane prefHeight="47.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+               <right>
+                  <HBox accessibleRole="BUTTON" alignment="CENTER" fillHeight="false" prefHeight="0.0" prefWidth="142.0"
+                        spacing="4.0" styleClass="button" BorderPane.alignment="CENTER">
+                     <BorderPane.margin>
+                        <Insets bottom="16.0" right="16.0"/>
+                     </BorderPane.margin>
+                     <children>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/add.png"/>
+                           </image>
+                        </ImageView>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="ui.action.add"/>
+                     </children>
+                     <cursor>
+                        <Cursor fx:constant="HAND"/>
+                     </cursor>
+                  </HBox>
+               </right>
+               <center>
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="16.0" BorderPane.alignment="CENTER">
+                     <BorderPane.margin>
+                        <Insets bottom="16.0" left="16.0" right="16.0"/>
+                     </BorderPane.margin>
+                  </HBox>
+               </center>
+            </BorderPane>
+         </bottom>
+      </BorderPane>
+   </children>
+</fx:root>

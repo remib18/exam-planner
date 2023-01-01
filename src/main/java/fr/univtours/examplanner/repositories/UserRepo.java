@@ -70,7 +70,7 @@ public class UserRepo implements BaseRepo<UserDTO, String> {
      * @return la liste des utilisateurs correspondants
      */
     public @NotNull List< UserDTO > getAllFromDepartment( @NotNull DepartmentDTO dep ) throws RepoException {
-        return getAllFrom("department", dep.getId());
+        return getAllFrom("department", dep.getName());
     }
 
     /**

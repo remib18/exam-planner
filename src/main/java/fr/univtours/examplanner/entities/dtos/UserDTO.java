@@ -2,39 +2,43 @@ package fr.univtours.examplanner.entities.dtos;
 
 import fr.univtours.examplanner.controllers.DepartmentController;
 import fr.univtours.examplanner.controllers.ManagerController;
+import fr.univtours.examplanner.controllers.UserController;
+import fr.univtours.examplanner.entities.EditableEntity;
 import fr.univtours.examplanner.entities.WithIDEntity;
 import fr.univtours.examplanner.enums.UserRole;
+import fr.univtours.examplanner.exceptions.ControllerException;
+import javafx.beans.property.SimpleObjectProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
-public class UserDTO extends WithIDEntity {
+public class UserDTO extends WithIDEntity implements EditableEntity {
 
     /**
      * Information manager correspondantes à l'utilisateur<br/> Si null, l'utilisateur n'est pas un manager
      */
-    @Nullable
-    private final String managerID;
+    @NotNull
+    private final SimpleObjectProperty< @Nullable String > managerID = new SimpleObjectProperty<>();
 
     /**
      * Adresse mail de l'utilisateur
      */
     @NotNull
-    private String mail;
+    private final SimpleObjectProperty< @NotNull String > mail = new SimpleObjectProperty<>();
 
     /**
      * Département de l'utilisateur<br/> Si null, l'utilisateur possède soit le rôle de manager, soit celui de
      * scolarité
      */
-    @Nullable
-    private String departmentID;
+    @NotNull
+    private final SimpleObjectProperty< @Nullable String > departmentID = new SimpleObjectProperty<>();
 
     /**
      * Mot de passe de l'utilisateur (crypté)
      */
     @NotNull
-    private String password;
+    private final SimpleObjectProperty< @NotNull String > password = new SimpleObjectProperty<>();
 
     /**
      * Utilisateur
@@ -54,52 +58,72 @@ public class UserDTO extends WithIDEntity {
             @Nullable String managerID
     ) {
         super(id);
-        this.mail = mail;
-        this.password = password;
-        this.departmentID = departmentID;
-        this.managerID = managerID;
+        this.mail.set(mail);
+        this.password.set(password);
+        this.departmentID.set(departmentID);
+        this.managerID.set(managerID);
     }
 
-    public @NotNull String getMail() {
+    public @NotNull SimpleObjectProperty< @Nullable String > mailProperty() {
         return mail;
     }
 
-    public void setMail( @NotNull String mail ) {
-        this.mail = mail;
+    public @NotNull String getMail() {
+        return mail.get();
     }
 
-    public @NotNull String getPassword() {
+    public void setMail( @NotNull String mail ) {
+        this.mail.set(mail);
+    }
+
+    public @NotNull SimpleObjectProperty< @NotNull String > passwordProperty() {
         return password;
     }
 
-    public void setPassword( @NotNull String password ) {
-        this.password = password;
+    public @NotNull String getPassword() {
+        return password.get();
     }
 
-    public @Nullable String getDepartmentID() {
+    public void setPassword( @NotNull String password ) {
+        this.password.set(password);
+    }
+
+    public @NotNull SimpleObjectProperty< @Nullable String > departmentIDProperty() {
         return departmentID;
     }
 
+    public @Nullable String getDepartmentID() {
+        return departmentID.get();
+    }
+
     public @Nullable DepartmentDTO getDepartment() {
-        DepartmentController dCtrl = new DepartmentController();
-        return dCtrl.getByID(departmentID);
+        String did = departmentID.get();
+        if ( Objects.isNull(did) ) return null;
+        return DepartmentController.getByID(did);
     }
 
     public void setDepartment( @Nullable DepartmentDTO department ) {
-        this.departmentID = Objects.isNull(department) ? null : department.getId();
+        String did = Objects.isNull(department) ? null : department.getName();
+        this.departmentID.set(did);
     }
 
-    public @Nullable String getManagerID() {
+    public @NotNull SimpleObjectProperty< @Nullable String > managerIDProperty() {
         return managerID;
     }
 
+    public @Nullable String getManagerID() {
+        return managerID.get();
+    }
+
     public @Nullable ManagerDTO getManager() {
-        ManagerController mCtrl = new ManagerController();
-        return mCtrl.getByID(managerID);
+        String mid = managerID.get();
+        if ( Objects.isNull(mid) ) return null;
+        return ManagerController.getByID(mid);
     }
 
     public void setManager( @Nullable ManagerDTO manager ) {
-        this.departmentID = Objects.isNull(manager) ? null : manager.getId();
+        String mid = Objects.isNull(manager) ? null : manager.getId();
+        this.managerID.set(mid);
     }
 
     @Override
@@ -119,13 +143,13 @@ public class UserDTO extends WithIDEntity {
     public String toString() {
         return "UserDTO{" +
                "\n\tid: " +
-               id +
+               id.get() +
                ", \n\tmail: " +
-               mail +
+               mail.get() +
                ", \n\tdepartment: " +
-               departmentID +
+               departmentID.get() +
                ", \n\tmanager profile: " +
-               managerID +
+               managerID.get() +
                ", \n\trole: " +
                getRole() +
                "\n}";
@@ -137,12 +161,24 @@ public class UserDTO extends WithIDEntity {
      * @return le rôle de l'utilisateur
      */
     public @NotNull UserRole getRole() {
-        if ( Objects.isNull(departmentID) && Objects.isNull(managerID) ) {
+        if ( Objects.isNull(departmentID.get()) && Objects.isNull(managerID.get()) ) {
             return UserRole.Schooling;
         }
-        if ( Objects.isNull(departmentID) ) {
+        if ( Objects.isNull(departmentID.get()) ) {
             return UserRole.Manager;
         }
         return UserRole.Department;
+    }
+
+    @Override
+    public void set( String property, Object value ) throws ControllerException {
+        switch ( property ) {
+            case "mail" -> setMail((String) value);
+            case "password" -> setPassword((String) value);
+            case "department" -> setDepartment((DepartmentDTO) value);
+            case "manager" -> setManager((ManagerDTO) value);
+            default -> throw new IllegalArgumentException("Unknown property: " + property);
+        }
+        UserController.save(this);
     }
 }
