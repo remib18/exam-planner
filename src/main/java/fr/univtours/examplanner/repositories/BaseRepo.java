@@ -1,6 +1,8 @@
 package fr.univtours.examplanner.repositories;
 
 
+import fr.univtours.examplanner.exceptions.RepoException;
+
 import java.util.List;
 
 public interface BaseRepo<Entity, PK> {
@@ -11,14 +13,14 @@ public interface BaseRepo<Entity, PK> {
      * @param entity l'entité à sauvegarder
      * @return l'entité sauvegardée
      */
-    Entity save(Entity entity);
+    Entity save(Entity entity) throws RepoException;
 
     /**
      * Permet d'obtenir toutes les informations sur une table
      *
      * @return une liste d'entité de toutes les informations
      */
-    List<Entity> getAll();
+    List<Entity> getAll() throws RepoException;
 
     /**
      * Permet d'obtenir une entité grâce à son identifiant
