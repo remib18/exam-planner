@@ -179,6 +179,8 @@ public class UserDTO extends WithIDEntity implements EditableEntity {
             case "manager" -> setManager((ManagerDTO) value);
             default -> throw new IllegalArgumentException("Unknown property: " + property);
         }
-        UserController.save(this);
+        if ( Objects.nonNull(id.get()) ) {
+            UserController.save(this);
+        }
     }
 }

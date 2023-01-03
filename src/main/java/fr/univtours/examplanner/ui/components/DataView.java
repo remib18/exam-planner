@@ -24,6 +24,10 @@ public class DataView< T extends EditableEntity > extends AnchorPane implements 
 
     private String title;
 
+    private Runnable onAddRequest;
+
+    private Runnable onDeleteRequest;
+
     @FXML
     private ScrollPane scrollContainer;
 
@@ -85,8 +89,40 @@ public class DataView< T extends EditableEntity > extends AnchorPane implements 
         this.icon.imageProperty().set(new Image(image));
     }
 
+    public DataTable< T > getTable() {
+        return (DataTable< T >) this.scrollContainer.getContent();
+    }
+
     public void setTable( DataTable< T > table ) {
         this.scrollContainer.setContent(table);
+    }
+
+    @FXML
+    protected void handleAdd() {
+        if ( Objects.isNull(onAddRequest) ) return;
+        try {
+            onAddRequest.run();
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    protected void handleDelete() {
+        if ( Objects.isNull(onDeleteRequest) ) return;
+        try {
+            onDeleteRequest.run();
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setOnAddRequest( Runnable handler ) {
+        this.onAddRequest = handler;
+    }
+
+    public void setOnDeleteRequest( Runnable handler ) {
+        this.onDeleteRequest = handler;
     }
 
     @FXML

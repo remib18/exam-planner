@@ -23,7 +23,7 @@ public class DashboardTile extends VBox {
     @FXML
     private Text title;
 
-    private String text = "aaa";
+    private String text = "";
 
     private Callable< Void > onClick;
 

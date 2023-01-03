@@ -68,8 +68,9 @@
          <bottom>
             <HBox alignment="CENTER" prefHeight="36.0" prefWidth="600.0" spacing="16.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox accessibleRole="BUTTON" alignment="CENTER" fillHeight="false" prefHeight="0.0" prefWidth="142.0"
-                        spacing="4.0" style="-fx-background-color: #5E3E3E;" styleClass="button">
+                  <HBox accessibleRole="BUTTON" alignment="CENTER" fillHeight="false" onMouseClicked="#handleDelete"
+                        prefHeight="0.0" prefWidth="142.0" spacing="4.0" style="-fx-background-color: #5E3E3E;"
+                        styleClass="button">
                      <children>
                         <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -83,7 +84,8 @@
                      </cursor>
                   </HBox>
                   <HBox accessibleRole="BUTTON" alignment="CENTER" fillHeight="false" layoutX="10.0" layoutY="18.0"
-                        prefHeight="0.0" prefWidth="142.0" spacing="4.0" styleClass="button">
+                        onMouseClicked="#handleAdd" prefHeight="0.0" prefWidth="142.0" spacing="4.0"
+                        styleClass="button">
                      <children>
                         <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
                            <image>
