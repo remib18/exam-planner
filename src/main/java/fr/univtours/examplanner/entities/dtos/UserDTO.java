@@ -131,7 +131,7 @@ public class UserDTO extends WithIDEntity implements EditableEntity {
         if ( this == o ) return true;
         if ( null == o || getClass() != o.getClass() ) return false;
         UserDTO userDTO = (UserDTO) o;
-        return Objects.equals(id, userDTO.id);
+        return Objects.equals(id.get(), userDTO.id.get());
     }
 
     @Override
