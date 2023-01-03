@@ -5,26 +5,33 @@ import fr.univtours.examplanner.entities.EditableEntity;
 import fr.univtours.examplanner.enums.Scenes;
 import fr.univtours.examplanner.translations.Translation;
 import fr.univtours.examplanner.utils.Ressource;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TreeItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.concurrent.Callable;
+import java.util.function.Consumer;
 
 public class DataView< T extends EditableEntity > extends AnchorPane implements Initializable {
 
     private String title;
 
-    private Runnable onAddRequest;
+    private final SimpleObjectProperty< @Nullable T > addedEntity = new SimpleObjectProperty<>(null);
+
+    private Callable< T > onAddRequest;
 
     private Runnable onDeleteRequest;
 
@@ -36,6 +43,8 @@ public class DataView< T extends EditableEntity > extends AnchorPane implements 
 
     @FXML
     private ImageView icon;
+
+    private Consumer< T > onSaveRequest;
 
     /**
      * Create a new Data view interface
@@ -99,9 +108,18 @@ public class DataView< T extends EditableEntity > extends AnchorPane implements 
 
     @FXML
     protected void handleAdd() {
-        if ( Objects.isNull(onAddRequest) ) return;
+        if ( Objects.isNull(onAddRequest) || Objects.isNull(onSaveRequest) ) return;
         try {
-            onAddRequest.run();
+            if ( Objects.isNull(addedEntity.get()) ) {
+                TreeItem< T > root = getTable().getRoot();
+                addedEntity.set(onAddRequest.call());
+                root.getChildren().add(new TreeItem<>(addedEntity.get()));
+                return;
+            }
+            onSaveRequest.andThen(t -> {
+                addedEntity.set(null);
+                getTable().refresh();
+            }).accept(addedEntity.get());
         } catch ( Exception e ) {
             e.printStackTrace();
         }
@@ -112,13 +130,18 @@ public class DataView< T extends EditableEntity > extends AnchorPane implements 
         if ( Objects.isNull(onDeleteRequest) ) return;
         try {
             onDeleteRequest.run();
+            getTable().refresh();
         } catch ( Exception e ) {
             e.printStackTrace();
         }
     }
 
-    public void setOnAddRequest( Runnable handler ) {
+    public void setOnAddRequest( Callable< T > handler ) {
         this.onAddRequest = handler;
+    }
+
+    public void setOnSaveRequest( Consumer< T > handler ) {
+        this.onSaveRequest = handler;
     }
 
     public void setOnDeleteRequest( Runnable handler ) {

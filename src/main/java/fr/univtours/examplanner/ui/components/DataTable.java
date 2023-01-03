@@ -3,6 +3,7 @@ package fr.univtours.examplanner.ui.components;
 import fr.univtours.examplanner.entities.EditableEntity;
 import fr.univtours.examplanner.utils.Ressource;
 import fr.univtours.examplanner.utils.TableColumnDeclaration;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeSortMode;
 import javafx.scene.control.TreeTableView;
@@ -33,6 +34,7 @@ public class DataTable< T extends EditableEntity > extends TreeTableView< T > {
         super();
         setEditable(true);
         setSortMode(TreeSortMode.ONLY_FIRST_LEVEL);
+        getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         setShowRoot(false);
         getStylesheets().add(Ressource.resolve("styles/table.css").toExternalForm());
         getStyleClass().add("table-view");
