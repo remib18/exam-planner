@@ -3,11 +3,12 @@ package fr.univtours.examplanner.controllers;
 import fr.univtours.examplanner.entities.dtos.ManagerDTO;
 import fr.univtours.examplanner.enums.Civility;
 import fr.univtours.examplanner.exceptions.ControllerException;
+import fr.univtours.examplanner.exceptions.RepoException;
 import fr.univtours.examplanner.repositories.ManagerRepo;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ManagerController implements BaseController<ManagerDTO> {
 
@@ -16,6 +17,8 @@ public class ManagerController implements BaseController<ManagerDTO> {
      */
     @NotNull
     private final ManagerRepo repo;
+
+    private static ManagerController instance;
 
     public ManagerController() {
         repo = new ManagerRepo();
@@ -26,9 +29,19 @@ public class ManagerController implements BaseController<ManagerDTO> {
      *
      * @return la liste des surveillants
      */
-    public @NotNull List<ManagerDTO> getAll() {
-        // TODO implement here
-        return new ArrayList<>();
+    public @NotNull List< ManagerDTO > getAll() throws ControllerException {
+        try {
+            return getInstance().repo.getAll();
+        } catch ( RepoException e ) {
+            throw new ControllerException("An error occurred during the data fetching.", e);
+        }
+    }
+
+    private static ManagerController getInstance() {
+        if ( Objects.isNull(instance) ) {
+            instance = new ManagerController();
+        }
+        return instance;
     }
 
     /**
@@ -39,9 +52,13 @@ public class ManagerController implements BaseController<ManagerDTO> {
      * @param firstName le prénom du surveillant
      * @return le surveillant créé
      */
-    public @NotNull ManagerDTO create(@NotNull Civility civility, @NotNull String lastName, @NotNull String firstName) {
-        // TODO implement here
-        throw new UnsupportedOperationException();
+    public @NotNull ManagerDTO create( @NotNull Civility civility, @NotNull String lastName, @NotNull String firstName )
+    throws ControllerException {
+        try {
+            return getInstance().repo.save(new ManagerDTO(null, civility, lastName, firstName));
+        } catch ( RepoException e ) {
+            throw new ControllerException("An error occurred during the data saving.", e);
+        }
     }
 
     /**
@@ -50,8 +67,11 @@ public class ManagerController implements BaseController<ManagerDTO> {
      * @param entity le surveillant à modifier
      */
     public void save( @NotNull ManagerDTO entity ) throws ControllerException {
-        // TODO implement here
-        throw new UnsupportedOperationException();
+        try {
+            getInstance().repo.save(entity);
+        } catch ( RepoException e ) {
+            throw new ControllerException("An error occurred during the data saving.", e);
+        }
     }
 
     /**
@@ -60,8 +80,11 @@ public class ManagerController implements BaseController<ManagerDTO> {
      * @param entity le surveillant à supprimer
      */
     public void delete( @NotNull ManagerDTO entity ) throws ControllerException {
-        // TODO implement here
-        throw new UnsupportedOperationException();
+        try {
+            getInstance().repo.delete(entity);
+        } catch ( RepoException e ) {
+            throw new ControllerException("An error occurred during the data deletion.", e);
+        }
     }
 
 
