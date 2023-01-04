@@ -13,10 +13,10 @@ public class AuthenticationController {
      * Interface à la base de donnée permettant d'effectuer des opérations standards sur les utilisateurs
      */
     @NotNull
-    private final UserController userController;
+    //private final UserController userController;
 
     public AuthenticationController() {
-        userController = new UserController();
+        //userController = new UserController();
     }
 
     /**
@@ -29,7 +29,7 @@ public class AuthenticationController {
     public static boolean login( String login, String password ) {
         // TODO implement here
         // Temporary code for testing
-        Storage.setUser(new UserDTO(Database.getNewUUID(), "testMail", null, UserRole.Schooling));
+        Storage.setUser(new UserDTO(Database.getNewUUID(), "testMail", "testPassword", null, null));
         return false;
     }
 
@@ -47,6 +47,16 @@ public class AuthenticationController {
     public static boolean checkAccessRights( UserRole filter ) {
         // TODO implement here
         return true;
+    }
+
+    public static String encryptPassword( String password ) {
+        // TODO implement here
+        return password;
+    }
+
+    private static boolean checkPassword( String password, String encryptedPassword ) {
+        // TODO implement here
+        return password.equals(encryptedPassword);
     }
 
 }

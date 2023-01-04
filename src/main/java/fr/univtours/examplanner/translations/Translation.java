@@ -38,40 +38,57 @@ public class Translation {
 	}
 
 	/**
-	 * Obtenir une traduction
-	 *
-	 * @param key La clé de la traduction
-	 * @return La traduction
-	 */
-	public static @NotNull String get(@NotNull String key) {
-		Translation instance = getInstance();
-		if ( null == instance.loadedTranslations ) {
-			instance.loadLanguage(Storage.getLanguage());
-		}
-		return Objects.requireNonNull(getInstance().loadedTranslations).getOrDefault(key, key);
-	}
+     * Obtenir une traduction
+     *
+     * @param key La clé de la traduction
+     * @return La traduction
+     */
+    public static @NotNull String get( @NotNull String key ) {
+        if ( null == getInstance().loadedTranslations ) {
+            getInstance().loadLanguage(Storage.getLanguage());
+        }
+        return Objects.requireNonNull(getInstance().loadedTranslations).getOrDefault(key, key);
+    }
 
-	/**
-	 * Change la langue courante
-	 *
-	 * @param language Langue à charger
-	 */
-	public static void setLanguage(@NotNull SupportedLanguages language) {
-		getInstance().loadLanguage(language);
-		Storage.setLanguage(language);
-	}
-
-	/**
-	 * Charge le fichier de traduction correspondant à la langue passée en paramètre
-	 *
-	 * @param language Langue à charger
-	 */
-	private void loadLanguage(@NotNull SupportedLanguages language) {
-		if ( null == loadedTranslations ) {
-			loadedTranslations = new HashMap<>();
-		}
+    /**
+     * Charge le fichier de traduction correspondant à la langue passée en paramètre
+     *
+     * @param language Langue à charger
+     */
+    private void loadLanguage( @NotNull SupportedLanguages language ) {
+        if ( null == loadedTranslations ) {
+            loadedTranslations = new HashMap<>();
+        }
 		loadedTranslations.clear();
 		loadedTranslations.putAll(Json.JsonObjectToHashMap(Json.parse("translations/" + language.getFileName())));
 	}
+
+    /**
+     * Retourne la clé de la traduction
+     *
+     * @param translation La traduction
+     * @return La clé de la traduction
+     */
+    public static @NotNull String rollback( @NotNull String translation ) {
+        if ( Objects.isNull(getInstance().loadedTranslations) ) {
+            getInstance().loadLanguage(Storage.getLanguage());
+        }
+        for ( String key : getInstance().loadedTranslations.keySet() ) {
+            if ( Objects.requireNonNull(getInstance().loadedTranslations).get(key).equals(translation) ) {
+                return key;
+            }
+        }
+        return translation;
+    }
+
+    /**
+     * Change la langue courante
+     *
+     * @param language Langue à charger
+     */
+    public static void setLanguage( @NotNull SupportedLanguages language ) {
+        getInstance().loadLanguage(language);
+        Storage.setLanguage(language);
+    }
 
 }
