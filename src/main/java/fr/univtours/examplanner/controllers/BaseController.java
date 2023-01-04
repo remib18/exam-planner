@@ -1,5 +1,6 @@
 package fr.univtours.examplanner.controllers;
 
+import fr.univtours.examplanner.exceptions.ControllerException;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -11,7 +12,7 @@ public interface BaseController<T> {
      *
      * @return la liste
      */
-    public @NotNull List<T> getAll();
+    public @NotNull List<T> getAll() throws ControllerException;
 
     /**
      * Met à jour une entité

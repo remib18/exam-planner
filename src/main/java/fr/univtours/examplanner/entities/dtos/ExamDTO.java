@@ -2,6 +2,7 @@ package fr.univtours.examplanner.entities.dtos;
 
 import fr.univtours.examplanner.entities.WithIDEntity;
 import fr.univtours.examplanner.enums.ExamType;
+import fr.univtours.examplanner.exceptions.RepoException;
 import fr.univtours.examplanner.repositories.ExamRepo;
 import fr.univtours.examplanner.repositories.GroupRepo;
 import fr.univtours.examplanner.repositories.ManagerRepo;
@@ -169,8 +170,14 @@ public class ExamDTO extends WithIDEntity {
 		this.duration = duration;
 	}
 
-	public @NotNull List< ExamDTO > getPreviousExams() {
-		return previousExamsIDs.stream().map(peid -> (new ExamRepo()).getById(peid)).toList();
+	public @NotNull List< ExamDTO > getPreviousExams() throws RepoException {
+		return previousExamsIDs.stream().map(peid -> {
+			try {
+				return (new ExamRepo()).getById(peid);
+			} catch ( RepoException e ) {
+				throw new RuntimeException(e);		//FIXME @gab ??
+			}
+		}).toList();
 	}
 
 	public void addPreviousExam(@NotNull ExamDTO exam) {

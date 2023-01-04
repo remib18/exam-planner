@@ -3,6 +3,7 @@ package fr.univtours.examplanner.mappers;
 import fr.univtours.examplanner.entities.dtos.ExamDTO;
 import fr.univtours.examplanner.enums.ExamType;
 import fr.univtours.examplanner.exceptions.DatabaseConnectionException;
+import fr.univtours.examplanner.exceptions.MappingException;
 import fr.univtours.examplanner.utils.Database;
 import org.jetbrains.annotations.NotNull;
 
@@ -10,7 +11,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExamMapper implements BaseMapper {   //FIXME @gab contradictions avec l'interface !
+public class ExamMapper implements BaseMapper {
     /**
      * Créée une nouvelle classe FinalExamDTO(id, name, groups, managers, subject, duration, previousExams) grâce aux
      * éléments de la requête SQL (entities)
@@ -18,7 +19,7 @@ public class ExamMapper implements BaseMapper {   //FIXME @gab contradictions av
      * @param entities = résultats de la requête SQL
      * @return = classe {@link ExamDTO}
      */
-    public static @NotNull List< ExamDTO> EntityToTDO( ResultSet entities ) {
+    public static @NotNull List< ExamDTO> EntityToTDO( ResultSet entities ) throws MappingException {
         List <ExamDTO> exams = new ArrayList<>();
         try {
             while ( entities.next() ) {
@@ -50,7 +51,7 @@ public class ExamMapper implements BaseMapper {   //FIXME @gab contradictions av
             }
             return exams;
         } catch ( SQLException | DatabaseConnectionException e ) {
-            throw new RuntimeException("Erreur de connexion : " + e.getMessage());
+            throw new MappingException("Fail", e);
         }
     }
     }
