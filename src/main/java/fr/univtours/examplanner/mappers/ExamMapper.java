@@ -6,8 +6,9 @@ import fr.univtours.examplanner.exceptions.DatabaseConnectionException;
 import fr.univtours.examplanner.utils.Database;
 import org.jetbrains.annotations.NotNull;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ExamMapper implements BaseMapper {   //FIXME @gab contradictions avec l'interface !
     /**
