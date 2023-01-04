@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class ExamMapper implements BaseMapper {
+public class ExamMapper implements BaseMapper {   //FIXME @gab contradictions avec l'interface !
     /**
      * Créée une nouvelle classe FinalExamDTO(id, name, groups, managers, subject, duration, previousExams) grâce aux
      * éléments de la requête SQL (entities)

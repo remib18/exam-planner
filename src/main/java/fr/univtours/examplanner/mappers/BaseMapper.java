@@ -1,6 +1,5 @@
 package fr.univtours.examplanner.mappers;
 
-import fr.univtours.examplanner.entities.dtos.ExamDTO;
 import fr.univtours.examplanner.exceptions.MappingException;
 import org.jetbrains.annotations.NotNull;
 
@@ -17,7 +16,5 @@ public interface BaseMapper < DTO >{
      * @param entities Correspond au retour de la requête SQL
      * @return On retourne une liste de DTO.
      */
-    static <DTO> @NotNull List <DTO> entityToDTO(@NotNull ResultSet entities) {
-        throw new UnsupportedOperationException();
-    }
+     @NotNull List <DTO> entityToDTO(@NotNull ResultSet entities) throws MappingException, SQLException;
 }
