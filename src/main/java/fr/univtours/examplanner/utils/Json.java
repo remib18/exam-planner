@@ -11,15 +11,16 @@ import java.util.HashMap;
 
 public class Json {
 
-	/**
-	 * Lis et parse un fichier JSON<br/>
-	 * En cas d'erreur, retourne un objet JSON vide
-	 *
-	 * @param file le chemin du fichier JSON dans les ressources
-	 * @return un objet JSON
-	 */
-	public static @NotNull JSONObject parse(@NotNull String file) {
-		JSONParser parser = new JSONParser();
+    private Json() {super();}
+
+    /**
+     * Lis et parse un fichier JSON<br/> En cas d'erreur, retourne un objet JSON vide
+     *
+     * @param file le chemin du fichier JSON dans les ressources
+     * @return un objet JSON
+     */
+    public static @NotNull JSONObject parse( @NotNull String file ) {
+        JSONParser parser = new JSONParser();
 		try {
 			return (JSONObject) parser.parse(new FileReader(Ressource.resolve(file).getPath()));
 		} catch (IOException | ParseException e) {

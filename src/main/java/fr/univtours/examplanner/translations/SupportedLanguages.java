@@ -2,6 +2,9 @@ package fr.univtours.examplanner.translations;
 
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Une énumération des langues supportées par l'application.
+ */
 public enum SupportedLanguages {
 	French,
 	UsEnglish;
