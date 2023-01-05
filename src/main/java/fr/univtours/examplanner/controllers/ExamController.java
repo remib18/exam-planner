@@ -47,31 +47,6 @@ public class ExamController implements BaseController< ExamDTO > {
         }
     }
 
-    /**
-     * Crée un examen
-     *
-     * @param name            le nom du département
-     * @param roomName        le nom de la salle
-     * @param departmentName  le nom du département
-     * @param duration        le temps de l'examen
-     * @param groupIds        la liste des identifiants des groupes
-     * @param managerIds      la liste des identifiants des surveillants
-     * @param previousExamIds la liste des identifiants des examens devant se dérouler plus tôt
-     * @return l'examen créé
-     */
-    public @NotNull ExamDTO create(
-            @NotNull String name,
-            @NotNull String roomName,
-            @NotNull String departmentName,
-            float duration,
-            @NotNull List<Integer> groupIds,
-            @NotNull List<Integer> managerIds,
-            @NotNull List<Integer> previousExamIds
-    ) {
-        // TODO implement here
-        throw new UnsupportedOperationException();
-    }
-
     public @NotNull List<ExamDTO> getAllFromExam(@NotNull ExamDTO exam) throws ControllerException {
         try {
             return getInstance().repo.getAllFromExam(exam);

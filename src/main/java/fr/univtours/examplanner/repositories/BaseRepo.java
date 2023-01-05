@@ -15,7 +15,7 @@ public interface BaseRepo<Entity, PK> {
      * @param entity l'entité à sauvegarder
      * @return l'entité sauvegardée
      */
-    Entity save(Entity entity) throws RepoException;
+    void save(Entity entity) throws RepoException;
 
     /**
      * Permet d'obtenir toutes les informations sur une table

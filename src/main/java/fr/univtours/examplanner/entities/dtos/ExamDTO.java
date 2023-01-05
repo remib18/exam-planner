@@ -1,11 +1,11 @@
 package fr.univtours.examplanner.entities.dtos;
 
+import fr.univtours.examplanner.controllers.ExamController;
+import fr.univtours.examplanner.controllers.GroupController;
+import fr.univtours.examplanner.controllers.ManagerController;
 import fr.univtours.examplanner.entities.WithIDEntity;
 import fr.univtours.examplanner.enums.ExamType;
-import fr.univtours.examplanner.exceptions.RepoException;
-import fr.univtours.examplanner.repositories.ExamRepo;
-import fr.univtours.examplanner.repositories.GroupRepo;
-import fr.univtours.examplanner.repositories.ManagerRepo;
+import fr.univtours.examplanner.exceptions.ControllerException;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -97,8 +97,14 @@ public class ExamDTO extends WithIDEntity {
 
 	public void setType(@NotNull ExamType type) { this.type = type; }
 
-	public @NotNull List<GroupDTO> getGroups() {
-		return groupsIDs.stream().map(gid -> (new GroupRepo()).getById(gid)).toList();
+	public @NotNull List<GroupDTO> getGroups() throws ControllerException {
+		return groupsIDs.stream().map(gid -> {
+			try {
+				return (new GroupController()).getById(gid);
+			} catch ( ControllerException e ) {
+				throw new RuntimeException("Fail", e);
+			}
+		}).toList();
 	}
 
 	public void addGroup(@NotNull GroupDTO group) {
@@ -124,8 +130,14 @@ public class ExamDTO extends WithIDEntity {
 									   .toList());
 	}
 
-	public @NotNull List<ManagerDTO> getManagers() {
-		return managersIDs.stream().map(mid -> (new ManagerRepo()).getById(mid)).toList();
+	public @NotNull List<ManagerDTO> getManagers() throws ControllerException {
+		return managersIDs.stream().map(mid -> {
+			try {
+				return (new ManagerController()).getById(mid);
+			} catch ( ControllerException e ) {
+				throw new RuntimeException("Fail", e);
+			}
+		}).toList();
 	}
 
 	public void addManager(@NotNull ManagerDTO manager) {
@@ -170,12 +182,12 @@ public class ExamDTO extends WithIDEntity {
 		this.duration = duration;
 	}
 
-	public @NotNull List< ExamDTO > getPreviousExams() throws RepoException {
+	public @NotNull List< ExamDTO > getPreviousExams() {
 		return previousExamsIDs.stream().map(peid -> {
 			try {
-				return (new ExamRepo()).getById(peid);
-			} catch ( RepoException e ) {
-				throw new RuntimeException(e);		//FIXME @gab ??
+				return (new ExamController()).getById(peid);
+			} catch ( ControllerException e ) {
+				throw new RuntimeException("Fail", e);
 			}
 		}).toList();
 	}

@@ -15,10 +15,9 @@ import java.sql.Statement;
 import java.util.*;
 
 public class DepartmentRepo implements BaseRepo<DepartmentDTO, String> {
-    //TODO @gab : remplacer RuntimeException par repoException (apres merge remi)
 
     @Override
-    public @NotNull DepartmentDTO save(@NotNull DepartmentDTO entity) throws RepoException {
+    public void save(@NotNull DepartmentDTO entity) throws RepoException {
         try {
             Connection conn = Database.getConnection();
             Statement stm = conn.createStatement();
@@ -26,7 +25,6 @@ public class DepartmentRepo implements BaseRepo<DepartmentDTO, String> {
             if ( rs.next() ){} else {
                 stm.executeQuery("INSERT INTO Department VALUES ( " + entity.getName());
             }
-            return entity;
         } catch ( DatabaseConnectionException | SQLException e ) {
             throw new RepoException("Fail", e);
         }

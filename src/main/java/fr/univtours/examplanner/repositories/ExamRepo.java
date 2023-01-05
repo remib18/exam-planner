@@ -36,7 +36,7 @@ public class ExamRepo implements BaseRepo< ExamDTO, String> {
     }
 
     @Override
-    public @NotNull ExamDTO save( @NotNull ExamDTO entity) throws RepoException {
+    public void save( @NotNull ExamDTO entity) throws RepoException {
         Boolean hasId = !Objects.isNull(entity.getId());
         String id = hasId ? entity.getId() : Database.getNewUUID();
         String sql;
