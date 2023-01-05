@@ -72,6 +72,7 @@ public class EditUserRolePopupController extends BasicViewController {
     private void handleRoleChange() {
         departmentOrManagerDropdown.getItems().clear();
         departmentOrManagerDropdown.setDisable(false);
+        userRoleDropDown.setValue(null);
         switch ( role.get() ) {
             case Department -> {
                 departmentOrManagerDropdown.getItems().addAll(DepartmentController.getAll());
