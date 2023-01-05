@@ -29,7 +29,7 @@ public class DataTable< T extends EditableEntity > extends TreeTableView< T > {
      * Crée une nouvelle table de données
      *
      * @param columns    Les déclarations des colonnes à afficher
-     * @param reloadRoot Le callable permettant de recharger les données à afficher
+     * @param reloadRoot Le call
      */
     public DataTable( List< TableColumnDeclaration< T, ? > > columns, Callable< TreeItem< T > > reloadRoot ) {
         super();

@@ -89,7 +89,7 @@ public class DataView< T extends EditableEntity > extends AnchorPane implements 
     }
 
     /**
-     * Create a new Data view interface
+     * Crée un nouveau composant de gestion d'entité
      *
      * @param headerIconPath Le chemin vers l'icône du header
      * @param headerTitle    Le titre du header
@@ -259,6 +259,6 @@ public class DataView< T extends EditableEntity > extends AnchorPane implements 
         }
         backText.setText(Translation.get("actions.back"));
         deleteText.setText(Translation.get("actions.delete"));
-        addText.setText(Translation.get("actions.add"));
+        addText.
     }
 }
