@@ -15,7 +15,6 @@ import java.sql.Statement;
 import java.util.*;
 
 public class DepartmentRepo implements BaseRepo<DepartmentDTO, String> {
-    //TODO @gab : remplacer RuntimeException par repoException (apres merge remi)
 
     @Override
     public @NotNull DepartmentDTO save(@NotNull DepartmentDTO entity) throws RepoException {
