@@ -12,8 +12,10 @@
                 <HBox alignment="BOTTOM_CENTER" prefHeight="35.0" prefWidth="336.0" spacing="16.0"
                       BorderPane.alignment="CENTER">
                     <children>
-                        <Button mnemonicParsing="false" onMouseClicked="#handleCancel" text="action.cancel"/>
-                        <Button mnemonicParsing="false" onMouseClicked="#handleSave" text="action.save"/>
+                        <Button fx:id="cancelBtn" mnemonicParsing="false" onMouseClicked="#handleCancel"
+                                text="actions.cancel"/>
+                        <Button fx:id="saveBtn" mnemonicParsing="false" onMouseClicked="#handleSave"
+                                text="action.save"/>
                     </children>
                     <BorderPane.margin>
                         <Insets bottom="24.0" left="32.0" right="32.0"/>
@@ -25,14 +27,15 @@
                     <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="368.0" spacing="8.0">
                             <children>
-                                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="user.role"/>
+                                <Text fx:id="roleText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0"
+                                      text="feature.user.role"/>
                                 <ComboBox fx:id="userRoleDropDown" prefWidth="150.0"/>
                             </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="368.0" spacing="8.0">
                             <children>
-                                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0"
-                                      text="user.departmentOrManager"/>
+                                <Text fx:id="departmentOrManagerText" fill="WHITE" strokeType="OUTSIDE"
+                                      strokeWidth="0.0" text="user.departmentOrManager"/>
                                 <ComboBox fx:id="departmentOrManagerDropdown" prefWidth="150.0"/>
                             </children>
                         </HBox>
@@ -46,8 +49,10 @@
                 <HBox alignment="CENTER" prefHeight="43.0" prefWidth="400.0" spacing="4.0"
                       BorderPane.alignment="CENTER">
                     <children>
-                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="ui.popup.editing-user"/>
-                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="user.email"/>
+                        <Text fx:id="editingUserText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0"
+                              text="popup.editing-user"/>
+                        <Text fx:id="userMailText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0"
+                              text="user.email"/>
                     </children>
                 </HBox>
             </top>

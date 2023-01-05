@@ -1,7 +1,9 @@
 package fr.univtours.examplanner.utils;
 
+import fr.univtours.examplanner.Storage;
 import fr.univtours.examplanner.entities.EditableEntity;
 import fr.univtours.examplanner.exceptions.ControllerException;
+import fr.univtours.examplanner.translations.Translation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -27,7 +29,9 @@ public record TableColumnDeclaration< DTO extends EditableEntity, T >(String pro
     }
 
     public TreeTableColumn< DTO, T > build() {
-        TreeTableColumn< DTO, T > column = new TreeTableColumn<>(title);
+        TreeTableColumn< DTO, T > column = new TreeTableColumn<>(Translation.get(title));
+        Storage.languageProperty()
+               .addListener(( observable, oldValue, newValue ) -> column.setText(Translation.get(title)));
         column.setCellValueFactory(new TreeItemPropertyValueFactory<>(property));
         if ( editable ) {
             column.setCellFactory(getCellFactory());

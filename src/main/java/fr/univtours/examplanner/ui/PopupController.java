@@ -1,5 +1,7 @@
 package fr.univtours.examplanner.ui;
 
+import fr.univtours.examplanner.Storage;
+import fr.univtours.examplanner.translations.Translation;
 import fr.univtours.examplanner.utils.Ressource;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -31,7 +33,9 @@ public class PopupController {
         stage = new Stage();
         stage.setResizable(false);
         stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
-        stage.setTitle(title);
+        stage.setTitle(Translation.get(title));
+        Storage.languageProperty()
+               .addListener(( observable, oldValue, newValue ) -> stage.setTitle(Translation.get(title)));
         stage.setScene(scene);
 
         instance = this;

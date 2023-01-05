@@ -58,7 +58,7 @@ public class UserView {
 				UserRole.getOptions()
 		));
 		columns.add(new TableColumnDeclaration<>("managerID", "feature.user.managerAccount", false));
-		columns.add(new TableColumnDeclaration<>("departmentID", "feature.department", false));
+		columns.add(new TableColumnDeclaration<>("departmentID", "feature.user.department", false));
 		return columns;
 	}
 

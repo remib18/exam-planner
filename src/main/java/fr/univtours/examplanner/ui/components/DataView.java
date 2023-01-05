@@ -161,8 +161,21 @@ public class DataView< T extends EditableEntity > extends AnchorPane implements 
         onLanguageUpdate();
     }
 
+    @FXML
+    private Text backText;
+
+    @FXML
+    private Text deleteText;
+
+    @FXML
+    private Text addText;
+
     private void onLanguageUpdate() {
-        if ( Objects.isNull(title) ) return;
-        setTitle(title);
+        if ( Objects.nonNull(title) ) {
+            setTitle(title);
+        }
+        backText.setText(Translation.get("actions.back"));
+        deleteText.setText(Translation.get("actions.delete"));
+        addText.setText(Translation.get("actions.add"));
     }
 }
