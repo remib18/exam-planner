@@ -20,7 +20,7 @@ public class DepartmentController implements BaseController<DepartmentDTO> {
 
     private static DepartmentController instance;
 
-    public DepartmentController() {
+    private DepartmentController() {
         repo = new DepartmentRepo();
     }
 
