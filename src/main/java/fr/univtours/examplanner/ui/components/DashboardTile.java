@@ -15,6 +15,9 @@ import java.io.InputStream;
 import java.util.Objects;
 import java.util.concurrent.Callable;
 
+/**
+ * Un composant graphique représentant une tuile de tableau de bord
+ */
 public class DashboardTile extends VBox {
 
     @FXML
@@ -23,7 +26,7 @@ public class DashboardTile extends VBox {
     @FXML
     private Text title;
 
-    private String text = "aaa";
+    private String text = "";
 
     private Callable< Void > onClick;
 

@@ -5,6 +5,7 @@ import fr.univtours.examplanner.enums.Civility;
 import fr.univtours.examplanner.exceptions.ControllerException;
 import fr.univtours.examplanner.repositories.ManagerRepo;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +27,14 @@ public class ManagerController implements BaseController<ManagerDTO> {
      *
      * @return la liste des surveillants
      */
-    public @NotNull List<ManagerDTO> getAll() {
+    public @NotNull List< ManagerDTO > getAll() {
         // TODO implement here
         return new ArrayList<>();
+    }
+
+    public @Nullable ManagerDTO getByID( String id ) {
+        // TODO implement here
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -39,7 +45,9 @@ public class ManagerController implements BaseController<ManagerDTO> {
      * @param firstName le prénom du surveillant
      * @return le surveillant créé
      */
-    public @NotNull ManagerDTO create(@NotNull Civility civility, @NotNull String lastName, @NotNull String firstName) {
+    public @NotNull ManagerDTO create(
+            @NotNull Civility civility, @NotNull String lastName, @NotNull String firstName
+    ) {
         // TODO implement here
         throw new UnsupportedOperationException();
     }

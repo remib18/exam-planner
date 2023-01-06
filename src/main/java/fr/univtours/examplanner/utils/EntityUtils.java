@@ -9,15 +9,17 @@ import java.util.stream.Collectors;
 
 public class EntityUtils {
 
-	/**
-	 * Convertit une liste d'entité en liste d'identifiants
-	 *
-	 * @param list La liste d'entité à convertir
-	 * @return La liste des identifiants des entités
-	 */
-	public static @NotNull String listToIdString(@NotNull List<? extends WithIDEntity> list) {
-		return listToString(list, WithIDEntity::getId);
-	}
+    private EntityUtils() {super();}
+
+    /**
+     * Convertit une liste d'entité en liste d'identifiants
+     *
+     * @param list La liste d'entité à convertir
+     * @return La liste des identifiants des entités
+     */
+    public static @NotNull String listToIdString( @NotNull List< ? extends WithIDEntity > list ) {
+        return listToString(list, WithIDEntity::getId);
+    }
 
 	/**
 	 * Convertit une liste d'entité en une liste de <code>String</code>

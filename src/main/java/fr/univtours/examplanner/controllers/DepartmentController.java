@@ -5,6 +5,7 @@ import fr.univtours.examplanner.exceptions.ControllerException;
 import fr.univtours.examplanner.exceptions.RepoException;
 import fr.univtours.examplanner.repositories.DepartmentRepo;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,17 @@ public class DepartmentController implements BaseController<DepartmentDTO> {
         } catch ( RepoException e ) {
             throw new ControllerException("Fail to fetch", e);
         }
+    }
+
+    /**
+     * Obtient un département
+     *
+     * @param id l'identifiant du département
+     * @return le département correspondant à l'identifiant
+     */
+    public @Nullable DepartmentDTO getByID( String id ) {
+        // TODO implement here
+        throw new UnsupportedOperationException();
     }
 
     /**

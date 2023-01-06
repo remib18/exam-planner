@@ -12,20 +12,20 @@ public interface BaseController<T> {
      *
      * @return la liste
      */
-    public @NotNull List<T> getAll() throws ControllerException;
+    @NotNull List< T > getAll() throws ControllerException;
 
     /**
      * Met à jour une entité
      *
      * @param entity une entité
      */
-    public void save(@NotNull T entity) throws Exception;
+    void save( @NotNull T entity ) throws ControllerException;
 
     /**
      * Supprime une entité
      *
      * @param entity une entité
      */
-    public void delete(@NotNull T entity) throws Exception;
+    void delete( @NotNull T entity ) throws ControllerException;
 
 }
