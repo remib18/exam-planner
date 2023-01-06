@@ -20,23 +20,35 @@ public class SubjectDTO extends WithIDEntity {
 	 * @param id   Identifiant de la matière dans la base de donnée, null si la matière n'est pas encore enregistrée
 	 * @param name Nom de la matière
 	 */
-	public SubjectDTO(@Nullable String id, @NotNull String name) {
+	public SubjectDTO( @Nullable String id, @NotNull String name ) {
 		super(id);
 		this.name = name;
 	}
+
+	/**
+	 * Retourne le nom de la matière
+	 *
+	 * @return name Nom de la matière
+	 */
 
 	public @NotNull String getName() {
 		return name;
 	}
 
-	public void setName(@NotNull String name) {
+	/**
+	 * Modifie le nom de la matière
+	 *
+	 * @param name Nom de la matière
+	 */
+
+	public void setName( @NotNull String name ) {
 		this.name = name;
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
+	public boolean equals( Object o ) {
+		if ( this == o ) return true;
+		if ( null == o || getClass() != o.getClass() ) return false;
 		SubjectDTO that = (SubjectDTO) o;
 		return Objects.equals(id, that.id);
 	}
