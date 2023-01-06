@@ -35,7 +35,7 @@ public class ExamRepo implements BaseRepo< ExamDTO, String> {
             }
             return mapper.EntityToDTO(stm.executeQuery());
         } catch ( SQLException | DatabaseConnectionException | MappingException e ) {
-            throw new RepoException("Getting users failed, no rows affected.", e);
+            throw new RepoException("Getting examens failed, no rows affected.", e);
         }
     }
 
