@@ -80,7 +80,7 @@ public class MockUpDTO extends WithIDEntity {
 	}
 
 	/**
-	 * Modifie de la niveau de la maquette
+	 * Modifie le niveau de la maquette
 	 *
 	 * @param degree le niveau de la maquette
 	 */

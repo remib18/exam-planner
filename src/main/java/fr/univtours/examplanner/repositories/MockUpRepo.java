@@ -83,9 +83,9 @@ public class MockUpRepo implements BaseRepo< MockUpDTO, String > {
         }
         try ( PreparedStatement stm = Database.getConnection().prepareStatement(sql) ) {
             stm.setString(1, entity.getName());
-            stm.setString(2, entity.getDegree());
+            stm.setObject(2, entity.getDegree());
             stm.setInt(3, entity.getSemester());
-            stm.setArray(4, entity.getSubjects());
+            stm.setObject(4, entity.getSubjects());
             int rows = stm.executeUpdate();
             if ( 0 == rows ) {
                 throw new RepoException("Saving MockUp failed, no rows affected", null);
