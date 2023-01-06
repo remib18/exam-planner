@@ -2,7 +2,6 @@ package fr.univtours.examplanner.ui.controllers;
 
 import fr.univtours.examplanner.Storage;
 import fr.univtours.examplanner.controllers.AuthenticationController;
-import fr.univtours.examplanner.enums.Scenes;
 import fr.univtours.examplanner.translations.SupportedLanguages;
 import fr.univtours.examplanner.translations.Translation;
 import fr.univtours.examplanner.ui.BasicViewController;
@@ -73,7 +72,6 @@ public class LoginViewController extends BasicViewController {
 	@FXML
 	private void handleSignInBtnClick() {
 		AuthenticationController.login(idField.getText(), passwordField.getText());
-		Storage.setScene(Scenes.Dashboard);
 	}
 
 	/**
@@ -100,7 +98,13 @@ public class LoginViewController extends BasicViewController {
 		languageOptions.setOnMouseClicked(event -> switchLanguageMenu());
 		languageOptions.setAlignment(Pos.BASELINE_RIGHT);
 
-		LoginState.isLanguageMenuOpenProperty().addListener((observable, oldValue, newValue) -> {
+		passwordField.addEventHandler(javafx.scene.input.KeyEvent.KEY_PRESSED, event -> {
+			if ( event.getCode().equals(javafx.scene.input.KeyCode.ENTER) ) {
+				handleSignInBtnClick();
+			}
+		});
+
+		LoginState.isLanguageMenuOpenProperty().addListener(( observable, oldValue, newValue ) -> {
 			buildLanguageOptions();
 		});
 		buildLanguageOptions();

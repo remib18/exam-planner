@@ -1,5 +1,6 @@
 package fr.univtours.examplanner.ui.views;
 
+import fr.univtours.examplanner.controllers.AuthenticationController;
 import fr.univtours.examplanner.controllers.UserController;
 import fr.univtours.examplanner.entities.dtos.UserDTO;
 import fr.univtours.examplanner.enums.UserRole;
@@ -29,7 +30,12 @@ public class UserView {
 				"feature.user",
 				new DataTable<>(getColumns(), UserView::getData)
 		);
-		view.setOnAddRequest(() -> new UserDTO(null, "<email>", "<mot de passe>", null, null));
+		view.setOnAddRequest(() -> new UserDTO(null,
+				"<email>",
+				AuthenticationController.encryptPassword("password"),
+				null,
+				null
+		));
 		view.setOnSaveRequest(user -> {
 			try {
 				UserController.save(user);

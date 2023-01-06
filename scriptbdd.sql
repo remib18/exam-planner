@@ -125,7 +125,7 @@ CREATE TABLE `User`
     mail       Varchar(100) NOT NULL,
     department Varchar(63) DEFAULT NULL,
     manager    CHAR(36)    DEFAULT NULL,
-    `password` Varchar(63)  NOT NULL,
+    `password` Varchar(128) NOT NULL,
 
     CONSTRAINT User_Department_FK FOREIGN KEY (department) REFERENCES Department (`name`),
     CONSTRAINT User_Manager_FK FOREIGN KEY (manager) REFERENCES Manager (id)
