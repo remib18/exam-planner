@@ -2,6 +2,8 @@ package fr.univtours.examplanner.repositories;
 
 import fr.univtours.examplanner.entities.dtos.SubjectDTO;
 import fr.univtours.examplanner.exceptions.DatabaseConnectionException;
+import fr.univtours.examplanner.exceptions.MappingException;
+import fr.univtours.examplanner.exceptions.RepoException;
 import fr.univtours.examplanner.mappers.SubjectMapper;
 import fr.univtours.examplanner.utils.Database;
 import org.jetbrains.annotations.NotNull;
