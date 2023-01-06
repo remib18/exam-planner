@@ -19,7 +19,7 @@ public class GroupController implements BaseController< GroupDTO > {
 
     private static GroupController instance;
 
-    public GroupController() {
+    private GroupController() {
         repo = new GroupRepo();
     }
 
