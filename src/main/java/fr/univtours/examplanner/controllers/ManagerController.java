@@ -20,7 +20,7 @@ public class ManagerController implements BaseController<ManagerDTO> {
 
     private static ManagerController instance;
 
-    public ManagerController() {
+    private ManagerController() {
         repo = new ManagerRepo();
     }
 
