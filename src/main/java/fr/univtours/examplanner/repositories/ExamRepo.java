@@ -47,7 +47,7 @@ public class ExamRepo implements BaseRepo< ExamDTO, String> {
         if ( hasId ){
             sql = "INSERT INTO Exam (id, name, duration, type, subject) VALUES ('" + id + "', ?, ?, ?, ?)";
         } else {
-            sql = "UPDATE Exam SET name = ?, duration = ?, type = ?, subject = ? WHERE id = " + id;
+            sql = "UPDATE Exam SET name = ?, duration = ?, type = ?, subject = ? WHERE id = '" + id +"'";
         }
         try ( PreparedStatement pstmt = Database.getConnection().prepareStatement(sql)){
             pstmt.setString(1, entity.getName());
@@ -71,7 +71,7 @@ public class ExamRepo implements BaseRepo< ExamDTO, String> {
      */
     public @NotNull List< ExamDTO > getAllFromExam( @NotNull ExamDTO exam) throws RepoException {
         try {
-            String sql = "SELECT child FROM _examtoexam WHERE parent = " + exam.getId();
+            String sql = "SELECT child FROM _examtoexam WHERE parent = '" + exam.getId() + "'";
             ResultSet previousExamsIds = Database.getConnection().createStatement().executeQuery(sql);
             return mapper.EntityToDTO(previousExamsIds);
         } catch ( SQLException | DatabaseConnectionException | MappingException e ) {
@@ -81,7 +81,7 @@ public class ExamRepo implements BaseRepo< ExamDTO, String> {
 
     public @NotNull List< ExamDTO > getAllFromGroup( @NotNull GroupDTO group) throws RepoException {
         try {
-            String sql = "SELECT exam FROM _examtogroup WHERE group = " + group.getId();
+            String sql = "SELECT exam FROM _examtogroup WHERE group = '" + group.getId() + "'";
             ResultSet examsIds = Database.getConnection().createStatement().executeQuery(sql);
             return mapper.EntityToDTO(examsIds);
         } catch ( SQLException | DatabaseConnectionException | MappingException e ) {
@@ -91,7 +91,7 @@ public class ExamRepo implements BaseRepo< ExamDTO, String> {
 
     public @NotNull List< ExamDTO > getAllFromManager( @NotNull ManagerDTO manager) throws RepoException {
         try {
-            String sql = "SELECT exam FROM _examtomanager WHERE manager = " + manager.getId();
+            String sql = "SELECT exam FROM _examtomanager WHERE manager = '" + manager.getId() + "'";
             ResultSet examsIds = Database.getConnection().createStatement().executeQuery(sql);
             return mapper.EntityToDTO(examsIds);
         } catch ( SQLException | DatabaseConnectionException | MappingException e ) {
@@ -138,7 +138,7 @@ public class ExamRepo implements BaseRepo< ExamDTO, String> {
         try {
             Connection conn = Database.getConnection();
             Statement stm = conn.createStatement();
-            ResultSet rs = stm.executeQuery("DELETE * FROM Exam WHERE name = " + entity.getId());
+            ResultSet rs = stm.executeQuery("DELETE * FROM Exam WHERE name = '" + entity.getId() + "'");
             return true;
         } catch ( DatabaseConnectionException | SQLException e ) {
             throw new RepoException("Fail to delete", e);

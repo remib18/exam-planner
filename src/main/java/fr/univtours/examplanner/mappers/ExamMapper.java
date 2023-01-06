@@ -34,17 +34,17 @@ public class ExamMapper implements BaseMapper {
 
                     Connection conn = Database.getConnection();
                     Statement stmt = conn.createStatement();
-                    ResultSet rsEtE = stmt.executeQuery("SELECT * FROM _ExamToExam WHERE parent = " + id);
+                    ResultSet rsEtE = stmt.executeQuery("SELECT * FROM _ExamToExam WHERE parent = '" + id +"'");
                     List< String > previousExamsIds = new ArrayList<>();
                     while ( rsEtE.next() ) {
                         previousExamsIds.add(rsEtE.getString("child"));
                     }
-                    ResultSet rsEtG = stmt.executeQuery("SELECT * FROM _ExamToGroup WHERE exam = " + id);
+                    ResultSet rsEtG = stmt.executeQuery("SELECT * FROM _ExamToGroup WHERE exam = '" + id +"'");
                     List< String > groupsIds = new ArrayList<>();
                     while ( rsEtG.next() ) {
                         groupsIds.add(rsEtE.getString("group"));
                     }
-                    ResultSet rsEtM = stmt.executeQuery("SELECT * FROM _ExamToManager WHERE exam = " + id);
+                    ResultSet rsEtM = stmt.executeQuery("SELECT * FROM _ExamToManager WHERE exam = '" + id +"'");
                     List< String > managersIds = new ArrayList<>();
                     while ( rsEtM.next() ) {
                         managersIds.add(rsEtE.getString("manager"));

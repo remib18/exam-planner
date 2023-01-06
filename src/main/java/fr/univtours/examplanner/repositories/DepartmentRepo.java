@@ -25,9 +25,9 @@ public class DepartmentRepo implements BaseRepo<DepartmentDTO, String> {
         try {
             Connection conn = Database.getConnection();
             Statement stm = conn.createStatement();
-            ResultSet rs = stm.executeQuery("SELECT * FROM Department WHERE name =" + entity.getName());
+            ResultSet rs = stm.executeQuery("SELECT * FROM Department WHERE name = '" + entity.getName() + "'");
             if ( rs.next() ){} else {
-                stm.executeQuery("INSERT INTO Department VALUES ( " + entity.getName());
+                stm.executeQuery("INSERT INTO Department VALUES ('" + entity.getName() + "'");
             }
             return entity;
         } catch ( DatabaseConnectionException | SQLException e ) {
@@ -51,7 +51,7 @@ public class DepartmentRepo implements BaseRepo<DepartmentDTO, String> {
         try {
             Connection conn = Database.getConnection();
             Statement stm = conn.createStatement();
-            ResultSet rs = stm.executeQuery("SELECT * FROM Department WHERE name = " + name);
+            ResultSet rs = stm.executeQuery("SELECT * FROM Department WHERE name = '" + name + "'");
             return mapper.EntityToDTO(rs).get(0);
         } catch ( DatabaseConnectionException | SQLException | MappingException e ) {
             throw new RepoException("Fail to fetch", e);
@@ -63,7 +63,7 @@ public class DepartmentRepo implements BaseRepo<DepartmentDTO, String> {
         try {
             Connection conn = Database.getConnection();
             Statement stm = conn.createStatement();
-            ResultSet rs = stm.executeQuery("DELETE * FROM Department WHERE name = " + entity.getName());
+            ResultSet rs = stm.executeQuery("DELETE * FROM Department WHERE name = '" + entity.getName() + "'");
             return true;
         } catch ( DatabaseConnectionException | SQLException e ) {
             throw new RepoException("Fail to delete", e);
