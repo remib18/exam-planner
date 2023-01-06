@@ -15,10 +15,14 @@ import org.jetbrains.annotations.Nullable;
 import java.sql.*;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 public class ExamRepo implements BaseRepo< ExamDTO, String> {
 
+    private final ExamMapper mapper;
+
+    public ExamRepo(){
+        mapper = new ExamMapper();
+    }
     private @NotNull List< ExamDTO > getAllFrom( @Nullable String key, @Nullable String value ) throws RepoException {
         String sql = "SELECT * FROM exam";
         boolean withOptions = !Objects.isNull(key) && !Objects.isNull(value);
@@ -29,19 +33,19 @@ public class ExamRepo implements BaseRepo< ExamDTO, String> {
             if ( withOptions ) {
                 stm.setString(1, value);
             }
-            return ExamMapper.EntityToTDO(stm.executeQuery());
+            return mapper.EntityToDTO(stm.executeQuery());
         } catch ( SQLException | DatabaseConnectionException | MappingException e ) {
             throw new RepoException("Getting users failed, no rows affected.", e);
         }
     }
 
     @Override
-    public void save( @NotNull ExamDTO entity) throws RepoException {
-        Boolean hasId = !Objects.isNull(entity.getId());
+    public @NotNull ExamDTO save( @NotNull ExamDTO entity) throws RepoException {
+        Boolean hasId = Objects.nonNull(entity.getId());
         String id = hasId ? entity.getId() : Database.getNewUUID();
         String sql;
         if ( hasId ){
-            sql = "INSERT INTO Exam (id, name, duration, type, subject) VALUES (" + id + ", ?, ?, ?, ?)";
+            sql = "INSERT INTO Exam (id, name, duration, type, subject) VALUES ('" + id + "', ?, ?, ?, ?)";
         } else {
             sql = "UPDATE Exam SET name = ?, duration = ?, type = ?, subject = ? WHERE id = " + id;
         }
@@ -50,10 +54,13 @@ public class ExamRepo implements BaseRepo< ExamDTO, String> {
             pstmt.setFloat(2, entity.getDuration());
             pstmt.setString(3, entity.getType().getTypeString());
             pstmt.setString(4, entity.getSubject());
+            if ( !hasId ){
+                entity.setId(id);
+            }
+            return entity;
         } catch ( DatabaseConnectionException | SQLException e) {
-            throw new RepoException("Fail", e);
+            throw new RepoException("Fail to save", e);
         }
-        throw new UnsupportedOperationException();
     }
 
     /**
@@ -66,9 +73,9 @@ public class ExamRepo implements BaseRepo< ExamDTO, String> {
         try {
             String sql = "SELECT child FROM _examtoexam WHERE parent = " + exam.getId();
             ResultSet previousExamsIds = Database.getConnection().createStatement().executeQuery(sql);
-            return ExamMapper.EntityToTDO(previousExamsIds);
+            return mapper.EntityToDTO(previousExamsIds);
         } catch ( SQLException | DatabaseConnectionException | MappingException e ) {
-            throw new RepoException("Fail", e);
+            throw new RepoException("Fail to fetch", e);
         }
     }
 
@@ -76,9 +83,9 @@ public class ExamRepo implements BaseRepo< ExamDTO, String> {
         try {
             String sql = "SELECT exam FROM _examtogroup WHERE group = " + group.getId();
             ResultSet examsIds = Database.getConnection().createStatement().executeQuery(sql);
-            return ExamMapper.EntityToTDO(examsIds);
+            return mapper.EntityToDTO(examsIds);
         } catch ( SQLException | DatabaseConnectionException | MappingException e ) {
-            throw new RepoException("Fail", e);
+            throw new RepoException("Fail to fetch", e);
         }
     }
 
@@ -86,9 +93,9 @@ public class ExamRepo implements BaseRepo< ExamDTO, String> {
         try {
             String sql = "SELECT exam FROM _examtomanager WHERE manager = " + manager.getId();
             ResultSet examsIds = Database.getConnection().createStatement().executeQuery(sql);
-            return ExamMapper.EntityToTDO(examsIds);
+            return mapper.EntityToDTO(examsIds);
         } catch ( SQLException | DatabaseConnectionException | MappingException e ) {
-            throw new RepoException("Fail", e);
+            throw new RepoException("Fail to fetch", e);
         }
     }
 
@@ -134,7 +141,7 @@ public class ExamRepo implements BaseRepo< ExamDTO, String> {
             ResultSet rs = stm.executeQuery("DELETE * FROM Exam WHERE name = " + entity.getId());
             return true;
         } catch ( DatabaseConnectionException | SQLException e ) {
-            throw new RepoException("Fail", e);
+            throw new RepoException("Fail to delete", e);
         }
     }
 }

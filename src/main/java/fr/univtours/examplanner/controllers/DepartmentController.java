@@ -40,7 +40,7 @@ public class DepartmentController implements BaseController<DepartmentDTO> {
         try {
             return getInstance().repo.getAll();
         } catch ( RepoException e ) {
-            throw new ControllerException("Fail", e);
+            throw new ControllerException("Fail to fetch", e);
         }
     }
 
@@ -48,7 +48,7 @@ public class DepartmentController implements BaseController<DepartmentDTO> {
         try {
             return getInstance().repo.getById(name);
         } catch ( RepoException e ) {
-            throw new ControllerException("Fail", e);
+            throw new ControllerException("Fail to fetch", e);
         }
     }
 
@@ -62,7 +62,7 @@ public class DepartmentController implements BaseController<DepartmentDTO> {
         try {
             return getInstance().repo.save(new DepartmentDTO(name));
         } catch ( RepoException e ) {
-            throw new ControllerException("Fail", e);
+            throw new ControllerException("Fail to fetch", e);
         }
     }
 
@@ -75,7 +75,7 @@ public class DepartmentController implements BaseController<DepartmentDTO> {
         try {
             getInstance().repo.save(entity);
         } catch ( RepoException e ) {
-            throw new ControllerException("Fail", e);
+            throw new ControllerException("Fail to save", e);
         }
     }
 
@@ -88,7 +88,7 @@ public class DepartmentController implements BaseController<DepartmentDTO> {
         try {
             getInstance().repo.delete(entity);
         } catch ( RepoException e ) {
-            throw new ControllerException("Fail", e);
+            throw new ControllerException("Fail to delete", e);
         }
     }
 

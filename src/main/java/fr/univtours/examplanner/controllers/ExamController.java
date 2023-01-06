@@ -51,7 +51,7 @@ public class ExamController implements BaseController< ExamDTO > {
         try {
             return getInstance().repo.getAllFromExam(exam);
         } catch ( RepoException e ) {
-            throw new ControllerException("Fail", e);
+            throw new ControllerException("Fail to fetch", e);
         }
     }
 
@@ -59,7 +59,7 @@ public class ExamController implements BaseController< ExamDTO > {
         try {
             return getInstance().repo.getAllFromGroup(group);
         } catch ( RepoException e ) {
-            throw new ControllerException("Fail", e);
+            throw new ControllerException("Fail to fetch", e);
         }
     }
 
@@ -67,7 +67,7 @@ public class ExamController implements BaseController< ExamDTO > {
         try {
             return getInstance().repo.getAllFromManager(manager);
         } catch ( RepoException e ) {
-            throw new ControllerException("Fail", e);
+            throw new ControllerException("Fail to fetch", e);
         }
     }
 
@@ -75,7 +75,7 @@ public class ExamController implements BaseController< ExamDTO > {
         try {
             return getInstance().repo.getById(id);
         } catch ( RepoException e ) {
-            throw new ControllerException("Fail", e);
+            throw new ControllerException("Fail to fetch", e);
         }
     }
 
@@ -83,7 +83,7 @@ public class ExamController implements BaseController< ExamDTO > {
         try {
             return getInstance().repo.getByName(name);
         } catch ( RepoException e ) {
-            throw new ControllerException("Fail", e);
+            throw new ControllerException("Fail to fetch", e);
         }
     }
 
@@ -91,7 +91,7 @@ public class ExamController implements BaseController< ExamDTO > {
         try {
             return getInstance().repo.getByDuration(duration);
         } catch ( RepoException e ) {
-            throw new ControllerException("Fail", e);
+            throw new ControllerException("Fail to fetch", e);
         }
     }
 
@@ -99,7 +99,7 @@ public class ExamController implements BaseController< ExamDTO > {
         try {
             return getInstance().repo.getAllForType(type);
         } catch ( RepoException e ) {
-            throw new ControllerException("Fail", e);
+            throw new ControllerException("Fail to fetch", e);
         }
     }
 
@@ -112,7 +112,7 @@ public class ExamController implements BaseController< ExamDTO > {
         try {
             getInstance().repo.save(entity);
         } catch ( RepoException e ) {
-            throw new ControllerException("Fail", e);
+            throw new ControllerException("Fail to save", e);
         }
     }
 
@@ -125,7 +125,7 @@ public class ExamController implements BaseController< ExamDTO > {
         try {
             getInstance().repo.delete(entity);
         } catch ( RepoException e ) {
-            throw new ControllerException("Fail", e);
+            throw new ControllerException("Fail to delete", e);
         }
     }
 

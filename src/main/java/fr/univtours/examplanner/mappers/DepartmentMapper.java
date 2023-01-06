@@ -17,15 +17,17 @@ public class DepartmentMapper implements BaseMapper {
      * @param entities = résultats de la requête SQL
      * @return = classe {@link DepartmentDTO}
      */
-    public static @NotNull List < DepartmentDTO > EntityToTDO( ResultSet entities ) throws MappingException,
+    public @NotNull List < DepartmentDTO > EntityToDTO( ResultSet entities ) throws MappingException,
             SQLException {
-        List < DepartmentDTO > departments = new ArrayList<>();
-            if (entities.next()) {
+        if ( entities.next() ) {
+            List< DepartmentDTO > departments = new ArrayList<>();
+            while ( entities.next() ) {
                 String name = entities.getString("name");
                 DepartmentDTO department = new DepartmentDTO(name);
                 departments.add(department);
-                return departments;
             }
+            return departments;
+        }
             throw  new MappingException("No result to map.", null);
     }
 }
