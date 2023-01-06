@@ -23,7 +23,7 @@ public class ExamController implements BaseController< ExamDTO > {
 
     private static ExamController instance;
 
-    public ExamController() {
+    private ExamController() {
         repo = new ExamRepo();
     }
 
