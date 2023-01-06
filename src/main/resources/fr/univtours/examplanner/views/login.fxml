@@ -30,10 +30,10 @@
                             </image>
                         </ImageView>
                         <Label fx:id="title" text="ui.login.title">
-                     <font>
-                         <Font size="14.0"/>
-                     </font>
-                  </Label>
+                            <font>
+                                <Font size="14.0"/>
+                            </font>
+                        </Label>
                         <TextField fx:id="idField" stylesheets="@../styles/login.css">
                             <VBox.margin>
                                 <Insets left="16.0" right="16.0" top="16.0"/>

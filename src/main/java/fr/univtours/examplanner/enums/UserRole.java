@@ -53,9 +53,9 @@ public enum UserRole {
 
     public String translate() {
         return switch ( this ) {
-            case Manager -> "feature.user.role.manager";
-            case Department -> "feature.user.role.department";
-            case Schooling -> "feature.user.role.schooling";
+            case Manager -> Translation.get("feature.user.role.manager");
+            case Department -> Translation.get("feature.user.role.department");
+            case Schooling -> Translation.get("feature.user.role.schooling");
         };
     }
 

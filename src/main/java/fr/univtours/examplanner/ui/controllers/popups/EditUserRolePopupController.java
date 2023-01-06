@@ -8,11 +8,14 @@ import fr.univtours.examplanner.entities.dtos.ManagerDTO;
 import fr.univtours.examplanner.entities.dtos.UserDTO;
 import fr.univtours.examplanner.enums.UserRole;
 import fr.univtours.examplanner.exceptions.ControllerException;
+import fr.univtours.examplanner.translations.Translation;
 import fr.univtours.examplanner.ui.BasicViewController;
 import fr.univtours.examplanner.ui.PopupController;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.text.Text;
 import javafx.util.StringConverter;
 import org.jetbrains.annotations.NotNull;
 
@@ -20,12 +23,15 @@ import java.util.Objects;
 
 public class EditUserRolePopupController extends BasicViewController {
 
-    private final @NotNull SimpleObjectProperty< UserRole > role = new SimpleObjectProperty<>();
+    private final @NotNull SimpleObjectProperty< @NotNull UserRole > role = new SimpleObjectProperty<>();
 
     private final @NotNull UserDTO user;
 
     @FXML
-    private ComboBox< UserRole > userRoleDropDown;
+    private Text userMailText;
+
+    @FXML
+    private ComboBox< @NotNull UserRole > userRoleDropDown;
 
     @FXML
     private ComboBox< Object > departmentOrManagerDropdown;
@@ -55,6 +61,21 @@ public class EditUserRolePopupController extends BasicViewController {
         PopupController.close();
     }
 
+    @FXML
+    private Text editingUserText;
+
+    @FXML
+    private Text roleText;
+
+    @FXML
+    private Text departmentOrManagerText;
+
+    @FXML
+    private Button saveBtn;
+
+    @FXML
+    private Button cancelBtn;
+
     @Override
     protected void init() {
         userRoleDropDown.getItems().addAll(UserRole.values());
@@ -62,6 +83,8 @@ public class EditUserRolePopupController extends BasicViewController {
         userRoleDropDown.valueProperty().addListener(( observable, oldValue, newValue ) -> {
             role.set(newValue);
         });
+
+        userMailText.setText(user.getMail());
 
         role.addListener(( observable, oldValue, newValue ) -> {
             handleRoleChange();
@@ -72,6 +95,8 @@ public class EditUserRolePopupController extends BasicViewController {
     private void handleRoleChange() {
         departmentOrManagerDropdown.getItems().clear();
         departmentOrManagerDropdown.setDisable(false);
+        departmentOrManagerDropdown.setValue(null);
+        refreshTextLabel();
         switch ( role.get() ) {
             case Department -> {
                 departmentOrManagerDropdown.getItems().addAll(DepartmentController.getAll());
@@ -99,9 +124,27 @@ public class EditUserRolePopupController extends BasicViewController {
         }
     }
 
+    private void refreshTextLabel() {
+        switch ( role.get() ) {
+            case Department -> {
+                departmentOrManagerText.setText(Translation.get("feature.user.department"));
+            }
+            case Manager -> {
+                departmentOrManagerText.setText(Translation.get("feature.user.managerAccount"));
+            }
+            case Schooling -> {
+                departmentOrManagerText.setText(Translation.get("feature.user.schooling"));
+            }
+        }
+    }
+
     @Override
     protected void onLanguageUpdate() {
-
+        editingUserText.setText(Translation.get("popups.user.edit.role.editing-user"));
+        roleText.setText(Translation.get("feature.user.role"));
+        saveBtn.setText(Translation.get("actions.save"));
+        cancelBtn.setText(Translation.get("actions.cancel"));
+        refreshTextLabel();
     }
 
     private static class ManagerDTOStringConverter extends StringConverter< Object > {

@@ -12,9 +12,10 @@ import java.util.List;
 import java.util.concurrent.Callable;
 
 /**
- * A data table is a table view that can be used to display data
+ * Un composant graphique représentant une table de données.<br> On notera l'utilisation d'une {@code TreeTableView}
+ * pour permettre l'affichage de données hiérarchiques ou non
  *
- * @param <T> The type of the data to display
+ * @param <T> Le type d'entité à afficher
  */
 public class DataTable< T extends EditableEntity > extends TreeTableView< T > {
 
@@ -25,10 +26,10 @@ public class DataTable< T extends EditableEntity > extends TreeTableView< T > {
     private Callable< TreeItem< T > > reloadRoot;
 
     /**
-     * Create a new data table
+     * Crée une nouvelle table de données
      *
-     * @param columns    The columns to display
-     * @param reloadRoot The callback to call in order to get all the data
+     * @param columns    Les déclarations des colonnes à afficher
+     * @param reloadRoot Le call
      */
     public DataTable( List< TableColumnDeclaration< T, ? > > columns, Callable< TreeItem< T > > reloadRoot ) {
         super();
@@ -44,21 +45,26 @@ public class DataTable< T extends EditableEntity > extends TreeTableView< T > {
         refresh();
     }
 
+    /**
+     * Construit les colonnes de la table
+     *
+     * @param columns Les déclarations des colonnes à afficher
+     */
+    private void buildColumns( List< TableColumnDeclaration< T, ? > > columns ) {
+        columns.forEach(col -> getColumns().add(col.build()));
+    }
+
+    /**
+     * Actualise les données affichées
+     *
+     * @see #reloadRoot
+     */
     public void refresh() {
         try {
             setRoot(reloadRoot.call());
         } catch ( Exception e ) {
             throw new RuntimeException(e);
         }
-    }
-
-
-    public final TreeItem< T > _getRoot() {
-        return super.getRoot();
-    }
-
-    private void buildColumns( List< TableColumnDeclaration< T, ? > > columns ) {
-        columns.forEach(col -> getColumns().add(col.build()));
     }
 
 }

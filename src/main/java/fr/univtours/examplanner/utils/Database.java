@@ -10,8 +10,7 @@ import java.sql.SQLNonTransientConnectionException;
 import java.util.Objects;
 import java.util.UUID;
 
-public enum Database {
-    ;
+public class Database {
 
     // Todo: Move this to a config file
 
@@ -22,6 +21,8 @@ public enum Database {
     private static final String PASS = "";
 
     private static Connection connection;
+
+    private Database() {super();}
 
     /**
      * Obtient une connexion à la base de données
