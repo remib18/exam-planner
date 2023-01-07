@@ -2,16 +2,19 @@ package fr.univtours.examplanner.controllers;
 
 import fr.univtours.examplanner.entities.dtos.SlotDTO;
 import fr.univtours.examplanner.exceptions.ControllerException;
+import fr.univtours.examplanner.exceptions.DatabaseConnectionException;
+import fr.univtours.examplanner.exceptions.MappingException;
+import fr.univtours.examplanner.exceptions.RepoException;
 import fr.univtours.examplanner.repositories.SlotRepo;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 public class SlotController implements BaseController<SlotDTO> {
-
-    // todo(@benoît): Repo
 
     /**
      * Interface avec la base de données permettant d'effectuer des opérations standards sur les horaires
@@ -23,27 +26,61 @@ public class SlotController implements BaseController<SlotDTO> {
         repo = new SlotRepo();
     }
 
+    private static SlotController instance;
+
+    public static @Nullable SlotDTO getByID( @NotNull String id ) throws ControllerException {
+        try {
+            return getInstance().repo.getById(id);
+        } catch ( RepoException e ) {
+            throw new ControllerException("An error occurred during the data fetching.", e);
+        }
+
+    }
+
+    public static @Nullable List< SlotDTO > getFromStart( @NotNull Calendar start ) throws ControllerException {
+        try {
+            return getInstance().repo.getFromStart(start);
+        } catch ( RepoException | DatabaseConnectionException | MappingException | SQLException e ) {
+            throw new ControllerException("An error occurred during the data fetching.", e);
+        }
+    }
+
     /**
      * Liste les horaires
      *
      * @return la liste des horaires
      */
-    public @NotNull List<SlotDTO> getAll() {
-        // TODO implement here
-        return new ArrayList<>();
+    public @NotNull List< SlotDTO > getAll() throws ControllerException {
+        try {
+            return getInstance().repo.getAll();
+        } catch ( RepoException e ) {
+            throw new ControllerException("An error occurred during the data fetching.", e);
+        }
+    }
+
+    private static SlotController getInstance() {
+        if ( Objects.isNull(instance) ) {
+            instance = new SlotController();
+        }
+        return instance;
     }
 
     /**
      * Crée un horaire
      *
-     * @param day           le jour du créneau
-     * @param hour          l'heure du créneau
+     * @param start         moment du debut du créneau
      * @param durationFloat la durée du créneau
      * @return l'horaire créé
      */
-    public SlotDTO create(@NotNull LocalDateTime day, @NotNull LocalDateTime hour, @NotNull Float durationFloat) {
-        // TODO implement here
-        throw new UnsupportedOperationException();
+    public SlotDTO create(
+            @NotNull Calendar start, @NotNull Float durationFloat
+    ) throws ControllerException {
+        try {
+
+            return getInstance().repo.save(new SlotDTO(null, start, durationFloat));
+        } catch ( RepoException | DatabaseConnectionException | SQLException e ) {
+            throw new ControllerException("An error occurred during the data saving.", e);
+        }
     }
 
     /**
@@ -52,8 +89,19 @@ public class SlotController implements BaseController<SlotDTO> {
      * @param entity l'horaire à modifier
      */
     public void save( @NotNull SlotDTO entity ) throws ControllerException {
-        // TODO implement here
-        throw new UnsupportedOperationException();
+        try {
+            getInstance().repo.save(entity);
+        } catch ( RepoException | SQLException | DatabaseConnectionException e ) {
+            throw new ControllerException("An error occurred during the data saving.", e);
+        }
+    }
+
+    public SlotDTO getByDuration( @NotNull Float duration ) throws ControllerException {
+        try {
+            return getInstance().repo.getByDuration(duration);
+        } catch ( RepoException e ) {
+            throw new ControllerException("An error occurred during the data saving.", e);
+        }
     }
 
     /**
@@ -62,8 +110,10 @@ public class SlotController implements BaseController<SlotDTO> {
      * @param entity l'horaire à modifier
      */
     public void delete( @NotNull SlotDTO entity ) throws ControllerException {
-        // TODO implement here
-        throw new UnsupportedOperationException();
+        try {
+            getInstance().repo.delete(entity);
+        } catch ( RepoException e ) {
+            throw new ControllerException("An error occurred during the data deletion.", e);
+        }
     }
-
 }
