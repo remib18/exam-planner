@@ -1,6 +1,5 @@
 package fr.univtours.examplanner.repositories;
 
-
 import fr.univtours.examplanner.exceptions.RepoException;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

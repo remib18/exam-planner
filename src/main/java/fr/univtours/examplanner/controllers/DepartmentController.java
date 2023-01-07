@@ -2,12 +2,14 @@ package fr.univtours.examplanner.controllers;
 
 import fr.univtours.examplanner.entities.dtos.DepartmentDTO;
 import fr.univtours.examplanner.exceptions.ControllerException;
+import fr.univtours.examplanner.exceptions.RepoException;
 import fr.univtours.examplanner.repositories.DepartmentRepo;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class DepartmentController implements BaseController<DepartmentDTO> {
 
@@ -17,8 +19,17 @@ public class DepartmentController implements BaseController<DepartmentDTO> {
     @NotNull
     private final DepartmentRepo repo;
 
-    public DepartmentController() {
+    private static DepartmentController instance;
+
+    private DepartmentController() {
         repo = new DepartmentRepo();
+    }
+
+    private static DepartmentController getInstance() {
+        if ( Objects.isNull(instance) ) {
+            instance = new DepartmentController();
+        }
+        return instance;
     }
 
     /**
@@ -26,9 +37,20 @@ public class DepartmentController implements BaseController<DepartmentDTO> {
      *
      * @return la liste des départements
      */
-    public @NotNull List< DepartmentDTO > getAll() {
-        // TODO implement here
-        return new ArrayList<>();
+    public @NotNull List<DepartmentDTO> getAll() throws ControllerException {
+        try {
+            return getInstance().repo.getAll();
+        } catch ( RepoException e ) {
+            throw new ControllerException("Fail to fetch", e);
+        }
+    }
+
+    public @NotNull DepartmentDTO getByName(@NotNull String name) throws ControllerException {
+        try {
+            return getInstance().repo.getById(name);
+        } catch ( RepoException e ) {
+            throw new ControllerException("Fail to fetch", e);
+        }
     }
 
     /**
@@ -48,9 +70,12 @@ public class DepartmentController implements BaseController<DepartmentDTO> {
      * @param name le nom du département
      * @return le département créé
      */
-    public @NotNull DepartmentDTO create( @NotNull String name ) {
-        // TODO implement here
-        throw new UnsupportedOperationException();
+    public @NotNull DepartmentDTO create(@NotNull String name) throws ControllerException {
+        try {
+            return getInstance().repo.save(new DepartmentDTO(name));
+        } catch ( RepoException e ) {
+            throw new ControllerException("Fail to fetch", e);
+        }
     }
 
     /**
@@ -59,8 +84,11 @@ public class DepartmentController implements BaseController<DepartmentDTO> {
      * @param entity le département à modifier
      */
     public void save( @NotNull DepartmentDTO entity ) throws ControllerException {
-        // TODO implement here
-        throw new UnsupportedOperationException();
+        try {
+            getInstance().repo.save(entity);
+        } catch ( RepoException e ) {
+            throw new ControllerException("Fail to save", e);
+        }
     }
 
     /**
@@ -69,8 +97,11 @@ public class DepartmentController implements BaseController<DepartmentDTO> {
      * @param entity le département à supprimer
      */
     public void delete( @NotNull DepartmentDTO entity ) throws ControllerException {
-        // TODO implement here
-        throw new UnsupportedOperationException();
+        try {
+            getInstance().repo.delete(entity);
+        } catch ( RepoException e ) {
+            throw new ControllerException("Fail to delete", e);
+        }
     }
 
 }

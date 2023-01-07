@@ -1,23 +1,21 @@
 package fr.univtours.examplanner.mappers;
 
+import fr.univtours.examplanner.exceptions.MappingException;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
 
-public interface BaseMapper {
+public interface BaseMapper < DTO >{
 
     /**
-     * Permet de transformer le résultat/données obtenu(es) de la requête (entity) en une classe (DTO),
-     * dans le but de pouvoir l'exploiter facilement dans le code et éviter de faire des requêtes continuellement.
+     * Permet de transformer le résultat/données obtenu(es) de la requête (entity) en une classe (DTO), dans le but de
+     * pouvoir l'exploiter facilement dans le code et éviter de faire des requêtes continuellement.
      *
      * @param entities Correspond au retour de la requête SQL
-     * @return On retourne un nouveau DTO.
-     * C'est une methode d'interface, mais l'IDE ne supporte pas qu'il n'y a pas de "body".
-     *
-     * @param <DTO> On indique une classe générique pour pouvoir utiliser la même méthode sur différents DTO
+     * @return On retourne une liste de DTO.
      */
-    static <DTO> @NotNull DTO entityToDTO(@NotNull ResultSet entities) {
-        throw new UnsupportedOperationException();
-    }
-
+    @NotNull
+    < DTO > List< DTO > EntityToDTO( @NotNull ResultSet entities ) throws MappingException, SQLException ;
 }
