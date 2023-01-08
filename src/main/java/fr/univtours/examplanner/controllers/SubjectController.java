@@ -20,7 +20,7 @@ public class SubjectController {
 
     private final SubjectRepo repo;
 
-    public SubjectController() {
+    private SubjectController() {
         repo = new SubjectRepo();
     }
 
