@@ -26,15 +26,6 @@ time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `department`
---
-
-CREATE TABLE `department`
-(
-    `name` varchar(63) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
 -- Déchargement des données de la table `department`
 --
 
@@ -51,19 +42,6 @@ VALUES ('Anglais'),
        ('Sociologie');
 
 -- --------------------------------------------------------
-
---
--- Structure de la table `exam`
---
-
-CREATE TABLE `exam`
-(
-    `id`       char(36)    NOT NULL,
-    `name`     varchar(50) NOT NULL,
-    `duration` float       NOT NULL,
-    `type`     enum('Final','Continuous') NOT NULL,
-    `subject`  varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `exam`
@@ -121,21 +99,6 @@ VALUES ('035ab38c-69bd-4ea4-aadb-d91e120d7db7', 'CC1', 2, 'Final', 'Codage'),
        ('fe2edefe-066c-430a-af48-8f773f8e262a', 'CC2', 4, 'Final', 'Integrale');
 
 -- --------------------------------------------------------
-
---
--- Structure de la table `group`
---
-
-CREATE TABLE `group`
-(
-    `id`                                char(36)    NOT NULL,
-    `name`                              varchar(63) NOT NULL,
-    `containReducedMobilityPerson`      tinyint(1) NOT NULL DEFAULT 0,
-    `numberOfStudentsWithoutAdjustment` int(11) NOT NULL DEFAULT 0,
-    `numberOfStudentsWithWritingNeeds`  int(11) NOT NULL DEFAULT 0,
-    `numberOfStudentsWithIsolatedRooms` int(11) NOT NULL DEFAULT 0,
-    `numberOfStudentsWithPartTime`      int(11) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `group`
@@ -198,18 +161,6 @@ VALUES ('058be0fb-675a-4baf-b1ee-ccbbbd15c7ae', '1B', 0, 13, 13, 1, 4),
 -- --------------------------------------------------------
 
 --
--- Structure de la table `manager`
---
-
-CREATE TABLE `manager`
-(
-    `id`        char(36)    NOT NULL,
-    `civility`  enum('Man','Woman','Other') NOT NULL,
-    `lastname`  varchar(63) NOT NULL,
-    `firstname` varchar(63) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
 -- Déchargement des données de la table `manager`
 --
 
@@ -268,18 +219,6 @@ VALUES ('0176df6e-3fa9-4008-98a9-e1f812aaefbd', 'Man', 'Théberge', 'René'),
 -- --------------------------------------------------------
 
 --
--- Structure de la table `mockup`
---
-
-CREATE TABLE `mockup` (
-  `name` varchar(63) NOT NULL,
-  `degree` enum('Bachelor','Master') NOT NULL,
-  `year` enum('One','Two','Three') NOT NULL,
-  `semester` enum('One','Two') NOT NULL,
-  `department` varchar(63) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
 -- Déchargement des données de la table `mockup`
 --
 
@@ -325,18 +264,6 @@ INSERT INTO `mockup` (`name`, `degree`, `year`, `semester`, `department`) VALUES
 ('MasterTwo_Sociologie', 'Master', 'Two', 'One', 'Sociologie');
 
 -- --------------------------------------------------------
-
---
--- Structure de la table `room`
---
-
-CREATE TABLE `room` (
-  `name` varchar(63) NOT NULL,
-  `places` int(11) NOT NULL,
-  `types` set('Amphitheater','ComputerRoom','Laboratory','Library','Office') NOT NULL,
-  `equipments` set('Projector','Speaker','Board','Webcam') DEFAULT NULL,
-  `computerEnvironment` set('OfficeApplication','InternetAccess','LinuxEnvironment','WindowsEnvironment','MacOsEnvironment','ProgrammingApplication','PhysicsApplication','MathApplication','ChemistryApplication') DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `room`
@@ -403,17 +330,6 @@ INSERT INTO `room` (`name`, `places`, `types`, `equipments`, `computerEnvironmen
 ('L0190', 37, 'Laboratory', 'Webcam', 'WindowsEnvironment, ProgrammingApplication, PhysicsApplication ');
 
 -- --------------------------------------------------------
-
---
--- Structure de la table `slot`
---
-
-CREATE TABLE `slot` (
-  `id` char(36) NOT NULL,
-  `day` date NOT NULL,
-  `hour` float NOT NULL,
-  `duration` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `slot`
@@ -524,14 +440,6 @@ INSERT INTO `slot` (`id`, `day`, `hour`, `duration`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `subject`
---
-
-CREATE TABLE `subject` (
-  `name` varchar(63) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
 -- Déchargement des données de la table `subject`
 --
 
@@ -542,18 +450,6 @@ INSERT INTO `subject` (`name`) VALUES
 ('Integrale');
 
 -- --------------------------------------------------------
-
---
--- Structure de la table `user`
---
-
-CREATE TABLE `user` (
-  `id` char(36) NOT NULL,
-  `mail` varchar(100) NOT NULL,
-  `department` varchar(63) DEFAULT NULL,
-  `manager` char(36) DEFAULT NULL,
-  `password` varchar(63) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `user`
@@ -572,15 +468,6 @@ INSERT INTO `user` (`id`, `mail`, `department`, `manager`, `password`) VALUES
 ('d545dbdb-01c0-43a1-a677-dee1df166885', 'ReneTheberge@superrito.com', 'Biologique', 'a7eb779e-4591-44a0-98f1-49f84a788b34', 'Easie2ebaet');
 
 -- --------------------------------------------------------
-
---
--- Structure de la table `_examtodepartment`
---
-
-CREATE TABLE `_examtodepartment` (
-  `exam` char(36) NOT NULL,
-  `department` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `_examtodepartment`
@@ -641,15 +528,6 @@ INSERT INTO `_examtodepartment` (`exam`, `department`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `_examtoexam`
---
-
-CREATE TABLE `_examtoexam` (
-  `parent` char(36) NOT NULL,
-  `child` char(36) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
 -- Déchargement des données de la table `_examtoexam`
 --
 
@@ -700,15 +578,6 @@ INSERT INTO `_examtoexam` (`parent`, `child`) VALUES
 ('f605bcd5-7ae9-478b-b2eb-6793683e20f2', 'f8a8fc13-36cf-4d93-9f66-f8b7ef7c3f6f');
 
 -- --------------------------------------------------------
-
---
--- Structure de la table `_examtogroup`
---
-
-CREATE TABLE `_examtogroup` (
-  `exam` char(36) NOT NULL,
-  `group` char(36) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `_examtogroup`
@@ -769,15 +638,6 @@ INSERT INTO `_examtogroup` (`exam`, `group`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `_examtomanager`
---
-
-CREATE TABLE `_examtomanager` (
-  `exam` char(36) NOT NULL,
-  `manager` char(36) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
 -- Déchargement des données de la table `_examtomanager`
 --
 
@@ -833,15 +693,6 @@ INSERT INTO `_examtomanager` (`exam`, `manager`) VALUES
 ('fe2edefe-066c-430a-af48-8f773f8e262a', '81dc1197-8c09-4f0b-ac16-cda770b16b9a');
 
 -- --------------------------------------------------------
-
---
--- Structure de la table `_examtoroom`
---
-
-CREATE TABLE `_examtoroom` (
-  `exam` char(36) NOT NULL,
-  `room` varchar(63) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `_examtoroom`
@@ -902,15 +753,6 @@ INSERT INTO `_examtoroom` (`exam`, `room`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `_examtoslot`
---
-
-CREATE TABLE `_examtoslot` (
-  `exam` char(36) NOT NULL,
-  `slot` char(36) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
 -- Déchargement des données de la table `_examtoslot`
 --
 
@@ -967,15 +809,6 @@ INSERT INTO `_examtoslot` (`exam`, `slot`) VALUES
 ('fe2edefe-066c-430a-af48-8f773f8e262a', 'de5f8194-4013-428a-bed4-c99bcaf5233e');
 
 -- --------------------------------------------------------
-
---
--- Structure de la table `_grouptogroup`
---
-
-CREATE TABLE `_grouptogroup` (
-  `parent` char(36) NOT NULL,
-  `child` char(36) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `_grouptogroup`
@@ -1036,15 +869,6 @@ INSERT INTO `_grouptogroup` (`parent`, `child`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `_slottoroom`
---
-
-CREATE TABLE `_slottoroom` (
-  `slot` char(36) NOT NULL,
-  `room` varchar(63) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
 -- Déchargement des données de la table `_slottoroom`
 --
 
@@ -1101,15 +925,6 @@ INSERT INTO `_slottoroom` (`slot`, `room`) VALUES
 ('e5bf7fe2-2c30-4553-b496-b7d46b5366de', 'E00050');
 
 -- --------------------------------------------------------
-
---
--- Structure de la table `_subjecttomockup`
---
-
-CREATE TABLE `_subjecttomockup` (
-  `subject` varchar(50) NOT NULL,
-  `mockUp` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `_subjecttomockup`
