@@ -14,7 +14,7 @@ import java.text.ParseException;
 import java.util.List;
 import java.util.Objects;
 
-public class RoomController implements BaseController< RoomDTO > {
+public class RoomController {
 
     /**
      * Interface avec la base de donnée permettant d'effectuer des opérations standards sur les salles
@@ -24,7 +24,7 @@ public class RoomController implements BaseController< RoomDTO > {
 
     private static RoomController instance;
 
-    public RoomController() {
+    private RoomController() {
         repo = new RoomRepo();
     }
 
@@ -73,7 +73,7 @@ public class RoomController implements BaseController< RoomDTO > {
      *
      * @return la liste des salles
      */
-    public @NotNull List< RoomDTO > getAll() throws ControllerException {
+    public static @NotNull List< RoomDTO > getAll() throws ControllerException {
         try {
             return getInstance().repo.getAll();
         } catch ( RepoException e ) {
@@ -88,7 +88,7 @@ public class RoomController implements BaseController< RoomDTO > {
         return instance;
     }
 
-    public @NotNull RoomDTO create(
+    public static @NotNull RoomDTO create(
             @NotNull int places,
             @NotNull String type,
             @Nullable List< String > computerEnvironment,
@@ -96,9 +96,7 @@ public class RoomController implements BaseController< RoomDTO > {
             @Nullable List< SlotDTO > availableSlots
     ) throws ControllerException {
         try {
-            return getInstance().repo.save(new RoomDTO(null,
-                    places,
-                    type,
+            return getInstance().repo.save(new RoomDTO(null, places, type,
                     computerEnvironment,
                     roomEquipment,
                     availableSlots
@@ -114,7 +112,7 @@ public class RoomController implements BaseController< RoomDTO > {
      *
      * @param entity la salle à modifier
      */
-    public void save( @NotNull RoomDTO entity ) throws ControllerException {
+    public static void save( @NotNull RoomDTO entity ) throws ControllerException {
         try {
             getInstance().repo.save(entity);
         } catch ( RepoException | SQLException | DatabaseConnectionException e ) {
@@ -127,7 +125,7 @@ public class RoomController implements BaseController< RoomDTO > {
      *
      * @param entity la salle à modifier
      */
-    public void delete( @NotNull RoomDTO entity ) throws ControllerException {
+    public static void delete( @NotNull RoomDTO entity ) throws ControllerException {
         try {
             getInstance().repo.delete(entity);
         } catch ( RepoException e ) {

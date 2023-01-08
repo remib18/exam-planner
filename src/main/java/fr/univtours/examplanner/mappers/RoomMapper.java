@@ -55,7 +55,7 @@ public class RoomMapper implements BaseMapper {
             }
             return room;
         } catch ( SQLException | DatabaseConnectionException | ParseException e ) {
-            throw new MappingException("c'est raté", e);
+            throw new MappingException("Unable to map entity", e);
         }
     }
 }

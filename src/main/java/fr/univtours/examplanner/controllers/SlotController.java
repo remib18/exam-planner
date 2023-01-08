@@ -14,7 +14,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
-public class SlotController implements BaseController<SlotDTO> {
+public class SlotController {
 
     /**
      * Interface avec la base de données permettant d'effectuer des opérations standards sur les horaires
@@ -22,7 +22,7 @@ public class SlotController implements BaseController<SlotDTO> {
     @NotNull
     private final SlotRepo repo;
 
-    public SlotController() {
+    private SlotController() {
         repo = new SlotRepo();
     }
 
@@ -50,7 +50,7 @@ public class SlotController implements BaseController<SlotDTO> {
      *
      * @return la liste des horaires
      */
-    public @NotNull List< SlotDTO > getAll() throws ControllerException {
+    public static @NotNull List< SlotDTO > getAll() throws ControllerException {
         try {
             return getInstance().repo.getAll();
         } catch ( RepoException e ) {
@@ -72,7 +72,7 @@ public class SlotController implements BaseController<SlotDTO> {
      * @param durationFloat la durée du créneau
      * @return l'horaire créé
      */
-    public SlotDTO create(
+    public static SlotDTO create(
             @NotNull Calendar start, @NotNull Float durationFloat
     ) throws ControllerException {
         try {
@@ -96,7 +96,7 @@ public class SlotController implements BaseController<SlotDTO> {
         }
     }
 
-    public SlotDTO getByDuration( @NotNull Float duration ) throws ControllerException {
+    public static SlotDTO getByDuration( @NotNull Float duration ) throws ControllerException {
         try {
             return getInstance().repo.getByDuration(duration);
         } catch ( RepoException e ) {
@@ -109,7 +109,7 @@ public class SlotController implements BaseController<SlotDTO> {
      *
      * @param entity l'horaire à modifier
      */
-    public void delete( @NotNull SlotDTO entity ) throws ControllerException {
+    public static void delete( @NotNull SlotDTO entity ) throws ControllerException {
         try {
             getInstance().repo.delete(entity);
         } catch ( RepoException e ) {
