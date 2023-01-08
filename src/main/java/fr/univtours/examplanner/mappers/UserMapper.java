@@ -1,35 +1,37 @@
 package fr.univtours.examplanner.mappers;
 
 import fr.univtours.examplanner.entities.dtos.UserDTO;
+import fr.univtours.examplanner.exceptions.MappingException;
 import org.jetbrains.annotations.NotNull;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserMapper implements BaseMapper{
 
     /**
-     * Créée une nouvelle classe UserDTO(id, mail, department, role)
-     * grâce aux éléments de la requête SQL (entities)
+     * Créée une nouvelle classe UserDTO(id, mail, department, role) grâce aux éléments de la requête SQL (entities)
      *
      * @param entities = résultats de la requête SQL
      * @return = classe {@link UserDTO}
      */
-    public @NotNull UserDTO EntityToDTO(@NotNull ResultSet entities) {
-        // TODO implement here
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * Permet l'utilisation des attributs de la classe SlotDTO(id, start, duration)
-     * dans une requête SQL
-     *
-     * @param dto = attributs de la classe {@link UserDTO}
-     * @return = éléments nécessaires à une requête SQL
-     */
-    public @NotNull PreparedStatement DTOToEntity( @NotNull UserDTO dto) {
-        // TODO implement here
-        throw new UnsupportedOperationException();
+    public static @NotNull List< UserDTO > entityToDTO( @NotNull ResultSet entities ) throws MappingException {
+        List< UserDTO > users = new ArrayList<>();
+        try {
+            while ( entities.next() ) {
+                String id = entities.getString("id");
+                String mail = entities.getString("mail");
+                String encryptedPassword = entities.getString("password");
+                String departmentId = entities.getString("department");
+                String managerId = entities.getString("manager");
+                users.add(new UserDTO(id, mail, encryptedPassword, departmentId, managerId));
+            }
+            return users;
+        } catch ( SQLException e ) {
+            throw new MappingException("Unable to map entity.", e);
+        }
     }
 
 }

@@ -6,6 +6,7 @@ import fr.univtours.examplanner.exceptions.ControllerException;
 import fr.univtours.examplanner.exceptions.RepoException;
 import fr.univtours.examplanner.repositories.ManagerRepo;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Objects;
@@ -42,6 +43,11 @@ public class ManagerController implements BaseController<ManagerDTO> {
             instance = new ManagerController();
         }
         return instance;
+    }
+
+    public @Nullable ManagerDTO getByID( String id ) {
+        // TODO implement here
+        throw new UnsupportedOperationException();
     }
 
     /**

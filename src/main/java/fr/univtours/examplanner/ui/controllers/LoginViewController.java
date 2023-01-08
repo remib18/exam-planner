@@ -1,6 +1,7 @@
 package fr.univtours.examplanner.ui.controllers;
 
 import fr.univtours.examplanner.Storage;
+import fr.univtours.examplanner.controllers.AuthenticationController;
 import fr.univtours.examplanner.translations.SupportedLanguages;
 import fr.univtours.examplanner.translations.Translation;
 import fr.univtours.examplanner.ui.BasicViewController;
@@ -70,7 +71,7 @@ public class LoginViewController extends BasicViewController {
 	 */
 	@FXML
 	private void handleSignInBtnClick() {
-		// Todo: implement
+		AuthenticationController.login(idField.getText(), passwordField.getText());
 	}
 
 	/**
@@ -97,7 +98,13 @@ public class LoginViewController extends BasicViewController {
 		languageOptions.setOnMouseClicked(event -> switchLanguageMenu());
 		languageOptions.setAlignment(Pos.BASELINE_RIGHT);
 
-		LoginState.isLanguageMenuOpenProperty().addListener((observable, oldValue, newValue) -> {
+		passwordField.addEventHandler(javafx.scene.input.KeyEvent.KEY_PRESSED, event -> {
+			if ( event.getCode().equals(javafx.scene.input.KeyCode.ENTER) ) {
+				handleSignInBtnClick();
+			}
+		});
+
+		LoginState.isLanguageMenuOpenProperty().addListener(( observable, oldValue, newValue ) -> {
 			buildLanguageOptions();
 		});
 		buildLanguageOptions();
@@ -128,7 +135,7 @@ public class LoginViewController extends BasicViewController {
 		// On ajoute toutes les autres options si le menu est ouvert
 		if (LoginState.getIsLanguageMenuOpen()) {
 			for (SupportedLanguages language : SupportedLanguages.values()) {
-				if (language != Storage.getCurrentLanguage()) {
+				if ( language != Storage.getLanguage() ) {
 					HBox flag = new HBox(buildLanguageFlag(language));
 					flag.setOnMouseClicked(event -> handleClickOnLanguage(language));
 					languageOptions.getChildren().add(flag);
@@ -149,10 +156,7 @@ public class LoginViewController extends BasicViewController {
 		icon.setPreserveRatio(true);
 
 		// Création de l'item
-		HBox item = new HBox(
-				buildLanguageFlag(Storage.getCurrentLanguage()),
-				icon
-		);
+		HBox item = new HBox(buildLanguageFlag(Storage.getLanguage()), icon);
 		item.setAlignment(Pos.CENTER_LEFT);
 		item.setSpacing(8);
 		languageOptions.getChildren().add(item);
@@ -165,8 +169,10 @@ public class LoginViewController extends BasicViewController {
 	 * @return L'icône de la langue
 	 */
 	private @NotNull ImageView buildLanguageFlag(@NotNull SupportedLanguages language) {
-		InputStream image = Ressource.getStream(
-				"images/" + language.shortHand() + (language == Storage.getCurrentLanguage() ? "-fill" : "") + "-icon.png"
+		InputStream image = Ressource.getStream("images/" +
+												language.shortHand() +
+												( language == Storage.getLanguage() ? "-fill" : "" ) +
+												"-icon.png"
 		);
 		ImageView flag = new ImageView();
 		flag.setFitHeight(22);

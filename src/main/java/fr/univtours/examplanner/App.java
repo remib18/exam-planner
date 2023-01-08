@@ -15,20 +15,21 @@ public class App extends Application {
 
 	@Override
 	public void start(@NotNull Stage stage) {
-		Translation.setLanguage(SupportedLanguages.French);
+        Translation.setLanguage(SupportedLanguages.French);
 
-		Storage.currentSceneProperty().addListener((observable, oldValue, newValue) -> {
-			stage.setScene(SceneController.getScene(newValue));
-			stage.setTitle(Translation.get(SceneController.getSceneTitle(newValue)));
-		});
+        Storage.sceneProperty().addListener(( observable, oldValue, newValue ) -> {
+            stage.setResizable(!newValue.equals(Scenes.Login));
+            stage.setScene(SceneController.getScene(newValue));
+            stage.setTitle(Translation.get(SceneController.getSceneTitle(newValue)));
+        });
 
-		Storage.currentLanguageProperty().addListener((observable, oldValue, newValue) -> {
-			stage.setTitle(Translation.get(SceneController.getSceneTitle(Storage.getCurrentScene())));
-		});
+        Storage.languageProperty().addListener(( observable, oldValue, newValue ) -> {
+            stage.setTitle(Translation.get(SceneController.getSceneTitle(Storage.getScene())));
+        });
 
-		stage.setResizable(false);
-
-		Storage.setCurrentScene(Scenes.Login);
-		stage.show();
-	}
+        Storage.setScene(Scenes.Login);
+        stage.show();
+        stage.setMinHeight(400);
+        stage.setMinWidth(600);
+    }
 }

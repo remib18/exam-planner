@@ -9,17 +9,19 @@ import java.net.URL;
 
 public class Ressource {
 
-	/**
-	 * Résout un chemin de ressource en une {@link URL}
-	 *
-	 * @param ressource Chemin de la ressource
-	 * @param cache     Si la ressource doit être mise en cache
-	 * @return L'URL de la ressource
-	 */
-	public static @NotNull URL resolve(@NotNull String ressource, boolean cache) {
-		// Todo(@remi): optimize this with cache
+    private Ressource() {super();}
+
+    /**
+     * Résout un chemin de ressource en une {@link URL}
+     *
+     * @param ressource Chemin de la ressource
+     * @param cache     Si la ressource doit être mise en cache
+     * @return L'URL de la ressource
+     */
+    public static @NotNull URL resolve( @NotNull String ressource, boolean cache ) {
+        // Todo(@remi): optimize this with cache
 		URL url = App.class.getResource(ressource);
-		if (url == null) {
+		if ( null == url ) {
 			// Erreur qui doit être résolue avant de pouvoir continuer
 			throw new IllegalArgumentException("File not found: ".concat(ressource));
 		}

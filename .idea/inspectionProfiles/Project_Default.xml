@@ -205,20 +205,41 @@
     <inspection_tool class="NewClassNamingConvention" enabled="true" level="WARNING" enabled_by_default="true">
       <extension name="AbstractClassNamingConvention" enabled="true" />
       <extension name="AnnotationNamingConvention" enabled="true" />
-      <extension name="ClassNamingConvention" enabled="true" />
-      <extension name="EnumeratedClassNamingConvention" enabled="true" />
+      <extension name="ClassNamingConvention" enabled="true">
+        <option name="m_regex" value="[A-Z][A-Za-z\d]*" />
+        <option name="m_minLength" value="3" />
+        <option name="m_maxLength" value="64" />
+      </extension>
+      <extension name="EnumeratedClassNamingConvention" enabled="true">
+        <option name="inheritDefaultSettings" value="false" />
+        <option name="m_regex" value="[A-Z][A-Za-z\d]*" />
+        <option name="m_minLength" value="4" />
+        <option name="m_maxLength" value="64" />
+      </extension>
       <extension name="InterfaceNamingConvention" enabled="true" />
       <extension name="JUnitTestClassNamingConvention" enabled="true">
         <option name="m_regex" value="[A-Z][A-Za-z\d]*Test" />
         <option name="m_minLength" value="5" />
         <option name="m_maxLength" value="255" />
       </extension>
-      <extension name="TestSuiteNamingConvention" enabled="true" />
-      <extension name="TypeParameterNamingConvention" enabled="true" />
+      <extension name="TestSuiteNamingConvention" enabled="true">
+        <option name="m_regex" value="(?:[A-Z][A-Za-z\d]*Suite)|(?:TestMain)" />
+        <option name="m_minLength" value="8" />
+        <option name="m_maxLength" value="64" />
+      </extension>
+      <extension name="TypeParameterNamingConvention" enabled="true">
+        <option name="m_regex" value="[A-Z][A-Za-z\d]*" />
+        <option name="m_minLength" value="1" />
+        <option name="m_maxLength" value="8" />
+      </extension>
     </inspection_tool>
     <inspection_tool class="NewExceptionWithoutArguments" enabled="true" level="WEAK WARNING" enabled_by_default="true" editorAttributes="INFO_ATTRIBUTES" />
     <inspection_tool class="NewMethodNamingConvention" enabled="true" level="WARNING" enabled_by_default="true">
-      <extension name="InstanceMethodNamingConvention" enabled="true" />
+      <extension name="InstanceMethodNamingConvention" enabled="true">
+        <option name="m_regex" value="[a-z][A-Za-z\d]*" />
+        <option name="m_minLength" value="3" />
+        <option name="m_maxLength" value="32" />
+      </extension>
       <extension name="JUnit4MethodNamingConvention" enabled="true" />
       <extension name="NativeMethodNamingConvention" enabled="true" />
       <extension name="StaticMethodNamingConvention" enabled="true" />
@@ -247,7 +268,7 @@
     <inspection_tool class="OverlyLongLambda" enabled="true" level="WEAK WARNING" enabled_by_default="true" editorAttributes="INFO_ATTRIBUTES" />
     <inspection_tool class="PackageNamingConvention" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="m_regex" value="[a-z]*" />
-      <option name="m_minLength" value="3" />
+      <option name="m_minLength" value="2" />
       <option name="m_maxLength" value="16" />
     </inspection_tool>
     <inspection_tool class="ParameterHidingMemberVariable" enabled="true" level="WEAK WARNING" enabled_by_default="true" editorAttributes="INFO_ATTRIBUTES">

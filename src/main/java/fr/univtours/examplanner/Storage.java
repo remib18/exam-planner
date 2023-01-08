@@ -1,5 +1,6 @@
 package fr.univtours.examplanner;
 
+import fr.univtours.examplanner.entities.dtos.UserDTO;
 import fr.univtours.examplanner.enums.Scenes;
 import fr.univtours.examplanner.translations.SupportedLanguages;
 import javafx.beans.property.ObjectProperty;
@@ -17,50 +18,69 @@ public class Storage {
 	/**
 	 * L'instance (singleton)
 	 */
-	private static @Nullable Storage instance;
+    private static @Nullable Storage instance;
 
-	/**
-	 * La scène actuelle
-	 */
-	private final @NotNull ObjectProperty<Scenes> currentScene = new SimpleObjectProperty<>();
+    /**
+     * La scène actuelle
+     */
+    private final @NotNull ObjectProperty< Scenes > scene = new SimpleObjectProperty<>();
 
-	/**
-	 * La langue actuelle
-	 */
-	private final @NotNull ObjectProperty<SupportedLanguages> currentLanguage = new SimpleObjectProperty<>();
+    /**
+     * La langue actuelle
+     */
+    private final @NotNull ObjectProperty< SupportedLanguages > language = new SimpleObjectProperty<>();
 
-	private Storage() {
-	}
+    /**
+     * L'utilisateur courant<br> {@code null} si aucun utilisateur n'est connecté
+     *
+     * @see UserDTO
+     */
+    private final @NotNull ObjectProperty< UserDTO > user = new SimpleObjectProperty<>(null);
 
-	private static @NotNull Storage getInstance() {
-		if (instance == null) {
-			instance = new Storage();
-		}
-		return instance;
-	}
+    private Storage() {
+    }
 
-	public static @NotNull Scenes getCurrentScene() {
-		return getInstance().currentScene.get();
-	}
+    public static @NotNull Scenes getScene() {
+        return getInstance().scene.get();
+    }
 
-	public static void setCurrentScene(@NotNull Scenes currentScene) {
-		getInstance().currentScene.set(currentScene);
-	}
+    private static @NotNull Storage getInstance() {
+        if ( null == instance ) {
+            instance = new Storage();
+        }
+        return instance;
+    }
 
-	public static @NotNull ObjectProperty<Scenes> currentSceneProperty() {
-		return getInstance().currentScene;
-	}
+    public static void setScene( @NotNull Scenes currentScene ) {
+        getInstance().scene.set(currentScene);
+    }
 
-	public static SupportedLanguages getCurrentLanguage() {
-		return getInstance().currentLanguage.get();
-	}
+    public static @NotNull ObjectProperty< Scenes > sceneProperty() {
+        return getInstance().scene;
+    }
 
-	public static void setCurrentLanguage(@NotNull SupportedLanguages currentLanguage) {
-		getInstance().currentLanguage.set(currentLanguage);
-	}
+    public static SupportedLanguages getLanguage() {
+        return getInstance().language.get();
+    }
 
-	public static @NotNull ObjectProperty<SupportedLanguages> currentLanguageProperty() {
-		return getInstance().currentLanguage;
-	}
+    public static void setLanguage( @NotNull SupportedLanguages currentLanguage ) {
+        getInstance().language.set(currentLanguage);
+    }
+
+    public static @NotNull ObjectProperty< SupportedLanguages > languageProperty() {
+        return getInstance().language;
+    }
+
+    public static @Nullable UserDTO getUser() {
+        return getInstance().user.get();
+    }
+
+    public static void setUser( @Nullable UserDTO user ) {
+        getInstance().user.set(user);
+    }
+
+    public static @NotNull ObjectProperty< UserDTO > userProperty() {
+        return getInstance().user;
+    }
 
 }
