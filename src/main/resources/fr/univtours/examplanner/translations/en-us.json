@@ -9,6 +9,7 @@
   "app.title.user": "Users — ExamPlanner",
   "app.title.mockup": "Mockups — ExamPlanner",
   "app.title.subjects": "Subjects — ExamPlanner",
+
   "feature.exam": "Exams",
   "feature.mockup": "Mockups",
   "feature.subject": "Subjects",
@@ -32,12 +33,19 @@
   "actions.delete": "Delete",
   "actions.save": "Save",
   "actions.cancel": "Cancel",
+  "actions.close": "Close",
   "ui.login.title": "Connection",
   "ui.login.button": "Connection",
   "ui.login.labels.id": "Identifier",
   "ui.login.labels.password": "Password",
   "ui.dashboard.hello": "Hello",
   "ui.dashboard.signout": "Log out",
+  "ui.dashboard.change-password": "Change password",
   "popups.user.edit.role": "Editing user role",
-  "popups.user.edit.role.editing-user": "Editing user"
+  "popups.user.edit.role.editing-user": "Editing user",
+  "popups.reset-password.update-my-password": "Update my password",
+  "popups.reset-password.password": "Password",
+  "popups.reset-password.confirm": "Confirm",
+  "popups.invalid-credentials.title": "Invalid credentials",
+  "popups.invalid-credentials.message": "The credentials you provided are invalid. Please try again."
 }

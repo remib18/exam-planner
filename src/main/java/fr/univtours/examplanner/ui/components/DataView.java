@@ -259,6 +259,6 @@ public class DataView< T extends EditableEntity > extends AnchorPane implements 
         }
         backText.setText(Translation.get("actions.back"));
         deleteText.setText(Translation.get("actions.delete"));
-        addText.
+        addText.setText(Translation.get("actions.add"));
     }
 }

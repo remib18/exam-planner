@@ -6,7 +6,9 @@ import fr.univtours.examplanner.enums.Scenes;
 import fr.univtours.examplanner.enums.UserRole;
 import fr.univtours.examplanner.translations.Translation;
 import fr.univtours.examplanner.ui.BasicViewController;
+import fr.univtours.examplanner.ui.PopupController;
 import fr.univtours.examplanner.ui.components.DashboardTile;
+import fr.univtours.examplanner.ui.controllers.popups.ResetPasswordPopupController;
 import javafx.fxml.FXML;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
@@ -16,32 +18,45 @@ import java.io.IOException;
 
 public class DashboardViewController extends BasicViewController {
 
-	@FXML
-	private Text helloText;
+    @FXML
+    private Text helloText;
 
-	@FXML
-	private Text userName;
+    @FXML
+    private Text userName;
 
-	@FXML
-	private Text signOutText;
+    @FXML
+    private Text signOutText;
 
-	@FXML
-	private FlowPane tiles;
+    @FXML
+    private Text changePasswordText;
 
-	@FXML
-	private void handleDisconnect() {
-		AuthenticationController.logout();
-	}
+    @FXML
+    private FlowPane tiles;
 
-	@Override
-	protected void init() {
-		userName.setText(Storage.getUser().getMail());
-		loadTiles();
-	}
+    @FXML
+    private void handleDisconnect() {
+        AuthenticationController.logout();
+    }
 
-	private void loadTiles() {
-		try {
-			if ( AuthenticationController.checkAccessRights(UserRole.Department) ) {
+    @FXML
+    private void handleUpdatePassword() {
+        PopupController popup = new PopupController(
+                "",
+                "popups/reset-password.fxml",
+                new ResetPasswordPopupController()
+        );
+        popup.open();
+    }
+
+    @Override
+    protected void init() {
+        userName.setText(Storage.getUser().getMail());
+        loadTiles();
+    }
+
+    private void loadTiles() {
+        try {
+            if ( AuthenticationController.checkAccessRights(UserRole.Department) ) {
 				loadTile("feature.exam", "images/Examen.png", Scenes.Exam);
 				loadTile("feature.manager", "images/Managers.png", Scenes.Manager);
 				loadTile("feature.mockup", "images/Managers.png", Scenes.Mockup);
@@ -73,7 +88,8 @@ public class DashboardViewController extends BasicViewController {
 	@Override
 	protected void onLanguageUpdate() {
 		helloText.setText(Translation.get("ui.dashboard.hello"));
-		signOutText.setText(Translation.get("ui.dashboard.signout"));
+        signOutText.setText(Translation.get("ui.dashboard.signout"));
+        changePasswordText.setText(Translation.get("ui.dashboard.change-password"));
 	}
 
 }

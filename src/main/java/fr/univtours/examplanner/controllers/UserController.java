@@ -21,7 +21,8 @@ public class UserController {
 
     private static UserController instance;
 
-    public UserController() {
+    private UserController() {
+        super();
         repo = new UserRepo();
     }
 
@@ -53,6 +54,13 @@ public class UserController {
         }
     }
 
+    public static @Nullable UserDTO getByEmail( @NotNull String email ) throws ControllerException {
+        try {
+            return getInstance().repo.getByMail(email);
+        } catch ( RepoException e ) {
+            throw new ControllerException("An error occurred during the data fetching.", e);
+        }
+    }
 
     /**
      * Crée un utilisateur
