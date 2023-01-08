@@ -4,45 +4,58 @@ import fr.univtours.examplanner.entities.WithIDEntity;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Objects;
 
 public class SlotDTO extends WithIDEntity {
 
-	/**
-	 * Date et heure de début du créneau
-	 */
-	@NotNull
-	private LocalDateTime start;
+    /**
+     * Date et heure de début du créneau
+     */
+    private @NotNull Calendar start;
 
 	/**
 	 * Durée du créneau en heures
 	 */
 	private float duration;
 
-	/**
-	 * Créneau disponible pour les examens
-	 *
-	 * @param id       Identifiant du créneau dans la base de donnée, null si le créneau n'est pas encore enregistré
-	 * @param start    Date et heure de début du créneau
-	 * @param duration Durée du créneau en heures
-	 */
-	public SlotDTO(@Nullable String id, @NotNull LocalDateTime start, float duration) {
-		super(id);
-		this.start = start;
-		this.duration = duration;
-	}
+    /**
+     * Créneau disponible pour les examens
+     *
+     * @param id       Identifiant du créneau dans la base de donnée, null si le créneau n'est pas encore enregistré
+     * @param start    Date et heure de début du créneau
+     * @param duration Durée du créneau en heures
+     */
+    public SlotDTO( @Nullable String id, @NotNull Calendar start, float duration ) {
+        super(id);
+        this.start = start;
+        this.duration = duration;
+    }
 
-	public @NotNull LocalDateTime getStart() {
-		return start;
-	}
+    public static String getCalendarDate( @NotNull Calendar start ) {
+        int year = start.get(Calendar.YEAR);
+        int month = start.get(Calendar.MONTH);
+        int day = start.get(Calendar.DAY_OF_MONTH);
+        String date = year + "-" + month + "-" + day;
+        return date;
+    }
 
-	public void setStart(@NotNull LocalDateTime start) {
-		this.start = start;
-	}
+    public static float getHourMins( @NotNull Calendar start ) {
+        int hour = start.get(Calendar.HOUR);
+        float min = start.get(Calendar.MINUTE);
+        return hour + min / 100;
+    }
 
-	public float getDuration() {
-		return duration;
+    public @NotNull Calendar getStart() {
+        return start;
+    }
+
+    public void setStart( @NotNull Calendar start ) {
+        this.start = start;
+    }
+
+    public float getDuration() {
+        return duration;
 	}
 
 	public void setDuration(float duration) {
@@ -50,9 +63,9 @@ public class SlotDTO extends WithIDEntity {
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
+	public boolean equals( Object o ) {
+        if ( this == o ) return true;
+        if ( null == o || getClass() != o.getClass()) return false;
 		SlotDTO slotDTO = (SlotDTO) o;
 		return Objects.equals(id, slotDTO.id);
 	}
