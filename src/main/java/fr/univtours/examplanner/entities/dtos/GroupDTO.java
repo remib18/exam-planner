@@ -15,7 +15,7 @@ public class GroupDTO extends WithIDEntity {
 	 * Liste des groupes enfants
 	 */
 	@NotNull
-	private final List<GroupDTO> children = new ArrayList<>();
+	private final List< String > childrenIDs = new ArrayList<>();
 
 	/**
 	 * Nom du groupe<br/>
@@ -43,7 +43,7 @@ public class GroupDTO extends WithIDEntity {
 	private int numberOfStudentsWithIsolationNeeds;
 
 	/**
-	 * Nombre d'étudiants avec un besoin de temps supplémentaire 1/3 ou 1/4 temps<br/>
+	 * Nombre d'étudiants avec un besoin de temps supplémentaires 1/3 ou 1/4 temps<br/>
 	 * Il faut une salle et un surveillant pour l'ensemble de ces étudiants
 	 */
 	private int numberOfStudentsWithPartTimeNeeds;
@@ -51,18 +51,20 @@ public class GroupDTO extends WithIDEntity {
 	/**
 	 * Nombre d'étudiants total du groupe, sans distinction de besoin
 	 */
-	private int numberOfStudents;
+	private int numberOfStudentsWithoutAdjustment;
 
 	/**
 	 * Groupe d'étudiants, peut représenter des groupes de TD comme des groupes d'options
 	 *
-	 * @param id                                  Identifiant du groupe dans la base de donnée, <code>null</code> si le groupe n'est pas encore enregistré
+	 * @param id                                  Identifiant du groupe dans la base de donnée, <code>null</code> si
+	 *                                               le groupe n'est pas encore enregistré
 	 * @param name                                Nom du groupe
 	 * @param containsStudentsWithReducedMobility Le groupe contient-il des personnes en situation de handicap
 	 * @param numberOfStudentsWithWriterNeeds     Nombre d'étudiants avec un besoin de secrétaire
 	 * @param numberOfStudentsWithIsolationNeeds  Nombre d'étudiants avec un besoin d'isolation
-	 * @param numberOfStudentsWithPartTimeNeeds   Nombre d'étudiants avec un besoin de temps supplémentaire
-	 * @param numberOfStudents                    Nombre d'étudiants total du groupe, sans distinction de besoin
+	 * @param numberOfStudentsWithPartTimeNeeds   Nombre d'étudiants avec un besoin de temps supplémentaires
+	 * @param numberOfStudentsWithoutAdjustment                    Nombre d'étudiants total du groupe, sans
+	 *                                                                distinction de besoin
 	 * @param children                            Liste des groupes enfants
 	 */
 	public GroupDTO(
@@ -72,8 +74,8 @@ public class GroupDTO extends WithIDEntity {
 			int numberOfStudentsWithWriterNeeds,
 			int numberOfStudentsWithIsolationNeeds,
 			int numberOfStudentsWithPartTimeNeeds,
-			int numberOfStudents,
-			@NotNull List<GroupDTO> children
+			int numberOfStudentsWithoutAdjustment,
+			@NotNull List< String > children
 	) {
 		super(id);
 		this.name = name;
@@ -81,9 +83,10 @@ public class GroupDTO extends WithIDEntity {
 		this.numberOfStudentsWithWriterNeeds = numberOfStudentsWithWriterNeeds;
 		this.numberOfStudentsWithIsolationNeeds = numberOfStudentsWithIsolationNeeds;
 		this.numberOfStudentsWithPartTimeNeeds = numberOfStudentsWithPartTimeNeeds;
-		this.numberOfStudents = numberOfStudents;
-		this.children.addAll(children);
+		this.numberOfStudentsWithoutAdjustment = numberOfStudentsWithoutAdjustment;
+		this.childrenIDs.addAll(children);
 	}
+
 
 	public @NotNull String getName() {
 		return name;
@@ -121,35 +124,35 @@ public class GroupDTO extends WithIDEntity {
 		return numberOfStudentsWithPartTimeNeeds;
 	}
 
-	public void setNumberOfStudentsWithPartTimeNeeds(int numberOfStudentsWithPartTimeNeeds) {
+	public void setNumberOfStudentsWithPartTimeNeeds( int numberOfStudentsWithPartTimeNeeds ) {
 		this.numberOfStudentsWithPartTimeNeeds = numberOfStudentsWithPartTimeNeeds;
 	}
 
-	public int getNumberOfStudents() {
-		return numberOfStudents;
+	public int getNumberOfStudentsWithoutAdjustment() {
+		return numberOfStudentsWithoutAdjustment;
 	}
 
-	public void setNumberOfStudents(int numberOfStudents) {
-		this.numberOfStudents = numberOfStudents;
+	public void setnumberOfStudentsWithoutAdjustment( int numberOfStudentsWithoutAdjustment ) {
+		this.numberOfStudentsWithoutAdjustment = numberOfStudentsWithoutAdjustment;
 	}
 
-	public @NotNull List<GroupDTO> getChildren() {
-		return children;
+	public @NotNull List< String > getChildrenIDs() {
+		return childrenIDs;
 	}
 
 	public void addChild(@NotNull GroupDTO child) throws IllegalArgumentException {
 		if (children.contains(child)) {
 			throw new IllegalArgumentException("Cannot add a child twice");
 		}
-		children.add(child);
+		childrenIDs.add(child.getId());
 	}
 
-	public void addChild(@NotNull List<GroupDTO> children) {
+	public void addChild( @NotNull List< GroupDTO > children ) {
 		children.forEach(this::addChild);
 	}
 
-	public void removeChild(@NotNull GroupDTO child) {
-		children.remove(child);
+	public void removeChild(@NotNull GroupDTO child ) {
+		childrenIDs.remove(child.getId());
 	}
 
 	public void removeChild(@NotNull List<GroupDTO> children) {
@@ -157,9 +160,9 @@ public class GroupDTO extends WithIDEntity {
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
+	public boolean equals(Object o ) {
+		if ( this == o ) return true;
+		if ( null == o || getClass() != o.getClass() ) return false;
 		GroupDTO groupDTO = (GroupDTO) o;
 		return Objects.equals(id, groupDTO.id);
 	}
@@ -173,22 +176,30 @@ public class GroupDTO extends WithIDEntity {
 				numberOfStudentsWithWriterNeeds,
 				numberOfStudentsWithIsolationNeeds,
 				numberOfStudentsWithPartTimeNeeds,
-				numberOfStudents,
-				children
+				numberOfStudentsWithoutAdjustment,
+				childrenIDs
 		);
 	}
 
 	@Override
 	public @NotNull String toString() {
 		return "GroupDTO{" +
-				"\n\tid: " + id +
-				", \n\tname: " + name +
-				", \n\tcontainsStudentsWithReducedMobility: " + containsStudentsWithReducedMobility +
-				", \n\tnumberOfStudentsWithWriterNeeds: " + numberOfStudentsWithWriterNeeds +
-				", \n\tnumberOfStudentsWithIsolationNeeds: " + numberOfStudentsWithIsolationNeeds +
-				", \n\tnumberOfStudentsWithPartTimeNeeds: " + numberOfStudentsWithPartTimeNeeds +
-				", \n\tnumberOfStudents: " + numberOfStudents +
-				", \n\tchildrenIds: " + EntityUtils.listToIdString(children) +
-				"\n}";
+			   "\n\tid: " +
+			   id +
+			   ", \n\tname: " +
+			   name +
+			   ", \n\tcontainsStudentsWithReducedMobility: " +
+			   containsStudentsWithReducedMobility +
+			   ", \n\tnumberOfStudentsWithWriterNeeds: " +
+			   numberOfStudentsWithWriterNeeds +
+			   ", \n\tnumberOfStudentsWithIsolationNeeds: " +
+			   numberOfStudentsWithIsolationNeeds +
+			   ", \n\tnumberOfStudentsWithPartTimeNeeds: " +
+			   numberOfStudentsWithPartTimeNeeds +
+			   ", \n\tnumberOfStudentsWithoutAdjustment: " +
+			   numberOfStudentsWithoutAdjustment +
+			   ", \n\tchildrenIds: " +
+			   EntityUtils.listToString(childrenIDs, e -> e) +
+			   "\n}";
 	}
 }

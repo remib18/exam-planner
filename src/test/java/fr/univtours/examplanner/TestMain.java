@@ -1,11 +1,12 @@
 package fr.univtours.examplanner;
 
-import org.junit.jupiter.api.Test;
+import org.junit.platform.suite.api.IncludeClassNamePatterns;
+import org.junit.platform.suite.api.SelectPackages;
+import org.junit.platform.suite.api.Suite;
 
-public class TestMain {
+@Suite
+@SelectPackages("fr.univtours.examplanner")
+@IncludeClassNamePatterns(".*Test")
+class TestMain {
 
-	@Test
-	public void tests() {
-		// Todo: write tests
-	}
 }
