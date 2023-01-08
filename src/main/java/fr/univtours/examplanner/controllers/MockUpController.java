@@ -22,7 +22,7 @@ public class MockUpController {
     @NotNull
     private final MockUpRepo repo;
 
-    public MockUpController() {
+    private MockUpController() {
         repo = new MockUpRepo();
     }
 
