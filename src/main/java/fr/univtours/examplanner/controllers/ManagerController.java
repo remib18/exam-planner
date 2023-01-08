@@ -8,6 +8,7 @@ import fr.univtours.examplanner.repositories.ManagerRepo;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -30,11 +31,11 @@ public class ManagerController {
      *
      * @return la liste des surveillants
      */
-    public static @NotNull List< ManagerDTO > getAll() throws ControllerException {
+    public static @NotNull List< ManagerDTO > getAll() {
         try {
             return getInstance().repo.getAll();
         } catch ( RepoException e ) {
-            throw new ControllerException("An error occurred during the data fetching.", e);
+            return new ArrayList<>();
         }
     }
 
@@ -45,9 +46,12 @@ public class ManagerController {
         return instance;
     }
 
-    public static @Nullable ManagerDTO getByID( String id ) {
-        // TODO implement here
-        throw new UnsupportedOperationException();
+    public static @Nullable ManagerDTO getByID( String id ) throws ControllerException {
+        try {
+            return getInstance().repo.getById(id);
+        } catch ( RepoException e ) {
+            throw new ControllerException("An error occurred during the data fetching.", e);
+        }
     }
 
     /**
@@ -95,4 +99,8 @@ public class ManagerController {
     }
 
 
+    public static ManagerDTO getByFullName( String lastname, String firstname ) throws RepoException {
+        return getInstance().repo.getByFullName(lastname, firstname);
+
+    }
 }

@@ -62,13 +62,11 @@ public class ManagerView {
     private static @NotNull TreeItem< ManagerDTO > getData() {
         TreeItem< ManagerDTO > root = new TreeItem<>();
         root.setExpanded(true);
-        try {
-            List< ManagerDTO > managers = ManagerController.getAll();
-            for ( ManagerDTO manager : managers ) {
-                TreeItem< ManagerDTO > item = new TreeItem<>(manager);
-                root.getChildren().add(item);
-            }
-        } catch ( ControllerException ignored ) {}
+        List< ManagerDTO > managers = ManagerController.getAll();
+        for ( ManagerDTO manager : managers ) {
+            TreeItem< ManagerDTO > item = new TreeItem<>(manager);
+            root.getChildren().add(item);
+        }
         return root;
     }
 
