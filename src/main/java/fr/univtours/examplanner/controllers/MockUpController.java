@@ -99,7 +99,6 @@ public class MockUpController {
      * @param entity Le MockUp à supprimer
      * @throws ControllerException Si une erreur survient
      */
-
     public static void delete( @NotNull MockUpDTO entity ) throws ControllerException {
         try {
             getInstance().repo.delete(entity);
