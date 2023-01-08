@@ -16,6 +16,8 @@ public interface BaseMapper < DTO >{
      * @param entities Correspond au retour de la requête SQL
      * @return On retourne une liste de DTO.
      */
-    @NotNull
-    < DTO > List< DTO > EntityToDTO( @NotNull ResultSet entities ) throws MappingException, SQLException ;
+    static <DTO> @NotNull DTO entityToDTO(@NotNull ResultSet entities) {
+        throw new UnsupportedOperationException();
+    }
+
 }

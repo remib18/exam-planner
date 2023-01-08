@@ -141,7 +141,7 @@ CREATE TABLE `Group`
     id                                CHAR(36)    NOT NULL PRIMARY KEY,
     `name`                            Varchar(63) NOT NULL,
     containReducedMobilityPerson      Bool        NOT NULL DEFAULT false,
-    personsWithoutAdjustmentNumber    Int         NOT NULL DEFAULT 0,
+    numberOfStudentsWithoutAdjustment Int         NOT NULL DEFAULT 0,
     numberOfStudentsWithWritingNeeds  Int         NOT NULL DEFAULT 0,
     numberOfStudentsWithIsolatedRooms Int         NOT NULL DEFAULT 0,
     numberOfStudentsWithPartTime      Int         NOT NULL DEFAULT 0
@@ -190,6 +190,22 @@ CREATE TABLE _ExamToExam
     CONSTRAINT _ExamToExam_Exam_parent_FK FOREIGN KEY (parent) REFERENCES Exam (id),
     CONSTRAINT _ExamToExam_Exam_child_FK FOREIGN KEY (child) REFERENCES Exam (id)
 ) ENGINE = InnoDB;
+
+
+#------------------------------------------------------------
+# Table: _GroupToGroup
+#------------------------------------------------------------
+
+CREATE TABLE _GroupToGroup
+(
+    parent CHAR(36) NOT NULL,
+    child  CHAR(36) NOT NULL,
+
+    CONSTRAINT __GroupToGroup_PK PRIMARY KEY (parent, child),
+    CONSTRAINT __GroupToGroup_Group_parent_FK FOREIGN KEY (parent) REFERENCES `Group` (id),
+    CONSTRAINT __GroupToGroup_Group_child_FK FOREIGN KEY (child) REFERENCES `Group` (id)
+) ENGINE = InnoDB;
+
 
 #------------------------------------------------------------
 # Table: _ExamToDepartment
