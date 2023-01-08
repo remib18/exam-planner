@@ -11,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Objects;
 
-public class ManagerController implements BaseController<ManagerDTO> {
+public class ManagerController {
 
     /**
      * Interface avec la base de données permettant d'effectuer des opérations standards sur les surveillants
@@ -30,7 +30,7 @@ public class ManagerController implements BaseController<ManagerDTO> {
      *
      * @return la liste des surveillants
      */
-    public @NotNull List< ManagerDTO > getAll() throws ControllerException {
+    public static @NotNull List< ManagerDTO > getAll() throws ControllerException {
         try {
             return getInstance().repo.getAll();
         } catch ( RepoException e ) {
@@ -45,7 +45,7 @@ public class ManagerController implements BaseController<ManagerDTO> {
         return instance;
     }
 
-    public @Nullable ManagerDTO getByID( String id ) {
+    public static @Nullable ManagerDTO getByID( String id ) {
         // TODO implement here
         throw new UnsupportedOperationException();
     }
@@ -58,8 +58,9 @@ public class ManagerController implements BaseController<ManagerDTO> {
      * @param firstName le prénom du surveillant
      * @return le surveillant créé
      */
-    public @NotNull ManagerDTO create( @NotNull Civility civility, @NotNull String lastName, @NotNull String firstName )
-    throws ControllerException {
+    public static @NotNull ManagerDTO create(
+            @NotNull Civility civility, @NotNull String lastName, @NotNull String firstName
+    ) throws ControllerException {
         try {
             return getInstance().repo.save(new ManagerDTO(null, civility, lastName, firstName));
         } catch ( RepoException e ) {
@@ -72,7 +73,7 @@ public class ManagerController implements BaseController<ManagerDTO> {
      *
      * @param entity le surveillant à modifier
      */
-    public void save( @NotNull ManagerDTO entity ) throws ControllerException {
+    public static void save( @NotNull ManagerDTO entity ) throws ControllerException {
         try {
             getInstance().repo.save(entity);
         } catch ( RepoException e ) {
@@ -85,7 +86,7 @@ public class ManagerController implements BaseController<ManagerDTO> {
      *
      * @param entity le surveillant à supprimer
      */
-    public void delete( @NotNull ManagerDTO entity ) throws ControllerException {
+    public static void delete( @NotNull ManagerDTO entity ) throws ControllerException {
         try {
             getInstance().repo.delete(entity);
         } catch ( RepoException e ) {

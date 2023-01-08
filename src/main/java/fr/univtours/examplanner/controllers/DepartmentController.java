@@ -7,7 +7,6 @@ import fr.univtours.examplanner.repositories.DepartmentRepo;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -59,7 +58,7 @@ public class DepartmentController implements BaseController<DepartmentDTO> {
      * @param id l'identifiant du département
      * @return le département correspondant à l'identifiant
      */
-    public @Nullable DepartmentDTO getByID( String id ) {
+    public static @Nullable DepartmentDTO getByID( String id ) {
         // TODO implement here
         throw new UnsupportedOperationException();
     }
