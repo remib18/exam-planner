@@ -55,7 +55,7 @@ public class RoomDTO {
 	 * @param computerEnvironment Environnement des ordinateurs
 	 * @param roomEquipment       Equipements des salles
 	 * @param availableSlots      Créneaux de disponibilité de la salle
-	 * @throws ParseException L'objet n'existe pas dans l'énumeration
+	 * @throws ParseException Si l'objet n'existe pas dans l'énumération
 	 */
 	public RoomDTO(
 			@NotNull String name,
