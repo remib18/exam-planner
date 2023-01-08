@@ -18,7 +18,6 @@ public class SubjectMapper implements BaseMapper {
      *
      * @throws MappingException
      */
-
     public static @NotNull List< SubjectDTO > entityToDo( @NotNull ResultSet entities ) throws MappingException {
         List< SubjectDTO > subjects = new ArrayList<>();
         try {
