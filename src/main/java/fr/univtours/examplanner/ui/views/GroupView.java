@@ -22,7 +22,7 @@ public class GroupView {
 	private GroupView() {super();}
 
 	public static @NotNull Scene getScene() throws IOException {
-		DataView< GroupDTO > view = new DataView<>("images/Person.png",
+		DataView< GroupDTO > view = new DataView<>("images/Group.png",
 				"feature.group",
 				new DataTable<>(getColumns(), GroupView::getData)
 		);
@@ -45,7 +45,7 @@ public class GroupView {
 	private static @NotNull List< TableColumnDeclaration< GroupDTO, ? > > getColumns() {
 		List< TableColumnDeclaration< GroupDTO, ? > > columns = new ArrayList<>();
 		columns.add(new TableColumnDeclaration<>("id", "feature.group.id", false));
-		columns.add(new TableColumnDeclaration<>("name", "feature.manager.name", true));
+		columns.add(new TableColumnDeclaration<>("name", "feature.group.name", true));
 		columns.add(new TableColumnDeclaration<>("containsStudentsWithReducedMobility",
 				"feature.group.containsStudentsWithReducedMobility",
 				true
