@@ -17,7 +17,7 @@ import java.util.List;
 
 public class GroupView {
 
-	public static final String TITLE = "app.title.manager";
+	public static final String TITLE = "app.title.group";
 
 	private GroupView() {super();}
 
