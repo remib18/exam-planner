@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Objects;
 
-public class GroupController implements BaseController< GroupDTO > {
+public class GroupController {
 
     /**
      * Interface avec la base de données permettant d'effectuer des opérations standards sur les groupes
@@ -28,7 +28,7 @@ public class GroupController implements BaseController< GroupDTO > {
      *
      * @return la liste des groupes
      */
-    public @NotNull List< GroupDTO > getAll() throws ControllerException {
+    public static @NotNull List< GroupDTO > getAll() throws ControllerException {
         try {
             return getInstance().repo.getAll();
         } catch ( RepoException e ) {
@@ -54,7 +54,7 @@ public class GroupController implements BaseController< GroupDTO > {
      * @param numberOfStudentsWithPartTime      Nombre d'étudiants avec un besoin de temps supplémentaires
      * @param subGroupIds                       Liste des groupes enfants
      */
-    public @NotNull GroupDTO create(
+    public static @NotNull GroupDTO create(
             @NotNull String name,
             boolean containReducedMobilityPerson,
             int numberOfStudentsWithoutAdjustment,
@@ -85,7 +85,7 @@ public class GroupController implements BaseController< GroupDTO > {
      *
      * @param entity le groupe à modifier
      */
-    public void save( @NotNull GroupDTO entity ) throws ControllerException {
+    public static void save( @NotNull GroupDTO entity ) throws ControllerException {
         try {
             getInstance().repo.save(entity);
         } catch ( RepoException e ) {
@@ -98,7 +98,7 @@ public class GroupController implements BaseController< GroupDTO > {
      *
      * @param entity le groupe à supprimer
      */
-    public void delete( @NotNull GroupDTO entity ) throws ControllerException {
+    public static void delete( @NotNull GroupDTO entity ) throws ControllerException {
         try {
             getInstance().repo.delete(entity);
         } catch ( RepoException e ) {
@@ -107,4 +107,11 @@ public class GroupController implements BaseController< GroupDTO > {
     }
 
 
+    public static GroupDTO getById( @NotNull String id ) throws ControllerException {
+        try {
+            return getInstance().repo.getById(id);
+        } catch ( RepoException e ) {
+            throw new ControllerException("An error occurred during the data fetching.", e);
+        }
+    }
 }

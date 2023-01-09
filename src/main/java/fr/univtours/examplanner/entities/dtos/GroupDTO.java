@@ -1,7 +1,11 @@
 package fr.univtours.examplanner.entities.dtos;
 
+import fr.univtours.examplanner.controllers.GroupController;
+import fr.univtours.examplanner.entities.EditableEntity;
 import fr.univtours.examplanner.entities.WithIDEntity;
+import fr.univtours.examplanner.exceptions.ControllerException;
 import fr.univtours.examplanner.utils.EntityUtils;
+import javafx.beans.property.SimpleObjectProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -9,49 +13,51 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class GroupDTO extends WithIDEntity {
+public class GroupDTO extends WithIDEntity implements EditableEntity {
 
 	/**
 	 * Liste des groupes enfants
 	 */
 	@NotNull
-	private final List< String > childrenIDs = new ArrayList<>();
+	private final SimpleObjectProperty< @NotNull List< @NotNull String > > childrenIDs =
+			new SimpleObjectProperty<>(new ArrayList<>());
 
 	/**
-	 * Nom du groupe<br/>
-	 * Ne peut pas être null
+	 * Nom du groupe<br/> Ne peut pas être null
 	 */
 	@NotNull
-	private String name;
+	private final SimpleObjectProperty< @NotNull String > name = new SimpleObjectProperty<>();
 
 	/**
-	 * Le groupe contient-il des personnes en situation de handicap<br/>
-	 * Donnée utile pour la sélection d'une salle adaptée (rez-de-chaussée, ascenseur, ...)
+	 * Le groupe contient-il des personnes en situation de handicap<br/> Donnée utile pour la sélection d'une salle
+	 * adaptée (rez-de-chaussée, ascenseur, ...)
 	 */
-	private boolean containsStudentsWithReducedMobility;
+	private final SimpleObjectProperty< @NotNull Boolean > containsStudentsWithReducedMobility = new SimpleObjectProperty<>();
 
 	/**
-	 * Nombre d'étudiants avec un besoin de secrétaire<br/>
-	 * Pour chaque étudiant, il faut un secrétaire et une salle
+	 * Nombre d'étudiants avec un besoin de secrétaire<br/> Pour chaque étudiant, il faut un secrétaire et une salle
 	 */
-	private int numberOfStudentsWithWriterNeeds;
+	private final SimpleObjectProperty< @NotNull Integer > numberOfStudentsWithWriterNeeds = new SimpleObjectProperty<>();
 
 	/**
-	 * Nombre d'étudiants avec un besoin d'isolation = une salle seul<br/>
-	 * Pour chaque étudiant, il faut une salle et un surveillant
+	 * Nombre d'étudiants avec un besoin d'isolation = une salle seul<br/> Pour chaque étudiant, il faut une salle
+	 * et un
+	 * surveillant
 	 */
-	private int numberOfStudentsWithIsolationNeeds;
+	private final SimpleObjectProperty< @NotNull Integer > numberOfStudentsWithIsolationNeeds =
+			new SimpleObjectProperty<>();
 
 	/**
-	 * Nombre d'étudiants avec un besoin de temps supplémentaires 1/3 ou 1/4 temps<br/>
-	 * Il faut une salle et un surveillant pour l'ensemble de ces étudiants
+	 * Nombre d'étudiants avec un besoin de temps supplémentaires 1/3 ou 1/4 temps<br/> Il faut une salle et un
+	 * surveillant pour l'ensemble de ces étudiants
 	 */
-	private int numberOfStudentsWithPartTimeNeeds;
+	private final SimpleObjectProperty< @NotNull Integer > numberOfStudentsWithPartTimeNeeds =
+			new SimpleObjectProperty<>();
 
 	/**
 	 * Nombre d'étudiants total du groupe, sans distinction de besoin
 	 */
-	private int numberOfStudentsWithoutAdjustment;
+	private final SimpleObjectProperty< @NotNull Integer > numberOfStudentsWithoutAdjustment = new SimpleObjectProperty<>();
 
 	/**
 	 * Groupe d'étudiants, peut représenter des groupes de TD comme des groupes d'options
@@ -74,89 +80,88 @@ public class GroupDTO extends WithIDEntity {
 			int numberOfStudentsWithWriterNeeds,
 			int numberOfStudentsWithIsolationNeeds,
 			int numberOfStudentsWithPartTimeNeeds,
-			int numberOfStudentsWithoutAdjustment,
-			@NotNull List< String > children
+			int numberOfStudentsWithoutAdjustment, @NotNull List< String > children
 	) {
 		super(id);
-		this.name = name;
-		this.containsStudentsWithReducedMobility = containsStudentsWithReducedMobility;
-		this.numberOfStudentsWithWriterNeeds = numberOfStudentsWithWriterNeeds;
-		this.numberOfStudentsWithIsolationNeeds = numberOfStudentsWithIsolationNeeds;
-		this.numberOfStudentsWithPartTimeNeeds = numberOfStudentsWithPartTimeNeeds;
-		this.numberOfStudentsWithoutAdjustment = numberOfStudentsWithoutAdjustment;
-		this.childrenIDs.addAll(children);
+		this.name.set(name);
+		this.containsStudentsWithReducedMobility.set(containsStudentsWithReducedMobility);
+		this.numberOfStudentsWithWriterNeeds.set(numberOfStudentsWithWriterNeeds);
+		this.numberOfStudentsWithIsolationNeeds.set(numberOfStudentsWithIsolationNeeds);
+		this.numberOfStudentsWithPartTimeNeeds.set(numberOfStudentsWithPartTimeNeeds);
+		this.numberOfStudentsWithoutAdjustment.set(numberOfStudentsWithoutAdjustment);
+		this.childrenIDs.get().addAll(children);
 	}
 
 
 	public @NotNull String getName() {
-		return name;
+		return name.get();
 	}
 
-	public void setName(@NotNull String name) {
-		this.name = name;
+	public void setName( @NotNull String name) {
+		this.name.set(name);
 	}
 
 	public boolean doesContainsStudentsWithReducedMobility() {
-		return containsStudentsWithReducedMobility;
+		return containsStudentsWithReducedMobility.get();
 	}
 
-	public void setContainsStudentsWithReducedMobility(boolean containsStudentsWithReducedMobility) {
-		this.containsStudentsWithReducedMobility = containsStudentsWithReducedMobility;
+	public void setContainsStudentsWithReducedMobility(boolean containsStudentsWithReducedMobility ) {
+		this.containsStudentsWithReducedMobility.set(containsStudentsWithReducedMobility);
 	}
 
 	public int getNumberOfStudentsWithWriterNeeds() {
-		return numberOfStudentsWithWriterNeeds;
+		return numberOfStudentsWithWriterNeeds.get();
 	}
 
-	public void setNumberOfStudentsWithWriterNeeds(int numberOfStudentsWithWriterNeeds) {
-		this.numberOfStudentsWithWriterNeeds = numberOfStudentsWithWriterNeeds;
+	public void setNumberOfStudentsWithWriterNeeds( int numberOfStudentsWithWriterNeeds ) {
+		this.numberOfStudentsWithWriterNeeds.set(numberOfStudentsWithWriterNeeds);
 	}
 
 	public int getNumberOfStudentsWithIsolationNeeds() {
-		return numberOfStudentsWithIsolationNeeds;
+		return numberOfStudentsWithIsolationNeeds.get();
 	}
 
-	public void setNumberOfStudentsWithIsolationNeeds(int numberOfStudentsWithIsolationNeeds) {
-		this.numberOfStudentsWithIsolationNeeds = numberOfStudentsWithIsolationNeeds;
+	public void setNumberOfStudentsWithIsolationNeeds(int numberOfStudentsWithIsolationNeeds ) {
+		this.numberOfStudentsWithIsolationNeeds.set(numberOfStudentsWithIsolationNeeds);
 	}
 
 	public int getNumberOfStudentsWithPartTimeNeeds() {
-		return numberOfStudentsWithPartTimeNeeds;
+		return numberOfStudentsWithPartTimeNeeds.get();
 	}
 
 	public void setNumberOfStudentsWithPartTimeNeeds( int numberOfStudentsWithPartTimeNeeds ) {
-		this.numberOfStudentsWithPartTimeNeeds = numberOfStudentsWithPartTimeNeeds;
+		this.numberOfStudentsWithPartTimeNeeds.set(numberOfStudentsWithPartTimeNeeds);
 	}
 
 	public int getNumberOfStudentsWithoutAdjustment() {
-		return numberOfStudentsWithoutAdjustment;
+		return numberOfStudentsWithoutAdjustment.get();
 	}
 
 	public void setnumberOfStudentsWithoutAdjustment( int numberOfStudentsWithoutAdjustment ) {
-		this.numberOfStudentsWithoutAdjustment = numberOfStudentsWithoutAdjustment;
+		this.numberOfStudentsWithoutAdjustment.set(numberOfStudentsWithoutAdjustment);
 	}
 
 	public @NotNull List< String > getChildrenIDs() {
-		return childrenIDs;
+		return childrenIDs.get();
 	}
 
-	public void addChild(@NotNull GroupDTO child) throws IllegalArgumentException {
-		if (children.contains(child)) {
+	public void addChild(@NotNull GroupDTO child ) throws IllegalArgumentException {
+		if ( childrenIDs.get().contains(child) ) {
 			throw new IllegalArgumentException("Cannot add a child twice");
 		}
-		childrenIDs.add(child.getId());
+		childrenIDs.get().add(child.getId());
 	}
 
 	public void addChild( @NotNull List< GroupDTO > children ) {
 		children.forEach(this::addChild);
 	}
 
-	public void removeChild(@NotNull GroupDTO child ) {
-		childrenIDs.remove(child.getId());
+	public void removeChild( @NotNull GroupDTO child ) {
+		childrenIDs.get().remove(child.getId());
 	}
 
-	public void removeChild(@NotNull List<GroupDTO> children) {
-		this.children.removeAll(children);
+	public void removeChild( @NotNull List< GroupDTO > children ) {
+		this.childrenIDs.get().removeAll(children);
 	}
 
 	@Override
@@ -199,7 +204,22 @@ public class GroupDTO extends WithIDEntity {
 			   ", \n\tnumberOfStudentsWithoutAdjustment: " +
 			   numberOfStudentsWithoutAdjustment +
 			   ", \n\tchildrenIds: " +
-			   EntityUtils.listToString(childrenIDs, e -> e) +
+			   EntityUtils.listToString(childrenIDs.get(), e -> e) +
 			   "\n}";
+	}
+
+	public List< GroupDTO > getChildren() {
+		return childrenIDs.get().stream().map(i -> {
+			try {
+				return GroupController.getById(i);
+			} catch ( ControllerException e ) {
+				return null;
+			}
+		}).filter(Objects::nonNull).toList();
+	}
+
+	@Override
+	public void set( String property, Object value ) throws ControllerException {
+
 	}
 }

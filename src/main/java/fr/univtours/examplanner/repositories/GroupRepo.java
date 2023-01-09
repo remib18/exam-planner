@@ -1,6 +1,6 @@
 package fr.univtours.examplanner.repositories;
 
-import fr.univtours.examplanner.entities.Exam;
+import fr.univtours.examplanner.entities.dtos.ExamDTO;
 import fr.univtours.examplanner.entities.dtos.GroupDTO;
 import fr.univtours.examplanner.exceptions.DatabaseConnectionException;
 import fr.univtours.examplanner.exceptions.RepoException;
@@ -24,7 +24,7 @@ public class GroupRepo implements BaseRepo<GroupDTO, String> {
      * @param e un examen
      * @return la liste des examens correspondants
      */
-    public @NotNull List< GroupDTO > getAllFromExam( Exam e ) throws RepoException {
+    public @NotNull List< GroupDTO > getAllFromExam( ExamDTO e ) throws RepoException {
         String idE = e.getId();
         String sql = "SELECT group FROM _ExamToGroup WHERE exam = ?";
         List< GroupDTO > result = new ArrayList<>();
