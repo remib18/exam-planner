@@ -32,12 +32,14 @@ public class ManagerView {
             try {
                 ManagerController.save(manager);
             } catch ( ControllerException e ) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         });
         view.setOnDeleteRequest(() -> {
             view.getTable().getSelectionModel().getSelectedItems().forEach(item -> {
-                try {ManagerController.delete(item.getValue());} catch ( ControllerException e ) {e.printStackTrace();}
+                try {ManagerController.delete(item.getValue());} catch ( ControllerException e ) {
+                    throw new RuntimeException(e);
+                }
             });
         });
         return new Scene(view);
@@ -46,7 +48,8 @@ public class ManagerView {
     private static @NotNull List< TableColumnDeclaration< ManagerDTO, ? > > getColumns() {
         List< TableColumnDeclaration< ManagerDTO, ? > > columns = new ArrayList<>();
         columns.add(new TableColumnDeclaration<>("id", "feature.manager.id", false));
-        columns.add(new TableColumnDeclaration<>("civility",
+        columns.add(new TableColumnDeclaration<>(
+                "civility",
                 "feature.manager.civility",
                 true,
                 ManagerView::handleCivilityChange,
@@ -54,8 +57,8 @@ public class ManagerView {
                 TableColumnDeclaration.Type.COMBOBOX,
                 Civility.getOptions()
         ));
-        columns.add(new TableColumnDeclaration<>("lastname", "feature.manager.lastname", true));
-        columns.add(new TableColumnDeclaration<>("firstname", "feature.manager.firstname", true));
+        columns.add(new TableColumnDeclaration<>("lastName", "feature.manager.lastname", true));
+        columns.add(new TableColumnDeclaration<>("firstName", "feature.manager.firstname", true));
         return columns;
     }
 
@@ -75,7 +78,9 @@ public class ManagerView {
         Civility civility = event.getNewValue();
         try {
             manager.set("civility", civility);
-        } catch ( ControllerException ignored ) {}
+        } catch ( ControllerException e ) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

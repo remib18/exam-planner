@@ -102,4 +102,11 @@ public class SubjectController {
         }
     }
 
+    public static @Nullable SubjectDTO getByName( @NotNull String name ) throws ControllerException {
+        try {
+            return getInstance().repo.getByName(name);
+        } catch ( RepoException e ) {
+            throw new ControllerException("An error occurred during the data fetching", e);
+        }
+    }
 }

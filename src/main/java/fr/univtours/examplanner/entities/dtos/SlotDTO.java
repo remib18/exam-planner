@@ -1,23 +1,30 @@
 package fr.univtours.examplanner.entities.dtos;
 
+import fr.univtours.examplanner.controllers.SlotController;
+import fr.univtours.examplanner.entities.EditableEntity;
 import fr.univtours.examplanner.entities.WithIDEntity;
+import fr.univtours.examplanner.exceptions.ControllerException;
+import javafx.beans.property.SimpleObjectProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.sql.Date;
 import java.util.Calendar;
 import java.util.Objects;
 
-public class SlotDTO extends WithIDEntity {
+public class SlotDTO extends WithIDEntity implements EditableEntity {
 
     /**
      * Date et heure de début du créneau
      */
-    private @NotNull Calendar start;
+    private final @NotNull SimpleObjectProperty< Date > day = new SimpleObjectProperty<>();
 
-	/**
-	 * Durée du créneau en heures
-	 */
-	private float duration;
+    private final @NotNull SimpleObjectProperty< Float > hour = new SimpleObjectProperty<>();
+
+    /**
+     * Durée du créneau en heures
+     */
+    private final SimpleObjectProperty< Float > duration = new SimpleObjectProperty<>();
 
     /**
      * Créneau disponible pour les examens
@@ -26,18 +33,31 @@ public class SlotDTO extends WithIDEntity {
      * @param start    Date et heure de début du créneau
      * @param duration Durée du créneau en heures
      */
-    public SlotDTO( @Nullable String id, @NotNull Calendar start, float duration ) {
+    public SlotDTO( @Nullable String id, @NotNull Date start, float hour, float duration ) {
         super(id);
-        this.start = start;
-        this.duration = duration;
+        this.day.set(start);
+        this.hour.set(hour);
+        this.duration.set(duration);
     }
 
-    public static String getCalendarDate( @NotNull Calendar start ) {
-        int year = start.get(Calendar.YEAR);
-        int month = start.get(Calendar.MONTH);
-        int day = start.get(Calendar.DAY_OF_MONTH);
-        String date = year + "-" + month + "-" + day;
-        return date;
+    public SimpleObjectProperty< Date > dayProperty() {
+        return day;
+    }
+
+    public SimpleObjectProperty< Float > hourProperty() {
+        return hour;
+    }
+
+    public SimpleObjectProperty< Float > durationProperty() {
+        return duration;
+    }
+
+    public Date getDay() {
+        return day.get();
+    }
+
+    public void setDay( @NotNull Date day ) {
+        this.day.set(day);
     }
 
     public static float getHourMins( @NotNull Calendar start ) {
@@ -46,41 +66,59 @@ public class SlotDTO extends WithIDEntity {
         return hour + min / 100;
     }
 
-    public @NotNull Calendar getStart() {
-        return start;
+    public Float getHour() {
+        return hour.get();
     }
 
-    public void setStart( @NotNull Calendar start ) {
-        this.start = start;
+    public void setHour( Float hour ) {
+        this.hour.set(hour);
     }
 
     public float getDuration() {
-        return duration;
-	}
+        return duration.get();
+    }
 
-	public void setDuration(float duration) {
-		this.duration = duration;
-	}
+    public void setDuration( float duration ) {
+        this.duration.set(duration);
+    }
 
-	@Override
-	public boolean equals( Object o ) {
+    @Override
+    public boolean equals( Object o ) {
         if ( this == o ) return true;
-        if ( null == o || getClass() != o.getClass()) return false;
-		SlotDTO slotDTO = (SlotDTO) o;
-		return Objects.equals(id, slotDTO.id);
-	}
+        if ( null == o || getClass() != o.getClass() ) return false;
+        SlotDTO slotDTO = (SlotDTO) o;
+        return Objects.equals(id, slotDTO.id);
+    }
 
-	@Override
+    @Override
 	public int hashCode() {
-		return Objects.hash(id, start, duration);
-	}
+        return Objects.hash(id, day, hour, duration);
+    }
 
-	@Override
-	public @NotNull String toString() {
-		return "SlotDTO{" +
-				"\n\tid: " + id +
-				", \n\tstart: " + start +
-				", \n\tduration: " + duration +
-				"\n}";
-	}
+    @Override
+    public @NotNull String toString() {
+        return "SlotDTO{" +
+               "\n\tid: " +
+               id +
+               ", \n\tday: " +
+               day +
+               ", \n\thour: " +
+               hour +
+               ", \n\tduration: " +
+               duration +
+               "\n}";
+    }
+
+    @Override
+    public void set( String property, Object value ) throws ControllerException {
+        switch ( property ) {
+            case "day" -> setDay((Date) value);
+            case "hour" -> setHour((Float) value);
+            case "duration" -> setDuration((float) value);
+            default -> throw new IllegalArgumentException("Unknown property " + property);
+        }
+        if ( Objects.nonNull(id.get()) ) {
+            SlotController.save(this);
+        }
+    }
 }

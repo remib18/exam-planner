@@ -50,7 +50,7 @@ public class MockUpRepo implements BaseRepo< MockUpDTO, String > {
             if ( withOptions ) {
                 stm.setString(1, value);
             }
-            return MockUpMapper.entityToDTO(stm.executeQuery());
+            return ( new MockUpMapper() ).entityToDTO(stm.executeQuery());
         } catch ( SQLException | DatabaseConnectionException | MappingException e ) {
             throw new RepoException("Getting MockUp failed, no rows affected", e);
         }

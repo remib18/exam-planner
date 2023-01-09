@@ -48,7 +48,7 @@ public class SubjectRepo implements BaseRepo< SubjectDTO, String > {
             if ( withOptions ) {
                 stm.setString(1, value);
             }
-            return SubjectMapper.entityToDo(stm.executeQuery());
+            return ( new SubjectMapper() ).entityToDTO(stm.executeQuery());
         } catch ( SQLException | DatabaseConnectionException | MappingException e ) {
             throw new RepoException("Getting subjects failed, no rows affected", e);
         }

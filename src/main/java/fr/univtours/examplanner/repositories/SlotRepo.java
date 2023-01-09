@@ -14,7 +14,6 @@ import org.jetbrains.annotations.Nullable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
@@ -30,36 +29,36 @@ public class SlotRepo implements BaseRepo<SlotDTO, String> {
         try {
             String sql = "SELECT * FROM _slottoroom WHERE room = " + room.getName();
             ResultSet res = Database.getConnection().createStatement().executeQuery(sql);
-            return SlotMapper.EntityToDTO(res);
+            return ( new SlotMapper() ).entityToDTO(res);
         } catch ( SQLException | DatabaseConnectionException | MappingException e ) {
             throw new RepoException("Getting slots failed, no rows affected.", e);
         }
     }
 
     @Override
-    public @NotNull SlotDTO save( @NotNull SlotDTO entity )
-    throws SQLException, DatabaseConnectionException, RepoException {
+    public @NotNull SlotDTO save( @NotNull SlotDTO entity ) throws RepoException {
         boolean hasId = !Objects.isNull(entity.getId());
         String id = hasId ? entity.getId() : Database.getNewUUID();
         String sql;
         if ( hasId ) {
-            sql = "INSERT INTO slot (id, day, hour, duration) VALUES (" + id + ", " + "?, ?," + " ?, ?)";
+            sql = "UPDATE slot SET day = ?, hour = ?, duration = ? WHERE id = '" + id + "'";
         } else {
-            sql = "UPDATE slot SET day = ?, hour = ?, duration = ? WHERE id = " + entity.getId();
+            sql = "INSERT INTO slot (id, day, hour, duration) VALUES ('" + id + "', " + "?, ?," + " ?)";
         }
         try ( PreparedStatement pstmt = Database.getConnection().prepareStatement(sql) ) {
 
 
-            pstmt.setString(1, entity.getStart().toString());
-            pstmt.setString(1, SlotDTO.getCalendarDate(entity.getStart()));
-            pstmt.setFloat(2, SlotDTO.getHourMins(entity.getStart()));
+            pstmt.setDate(1, entity.getDay());
+            pstmt.setFloat(2, entity.getHour());
             pstmt.setFloat(3, entity.getDuration());
 
             int rows = pstmt.executeUpdate();
             if ( 0 == rows ) {
                 throw new RepoException("Creating slot failed, no rows affected", null);
             }
-            entity.setId(entity.getId());
+            if ( Objects.isNull(entity.getId()) ) {
+                entity.setId(id);
+            }
             return entity;
         } catch ( DatabaseConnectionException | SQLException e ) {
             throw new RepoException("Fail to save", e);
@@ -81,7 +80,7 @@ public class SlotRepo implements BaseRepo<SlotDTO, String> {
             if ( withOptions ) {
                 stm.setString(1, value);
             }
-            return SlotMapper.EntityToDTO(stm.executeQuery());
+            return ( new SlotMapper() ).entityToDTO(stm.executeQuery());
         } catch ( SQLException | DatabaseConnectionException | MappingException e ) {
             throw new RepoException("Getting slots failed, no rows affected.", e);
         }
@@ -94,16 +93,6 @@ public class SlotRepo implements BaseRepo<SlotDTO, String> {
             return null;
         }
         return res.get(0);
-    }
-
-
-    public @NotNull List< SlotDTO > getFromStart( @NotNull Calendar start )
-    throws RepoException, DatabaseConnectionException, SQLException, MappingException {
-        String jour = SlotDTO.getCalendarDate(start);
-        String hour = String.valueOf(SlotDTO.getHourMins(start));
-        String sql = "SELECT * FROM _slottoroom WHERE date = " + jour + " AND heure = " + hour;
-        ResultSet res = Database.getConnection().createStatement().executeQuery(sql);
-        return SlotMapper.EntityToDTO(res);
     }
 
     public @NotNull SlotDTO getByDuration( @NotNull float duration ) throws RepoException {

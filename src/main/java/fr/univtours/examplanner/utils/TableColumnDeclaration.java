@@ -4,6 +4,7 @@ import fr.univtours.examplanner.Storage;
 import fr.univtours.examplanner.entities.EditableEntity;
 import fr.univtours.examplanner.exceptions.ControllerException;
 import fr.univtours.examplanner.translations.Translation;
+import fr.univtours.examplanner.ui.components.DataTable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -52,18 +53,26 @@ public record TableColumnDeclaration< DTO extends EditableEntity, T >(String pro
         this(property, title, editable, null, (StringConverter< T >) new DefaultStringConverter(), Type.TEXT, null);
     }
 
+    public TableColumnDeclaration( String property, String title, boolean editable, StringConverter< T > converter ) {
+        this(property, title, editable, null, converter, Type.TEXT, null);
+    }
+
     /**
      * Construit une colonne à partir de la déclaration
      *
      * @return La colonne
      */
     public TreeTableColumn< DTO, T > build() {
+        return build(null);
+    }
+
+    public TreeTableColumn< DTO, T > build( DataTable< DTO > dataTable ) {
         TreeTableColumn< DTO, T > column = new TreeTableColumn<>(Translation.get(title));
         Storage.languageProperty()
                .addListener(( observable, oldValue, newValue ) -> column.setText(Translation.get(title)));
         column.setCellValueFactory(new TreeItemPropertyValueFactory<>(property));
         if ( editable ) {
-            column.setCellFactory(getCellFactory());
+            column.setCellFactory(getCellFactory(dataTable));
         }
         column.setOnEditCommit(this::handleSave);
         return column;
@@ -74,7 +83,7 @@ public record TableColumnDeclaration< DTO extends EditableEntity, T >(String pro
      *
      * @return La {@code CellFactory}
      */
-    private Callback< TreeTableColumn< DTO, T >, TreeTableCell< DTO, T > > getCellFactory() {
+    private Callback< TreeTableColumn< DTO, T >, TreeTableCell< DTO, T > > getCellFactory( DataTable< DTO > table ) {
         return switch ( type ) {
             case TEXT -> TextFieldTreeTableCell.forTreeTableColumn(converter);
             case COMBOBOX -> {
@@ -109,7 +118,8 @@ public record TableColumnDeclaration< DTO extends EditableEntity, T >(String pro
      */
     public enum Type {
         TEXT,
-        COMBOBOX
+        COMBOBOX,
+        //CHECKBOX
     }
 
 }

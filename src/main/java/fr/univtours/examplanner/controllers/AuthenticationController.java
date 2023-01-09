@@ -18,12 +18,6 @@ import java.util.Objects;
 
 public class AuthenticationController {
 
-    /**
-     * Interface à la base de donnée permettant d'effectuer des opérations standards sur les utilisateurs
-     */
-    @NotNull
-    //private final UserController userController;
-
     private AuthenticationController() {
         super();
         //userController = new UserController();
@@ -39,14 +33,11 @@ public class AuthenticationController {
     public static void login( String login, String password ) {
         try {
             if ( Objects.isNull(login) || Objects.isNull(password) || login.isEmpty() || password.isEmpty() ) {
-                System.out.println("Login or password is null");
                 openErrorPopup();
                 return;
             }
-            System.out.println("Login: " + login + " Password: " + password);
             UserDTO user = UserController.getByEmail(login);
             if ( Objects.nonNull(user) && checkPassword(password, user.getPassword()) ) {
-                System.out.println("User found ad correct password");
                 Storage.setUser(user);
                 Storage.setScene(Scenes.Dashboard);
                 return;
@@ -78,6 +69,7 @@ public class AuthenticationController {
      */
     private static boolean checkPassword( @NotNull String password, @Nullable String encryptedPassword ) {
         String encrypted = encryptPassword(password);
+        // System.out.println(encrypted);
         return encrypted.equals(encryptedPassword);
     }
 

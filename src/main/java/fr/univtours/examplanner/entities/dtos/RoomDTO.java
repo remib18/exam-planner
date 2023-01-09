@@ -1,8 +1,11 @@
 package fr.univtours.examplanner.entities.dtos;
 
+import fr.univtours.examplanner.entities.EditableEntity;
 import fr.univtours.examplanner.enums.ComputerEnvironment;
 import fr.univtours.examplanner.enums.RoomEquipment;
 import fr.univtours.examplanner.enums.RoomType;
+import fr.univtours.examplanner.exceptions.ControllerException;
+import javafx.beans.property.SimpleObjectProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -11,149 +14,169 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class RoomDTO {
+public class RoomDTO implements EditableEntity {
 
-	/**
-	 * Description de l'environnement des posts pour les étudiants
-	 */
-	private final List< ComputerEnvironment > computerEnvironments = new ArrayList<>();
+    /**
+     * Description de l'environnement des posts pour les étudiants
+     */
+    private final SimpleObjectProperty< List< ComputerEnvironment > > computerEnvironments = new SimpleObjectProperty<>(
+            new ArrayList<>());
 
-	/**
-	 * Équipements de la salle
-	 */
-	private final List< RoomEquipment > equipments = new ArrayList<>();
+    /**
+     * Équipements de la salle
+     */
+    private final SimpleObjectProperty< List< RoomEquipment > > equipments =
+            new SimpleObjectProperty<>(new ArrayList<>());
 
-	/**
-	 * Type de la salle
-	 */
-	@NotNull
-	private RoomType type;
+    /**
+     * Type de la salle
+     */
+    @NotNull
+    private final SimpleObjectProperty< @NotNull RoomType > type = new SimpleObjectProperty<>();
 
-	/**
-	 * Créneaux de disponibilité de la salle
-	 */
-	@NotNull
-	private final List< SlotDTO > availableSlots = new ArrayList<>();
+    /**
+     * Créneaux de disponibilité de la salle
+     */
+    @NotNull
+    private final SimpleObjectProperty< @NotNull List< @NotNull SlotDTO > > availableSlots = new SimpleObjectProperty<>(
+            new ArrayList<>());
 
-	/**
-	 * Nom de la salle
-	 */
-	@NotNull
-	private String name;
+    /**
+     * Nom de la salle
+     */
+    @NotNull
+    private final SimpleObjectProperty< @NotNull String > name = new SimpleObjectProperty<>();
 
-	/**
-	 * Capacité de la salle
-	 */
-	private int places;
+    /**
+     * Capacité de la salle
+     */
+    private final SimpleObjectProperty< Integer > places = new SimpleObjectProperty<>();
 
-	/**
-	 * Salle
-	 *
-	 * @param name                Nom de la salle
-	 * @param places              Capacité de la salle
-	 * @param type                Type de la salle
-	 * @param computerEnvironment Environnement des ordinateurs
-	 * @param roomEquipment       Equipements des salles
-	 * @param availableSlots      Créneaux de disponibilité de la salle
-	 * @throws ParseException Si l'objet n'existe pas dans l'énumération
-	 */
-	public RoomDTO(
-			@NotNull String name,
-			@NotNull int places,
-			@NotNull String type,
-			@Nullable List< String > computerEnvironment,
-			@NotNull List< String > roomEquipment,
-			@Nullable List< SlotDTO > availableSlots
-	) throws ParseException {
-		this.name = name;
-		this.places = places;
-		this.type = RoomType.parse(type);
-		for ( int i = 0 ; i < computerEnvironment.size() ; i++ ) {
-			this.computerEnvironments.add(ComputerEnvironment.parse(computerEnvironment.get(i)));
-		}
-		for ( int i = 0 ; i < roomEquipment.size() ; i++ ) {
-			this.equipments.add(RoomEquipment.parse(roomEquipment.get(i)));
-		}
-		this.availableSlots.addAll(availableSlots);
-	}
+    /**
+     * Salle
+     *
+     * @param name                Nom de la salle
+     * @param places              Capacité de la salle
+     * @param type                Type de la salle
+     * @param computerEnvironment Environnement des ordinateurs
+     * @param roomEquipment       Equipements des salles
+     * @param availableSlots      Créneaux de disponibilité de la salle
+     * @throws ParseException Si l'objet n'existe pas dans l'énumération
+     */
+    public RoomDTO(
+            @NotNull String name,
+            @NotNull int places,
+            @NotNull RoomType type,
+            @Nullable List< ComputerEnvironment > computerEnvironment,
+            @NotNull List< RoomEquipment > roomEquipment,
+            @Nullable List< SlotDTO > availableSlots
+    ) throws ParseException {
+        this.name.set(name);
+        this.places.set(places);
+        this.type.set(type);
+        this.computerEnvironments.get().addAll(computerEnvironment);
+        this.equipments.get().addAll(roomEquipment);
+        this.availableSlots.get().addAll(availableSlots);
+    }
 
-	public @NotNull String getName() {
-		return name;
-	}
+    public SimpleObjectProperty< String > nameProperty() {
+        return name;
+    }
 
-	public void setName( @NotNull String name ) {
-		this.name = name;
-	}
+    public SimpleObjectProperty< Integer > placesProperty() {
+        return places;
+    }
 
-	public int getPlaces() {
-		return places;
-	}
+    public SimpleObjectProperty< RoomType > typeProperty() {
+        return type;
+    }
 
-	public void setPlaces( int places ) {
-		this.places = places;
-	}
+    public SimpleObjectProperty< List< ComputerEnvironment > > computerEnvironmentsProperty() {
+        return computerEnvironments;
+    }
 
-	public @NotNull RoomType getType() {
+    public SimpleObjectProperty< List< RoomEquipment > > equipmentsProperty() {
+        return equipments;
+    }
 
-		return type;
-	}
+    public SimpleObjectProperty< List< SlotDTO > > availableSlotsProperty() {
+        return availableSlots;
+    }
 
-	public void setType( RoomType type ) {
-		this.type = type;
-	}
+    public @NotNull String getName() {
+        return name.get();
+    }
 
-	public List< ComputerEnvironment > getComputerEnvironments() {
-		return computerEnvironments;
-	}
+    public void setName( @NotNull String name ) {
+        this.name.set(name);
+    }
 
-	public void addComputerEnvironment( ComputerEnvironment computerEnvironment) {
-		this.computerEnvironments.add(computerEnvironment);
-	}
+    public int getPlaces() {
+        return places.get();
+    }
 
-	public void removeComputerEnvironment(ComputerEnvironment computerEnvironment) {
-		this.computerEnvironments.remove(computerEnvironment);
-	}
+    public void setPlaces( int places ) {
+        this.places.set(places);
+    }
 
-	public List<RoomEquipment> getEquipments() {
-		return equipments;
-	}
+    public @NotNull RoomType getType() {return type.get();}
 
-	public void addEquipment(RoomEquipment equipment) {
-		this.equipments.add(equipment);
-	}
+    public void setType( RoomType type ) {
+        this.type.set(type);
+    }
 
-	public void removeEquipment(RoomEquipment equipment) {
-		this.equipments.remove(equipment);
-	}
+    public List< ComputerEnvironment > getComputerEnvironments() {
+        return computerEnvironments.get();
+    }
 
-	public @NotNull List<SlotDTO> getAvailableSlots() {
-		return availableSlots;
-	}
+    public void addComputerEnvironment( ComputerEnvironment computerEnvironment ) {
+        this.computerEnvironments.get().add(computerEnvironment);
+    }
 
-	public void addAvailableSlot(@NotNull SlotDTO slot) {
-		this.availableSlots.add(slot);
-	}
+    public void removeComputerEnvironment( ComputerEnvironment computerEnvironment ) {
+        this.computerEnvironments.get().remove(computerEnvironment);
+    }
 
-	public void addAvailableSlot(@NotNull List<SlotDTO> slots) {
-		this.availableSlots.addAll(slots);
-	}
+    public List< RoomEquipment > getEquipments() {
+        return equipments.get();
+    }
 
-	public void removeAvailableSlot(@NotNull SlotDTO slot) {
-		this.availableSlots.remove(slot);
-	}
+    public void addEquipment( RoomEquipment equipment ) {
+        this.equipments.get().add(equipment);
+    }
 
-	public void removeAvailableSlot(@NotNull List<SlotDTO> slots) {
-		this.availableSlots.removeAll(slots);
-	}
+    public void removeEquipment( RoomEquipment equipment ) {
+        this.equipments.get().remove(equipment);
+    }
 
-	public void removeAllAvailableSlots() {
-		this.availableSlots.clear();
-	}
+    public @NotNull List< SlotDTO > getAvailableSlots() {
+        return availableSlots.get();
+    }
 
-	@Override
-	public boolean equals( Object o ) {
-		if ( this == o) return true;
-		if ( null == o || getClass() != o.getClass()) return false;
+    public void addAvailableSlot( @NotNull SlotDTO slot ) {
+        this.availableSlots.get().add(slot);
+    }
+
+    public void addAvailableSlot( @NotNull List< SlotDTO > slots ) {
+        this.availableSlots.get().addAll(slots);
+    }
+
+    public void removeAvailableSlot( @NotNull SlotDTO slot ) {
+        this.availableSlots.get().remove(slot);
+    }
+
+    public void removeAvailableSlot( @NotNull List< SlotDTO > slots ) {
+        this.availableSlots.get().removeAll(slots);
+    }
+
+    public void removeAllAvailableSlots() {
+        this.availableSlots.get().clear();
+    }
+
+    @Override
+    public boolean equals( Object o ) {
+        if ( this == o ) return true;
+        if ( null == o || getClass() != o.getClass() ) return false;
 		RoomDTO roomDTO = (RoomDTO) o;
 		return Objects.equals(name, roomDTO.name);
 	}
@@ -163,15 +186,31 @@ public class RoomDTO {
 		return Objects.hash(name, places, type, computerEnvironments, equipments, availableSlots);
 	}
 
-	@Override
-	public String toString() {
-		return "RoomDTO{" +
-				"\n\tname: " + name +
-				", \n\tplaces: " + places +
-				", \n\ttype: " + type +
-				", \n\tcomputerEnvironments: " + computerEnvironments +
-				", \n\tequipments: " + equipments +
-				", \n\tavailableSlots: " + availableSlots +
-				"\n}";
+    @Override
+    public String toString() {
+        return "RoomDTO{" +
+               "\n\tname: " +
+               name +
+               ", \n\tplaces: " +
+               places +
+               ", \n\ttype: " +
+               type +
+               ", \n\tcomputerEnvironments: " +
+               computerEnvironments +
+               ", \n\tequipments: " +
+               equipments +
+               ", \n\tavailableSlots: " +
+               availableSlots +
+               "\n}";
+    }
+
+    @Override
+    public void set( String property, Object value ) throws ControllerException {
+        switch ( property ) {
+            case "name" -> setName((String) value);
+            case "places" -> setPlaces((int) value);
+            case "type" -> setType((RoomType) value);
+            default -> throw new RuntimeException();
+		}
 	}
 }

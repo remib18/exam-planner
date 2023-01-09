@@ -12,7 +12,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.*;
+import java.util.List;
 
 public class DepartmentRepo implements BaseRepo<DepartmentDTO, String> {
     private final DepartmentMapper mapper;
@@ -27,7 +27,8 @@ public class DepartmentRepo implements BaseRepo<DepartmentDTO, String> {
             Statement stm = conn.createStatement();
             ResultSet rs = stm.executeQuery("SELECT * FROM Department WHERE name = '" + entity.getName() + "'");
             if ( rs.next() ){} else {
-                stm.executeQuery("INSERT INTO Department VALUES ('" + entity.getName() + "'");
+                String sql = "INSERT INTO Department VALUES ('" + entity.getName() + "')";
+                stm.executeUpdate(sql);
             }
             return entity;
         } catch ( DatabaseConnectionException | SQLException e ) {
@@ -41,7 +42,7 @@ public class DepartmentRepo implements BaseRepo<DepartmentDTO, String> {
             Connection conn = Database.getConnection();
             Statement stm = conn.createStatement();
             ResultSet rs = stm.executeQuery("SELECT * FROM Department");
-            return mapper.EntityToDTO(rs);
+            return mapper.entityToDTO(rs);
         } catch ( DatabaseConnectionException | SQLException | MappingException e ) {
             throw new RepoException("Fail to fetch", e);
         }
@@ -52,7 +53,7 @@ public class DepartmentRepo implements BaseRepo<DepartmentDTO, String> {
             Connection conn = Database.getConnection();
             Statement stm = conn.createStatement();
             ResultSet rs = stm.executeQuery("SELECT * FROM Department WHERE name = '" + name + "'");
-            return mapper.EntityToDTO(rs).get(0);
+            return mapper.entityToDTO(rs).get(0);
         } catch ( DatabaseConnectionException | SQLException | MappingException e ) {
             throw new RepoException("Fail to fetch", e);
         }
@@ -63,8 +64,8 @@ public class DepartmentRepo implements BaseRepo<DepartmentDTO, String> {
         try {
             Connection conn = Database.getConnection();
             Statement stm = conn.createStatement();
-            ResultSet rs = stm.executeQuery("DELETE * FROM Department WHERE name = '" + entity.getName() + "'");
-            return true;
+            int rows = stm.executeUpdate("DELETE FROM Department WHERE name = '" + entity.getName() + "'");
+            return 0 < rows;
         } catch ( DatabaseConnectionException | SQLException e ) {
             throw new RepoException("Fail to delete", e);
         }

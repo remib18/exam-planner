@@ -6,8 +6,8 @@ import org.jetbrains.annotations.NotNull;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.List;
 import java.sql.SQLNonTransientConnectionException;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -64,7 +64,7 @@ public class Database {
             stringBuilder.append(';');
         }
         String res = stringBuilder.toString();
-        return res.substring(0, res.length() - 1);
+        return 1 < res.length() ? res.substring(0, res.length() - 1) : res;
     }
 
     public static @NotNull List< @NotNull String > mysqlSetToList( @NotNull String str ) {

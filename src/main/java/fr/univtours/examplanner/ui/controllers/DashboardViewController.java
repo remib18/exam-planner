@@ -10,6 +10,7 @@ import fr.univtours.examplanner.ui.PopupController;
 import fr.univtours.examplanner.ui.components.DashboardTile;
 import fr.univtours.examplanner.ui.controllers.popups.ResetPasswordPopupController;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
 import org.jetbrains.annotations.NotNull;
@@ -56,22 +57,25 @@ public class DashboardViewController extends BasicViewController {
 
     private void loadTiles() {
         try {
+            /* Todo: fix this
             if ( AuthenticationController.checkAccessRights(UserRole.Department) ) {
 				loadTile("feature.exam", "images/Examen.png", Scenes.Exam);
 				loadTile("feature.manager", "images/Managers.png", Scenes.Manager);
 				loadTile("feature.mockup", "images/Managers.png", Scenes.Mockup);
 				loadTile("feature.subject", "images/Managers.png", Scenes.Subject);
-			}
-			if ( AuthenticationController.checkAccessRights(UserRole.Schooling) ) {
-				loadTile("feature.department", "images/Department.png", Scenes.Department);
-				loadTile("feature.group", "images/Group.png", Scenes.Group);
-				loadTile("feature.room", "images/Room.png", Scenes.Room);
-				loadTile("feature.slot", "images/Slot.png", Scenes.Slot);
-				loadTile("feature.user", "images/Person.png", Scenes.User);
-			}
-		} catch ( IOException e ) {
-			throw new RuntimeException(e);
-		}
+			}*/
+            if ( AuthenticationController.checkAccessRights(UserRole.Schooling) ) {
+                loadTile("feature.department", "images/Department.png", Scenes.Department);
+                loadTile("feature.group", "images/Group.png", Scenes.Group);
+                loadTile("feature.room", "images/Room.png", Scenes.Room);
+                loadTile("feature.slot", "images/Slot.png", Scenes.Slot);
+                loadTile("feature.user", "images/Person.png", Scenes.User);
+            } else {
+                tiles.getChildren().add(new Label("En construction 🏗️"));
+            }
+        } catch ( IOException e ) {
+            throw new RuntimeException(e);
+        }
 	}
 
 	private void loadTile(

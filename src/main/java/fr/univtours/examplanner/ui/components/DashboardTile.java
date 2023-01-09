@@ -64,7 +64,7 @@ public class DashboardTile extends VBox {
         try {
             onClick.call();
         } catch ( Exception e ) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 

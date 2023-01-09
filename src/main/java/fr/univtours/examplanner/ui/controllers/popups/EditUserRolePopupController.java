@@ -8,6 +8,7 @@ import fr.univtours.examplanner.entities.dtos.ManagerDTO;
 import fr.univtours.examplanner.entities.dtos.UserDTO;
 import fr.univtours.examplanner.enums.UserRole;
 import fr.univtours.examplanner.exceptions.ControllerException;
+import fr.univtours.examplanner.exceptions.RepoException;
 import fr.univtours.examplanner.translations.Translation;
 import fr.univtours.examplanner.ui.BasicViewController;
 import fr.univtours.examplanner.ui.PopupController;
@@ -97,30 +98,34 @@ public class EditUserRolePopupController extends BasicViewController {
         departmentOrManagerDropdown.setDisable(false);
         departmentOrManagerDropdown.setValue(null);
         refreshTextLabel();
-        switch ( role.get() ) {
-            case Department -> {
-                departmentOrManagerDropdown.getItems().addAll(DepartmentController.getAll());
-                departmentOrManagerDropdown.setValue(user.getDepartment());
-                departmentOrManagerDropdown.setConverter(new DepartmentDTOStringConverter());
-                departmentOrManagerDropdown.valueProperty().addListener(( observable, oldValue, newValue ) -> {
-                    user.setManager(null);
-                    user.setDepartment((DepartmentDTO) newValue);
-                });
-            }
-            case Manager -> {
-                departmentOrManagerDropdown.getItems().addAll(ManagerController.getAll());
-                departmentOrManagerDropdown.setValue(user.getManager());
-                departmentOrManagerDropdown.setConverter(new ManagerDTOStringConverter());
-                departmentOrManagerDropdown.valueProperty().addListener(( observable, oldValue, newValue ) -> {
+        try {
+            switch ( role.get() ) {
+                case Department -> {
+                    departmentOrManagerDropdown.getItems().addAll(DepartmentController.getAll());
+                    departmentOrManagerDropdown.setValue(user.getDepartment());
+                    departmentOrManagerDropdown.setConverter(new DepartmentDTOStringConverter());
+                    departmentOrManagerDropdown.valueProperty().addListener(( observable, oldValue, newValue ) -> {
+                        user.setManager(null);
+                        user.setDepartment((DepartmentDTO) newValue);
+                    });
+                }
+                case Manager -> {
+                    departmentOrManagerDropdown.getItems().addAll(ManagerController.getAll());
+                    departmentOrManagerDropdown.setValue(user.getManager());
+                    departmentOrManagerDropdown.setConverter(new ManagerDTOStringConverter());
+                    departmentOrManagerDropdown.valueProperty().addListener(( observable, oldValue, newValue ) -> {
+                        user.setDepartment(null);
+                        user.setManager((ManagerDTO) newValue);
+                    });
+                }
+                case Schooling -> {
+                    departmentOrManagerDropdown.setDisable(true);
                     user.setDepartment(null);
-                    user.setManager((ManagerDTO) newValue);
-                });
+                    user.setManager(null);
+                }
             }
-            case Schooling -> {
-                departmentOrManagerDropdown.setDisable(true);
-                user.setDepartment(null);
-                user.setManager(null);
-            }
+        } catch ( ControllerException e ) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -160,7 +165,11 @@ public class EditUserRolePopupController extends BasicViewController {
             if ( Objects.isNull(s) ) return null;
             String lastName = s.split(" ")[0];
             String firstName = s.split(" ")[1];
-            return ManagerController.getByFullName(lastName, firstName);
+            try {
+                return ManagerController.getByFullName(lastName, firstName);
+            } catch ( RepoException e ) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -175,7 +184,11 @@ public class EditUserRolePopupController extends BasicViewController {
         @Override
         public DepartmentDTO fromString( String s ) {
             if ( Objects.isNull(s) ) return null;
-            return DepartmentController.getByName(s);
+            try {
+                return DepartmentController.getByName(s);
+            } catch ( ControllerException e ) {
+                return null;
+            }
         }
     }
 }

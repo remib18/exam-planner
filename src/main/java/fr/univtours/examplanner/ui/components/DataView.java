@@ -162,7 +162,7 @@ public class DataView< T extends EditableEntity > extends AnchorPane implements 
                 getTable().refresh();
             }).accept(addedEntity.get());
         } catch ( Exception e ) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -194,7 +194,7 @@ public class DataView< T extends EditableEntity > extends AnchorPane implements 
             onDeleteRequest.run();
             getTable().refresh();
         } catch ( Exception e ) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 

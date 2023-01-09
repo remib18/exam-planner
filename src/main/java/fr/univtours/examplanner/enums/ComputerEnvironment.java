@@ -2,8 +2,6 @@ package fr.univtours.examplanner.enums;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.text.ParseException;
-
 
 /**
  * Spécifie des contraintes sur l'environnement de travail d'un utilisateur
@@ -19,7 +17,7 @@ public enum ComputerEnvironment {
     MathApplication,
     ChemistryApplication;
 
-    public static ComputerEnvironment parse( @NotNull String environment ) throws ParseException {
+    public static ComputerEnvironment parse( @NotNull String environment ) {
         return switch ( environment ) {
             case "OfficeApplication" -> ComputerEnvironment.OfficeApplication;
             case "InternetAccess" -> ComputerEnvironment.InternetAccess;
@@ -30,9 +28,7 @@ public enum ComputerEnvironment {
             case "PhysicsApplication" -> ComputerEnvironment.PhysicsApplication;
             case "MathApplication" -> ComputerEnvironment.MathApplication;
             case "ChemistryApplication" -> ComputerEnvironment.ChemistryApplication;
-            default -> throw new ParseException("Environment " + environment + " doesn't exist on ComputerEnvironment.",
-                    1
-            );
+            default -> null;
         };
     }
 

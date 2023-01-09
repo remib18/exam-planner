@@ -26,7 +26,7 @@ public class GroupRepo implements BaseRepo<GroupDTO, String> {
      */
     public @NotNull List< GroupDTO > getAllFromExam( ExamDTO e ) throws RepoException {
         String idE = e.getId();
-        String sql = "SELECT group FROM _ExamToGroup WHERE exam = ?";
+        String sql = "SELECT `group` FROM _ExamToGroup WHERE exam = ?";
         List< GroupDTO > result = new ArrayList<>();
         try ( PreparedStatement stm = Database.getConnection().prepareStatement(sql) ) {
             stm.setString(1, idE);
@@ -47,8 +47,8 @@ public class GroupRepo implements BaseRepo<GroupDTO, String> {
             throw new RepoException("Getting group failed, no rows affected", ex);
 
         }
-
     }
+
 
     /**
      * Récupère tous les sous-groupes du groupe passé en paramètre
@@ -77,21 +77,22 @@ public class GroupRepo implements BaseRepo<GroupDTO, String> {
         String id = hasId ? entity.getId() : Database.getNewUUID();
         String sql;
         if ( hasId ) {
-            sql = "INSERT INTO Group (id, name, containReducedMobilityPerson, numberOfStudentsWithoutAdjustment, " +
-                  "numberOfStudentsWithWritingNeeds, numberOfStudentsWithIsolatedRooms, numberOfStudentsWithPartTime)" +
-                  " " +
-                  "VALUES (" +
-                  id +
-                  ", ?, ?, ?, ?, ?, ?)";
-        } else {
-            sql = "UPDATE Group SET nom= ?, " +
+            sql = "UPDATE `Group` SET `name` = ?, " +
                   "containReducedMobilityPerson = ?, " +
                   "numberOfStudentsWithoutAdjustment = ?, " +
                   "numberOfStudentsWithWritingNeeds = ?, " +
                   "numberOfStudentsWithIsolatedRooms = ?, " +
                   "numberOfStudentsWithPartTime = ? " +
-                  "WHERE id = " +
-                  id;
+                  "WHERE id = '" +
+                  id +
+                  "'";
+        } else {
+            sql = "INSERT INTO `Group` (id, `name`, containReducedMobilityPerson, numberOfStudentsWithoutAdjustment, " +
+                  "numberOfStudentsWithWritingNeeds, numberOfStudentsWithIsolatedRooms, numberOfStudentsWithPartTime)" +
+                  " " +
+                  "VALUES ('" +
+                  id +
+                  "', ?, ?, ?, ?, ?, ?)";
         }
         try ( PreparedStatement stm = Database.getConnection().prepareStatement(sql) ) {
             stm.setString(1, entity.getName());
@@ -104,7 +105,9 @@ public class GroupRepo implements BaseRepo<GroupDTO, String> {
             if ( 0 == rows ) {
                 throw new RepoException("Creating group failed, no rows affected", null);
             }
-            entity.setId(id);
+            if ( Objects.isNull(entity.getId()) ) {
+                entity.setId(id);
+            }
             return entity;
         } catch ( SQLException | DatabaseConnectionException e ) {
             throw new RepoException("Creating group failed, no rows affected", e);
@@ -164,10 +167,13 @@ public class GroupRepo implements BaseRepo<GroupDTO, String> {
     @Override
     public boolean delete( @NotNull GroupDTO entity ) throws RepoException {
         String id = entity.getId();
+        if ( Objects.isNull(id) ) {
+            throw new RepoException("You must provide an id.", null);
+        }
         String sql = "DELETE FROM `Group` WHERE id = ?";
         try ( PreparedStatement stm = Database.getConnection().prepareStatement(sql) ) {
             stm.setString(1, id);
-            stm.execute(sql);
+            stm.executeUpdate();
         } catch ( SQLException | DatabaseConnectionException e ) {
             throw new RepoException("Deleting group failed, no rows affected", e);
         }

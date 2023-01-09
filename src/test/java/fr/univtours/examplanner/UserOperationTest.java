@@ -65,7 +65,12 @@ class UserOperationTest {
 
     @Test
     void create_shouldCreateAndReturnASchoolingUser() throws ControllerException {
-        UserDTO user = UserController.create("user4@example.com", "password4", UserRole.Schooling, null);
+        UserDTO user = UserController.create(
+                "user4@example.com",
+                AuthenticationController.encryptPassword("password4"),
+                UserRole.Schooling,
+                null
+        );
 
         // Vérification de la création
         assertNotNull(user);
@@ -86,7 +91,12 @@ class UserOperationTest {
 
     @Test
     void create_shouldCreateAndReturnAManagerUser() throws ControllerException {
-        UserDTO user = UserController.create("user4@example.com", "password4", UserRole.Manager, "manager1");
+        UserDTO user = UserController.create(
+                "user4@example.com",
+                AuthenticationController.encryptPassword("password4"),
+                UserRole.Manager,
+                "manager1"
+        );
 
         // Vérification de la création
         assertNotNull(user);
@@ -107,7 +117,12 @@ class UserOperationTest {
 
     @Test
     void create_shouldCreateAndReturnADepartmentUser() throws ControllerException {
-        UserDTO user = UserController.create("user4@example.com", "password4", UserRole.Department, "Department 1");
+        UserDTO user = UserController.create(
+                "user4@example.com",
+                AuthenticationController.encryptPassword("password4"),
+                UserRole.Department,
+                "Department 1"
+        );
 
         // Vérification de la création
         assertNotNull(user);

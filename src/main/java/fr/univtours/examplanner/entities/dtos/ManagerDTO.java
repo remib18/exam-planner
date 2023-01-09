@@ -41,36 +41,44 @@ public class ManagerDTO extends WithIDEntity implements EditableEntity {
 		this.civility.set(civility);
 		this.lastName.set(lastName);
 		this.firstName.set(firstName);
-	}
+    }
 
-	public @NotNull Civility getCivility() {
-		return civility.get();
-	}
+    public @NotNull Civility getCivility() {
+        return civility.get();
+    }
 
-	public void setCivility(@NotNull Civility civility ) {
-		this.civility.set(civility);
-	}
+    public void setCivility( @NotNull Civility civility ) {
+        this.civility.set(civility);
+    }
+
+    public SimpleObjectProperty< Civility > civilityProperty() {return civility;}
 
 	public @NotNull String getLastName() {
 		return lastName.get();
 	}
 
-	public void setLastName(@NotNull String lastName ) {
+	public void setLastName( @NotNull String lastName ) {
 		this.lastName.set(lastName);
 	}
+
+	public SimpleObjectProperty< String > lastNameProperty() {return lastName;}
 
 	public @NotNull String getFirstName() {
 		return firstName.get();
 	}
 
-	public void setFirstName(@NotNull String firstName ) {
+	public void setFirstName( @NotNull String firstName ) {
 		this.firstName.set(firstName);
+	}
+
+	public @NotNull SimpleObjectProperty< @NotNull String > firstNameProperty() {
+		return firstName;
 	}
 
 	@Override
 	public boolean equals( Object o ) {
 		if ( this == o ) return true;
-		if ( null == o || getClass() != o.getClass()) return false;
+		if ( null == o || getClass() != o.getClass() ) return false;
 		ManagerDTO that = (ManagerDTO) o;
 		return Objects.equals(id, that.id);
 	}
@@ -82,8 +90,7 @@ public class ManagerDTO extends WithIDEntity implements EditableEntity {
 
 	@Override
 	public String toString() {
-		return "ManagerDTO{" +
-			   "\n\tid: " +
+		return "ManagerDTO{" + "\n\tid: " +
 			   id +
 			   ", \n\tcivility: " +
 			   civility +
