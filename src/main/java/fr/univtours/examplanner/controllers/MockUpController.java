@@ -1,7 +1,6 @@
 package fr.univtours.examplanner.controllers;
 
 import fr.univtours.examplanner.entities.dtos.MockUpDTO;
-import fr.univtours.examplanner.entities.dtos.SubjectDTO;
 import fr.univtours.examplanner.enums.Degree;
 import fr.univtours.examplanner.exceptions.ControllerException;
 import fr.univtours.examplanner.exceptions.RepoException;
@@ -70,7 +69,7 @@ public class MockUpController {
      */
 
     public static @NotNull MockUpDTO create(
-            @NotNull String name, @NotNull Degree degree, int semester, @NotNull List< SubjectDTO > subjects
+            @NotNull String name, @NotNull Degree degree, int semester, @NotNull List< String > subjects
     ) throws ControllerException {
         try {
             return getInstance().repo.save(new MockUpDTO(null, name, degree, semester, subjects));

@@ -85,7 +85,7 @@ public class MockUpRepo implements BaseRepo< MockUpDTO, String > {
             stm.setString(1, entity.getName());
             stm.setObject(2, entity.getDegree());
             stm.setInt(3, entity.getSemester());
-            stm.setObject(4, entity.getSubjects());
+            stm.setString(4, Database.listToMysqlSet(entity.getSubjectsIDs()));
             int rows = stm.executeUpdate();
             if ( 0 == rows ) {
                 throw new RepoException("Saving MockUp failed, no rows affected", null);
@@ -165,7 +165,7 @@ public class MockUpRepo implements BaseRepo< MockUpDTO, String > {
      */
 
     public MockUpDTO getByDegree( @NotNull Degree degree ) throws RepoException {
-        List< MockUpDTO > result = getAllFrom("degree", degree);
+        List< MockUpDTO > result = getAllFrom("degree", degree.toString());
         if ( result.isEmpty() ) {
             return null;
         }

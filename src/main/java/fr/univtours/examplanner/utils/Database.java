@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -51,6 +52,19 @@ public enum Database {
         UUID uuid = UUID.randomUUID();
         return "'" + uuid + "'";
     }
-	}
+
+    public static @NotNull String listToMysqlSet( @NotNull List< @NotNull String > list ) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for ( String item : list ) {
+            stringBuilder.append(item);
+            stringBuilder.append(';');
+        }
+        String res = stringBuilder.toString();
+        return res.substring(0, res.length() - 1);
+    }
+
+    public static @NotNull List< @NotNull String > mysqlSetToList( @NotNull String str ) {
+        return List.of(str.split(";"));
+    }
 
 }

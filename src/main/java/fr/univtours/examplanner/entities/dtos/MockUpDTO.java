@@ -1,7 +1,9 @@
 package fr.univtours.examplanner.entities.dtos;
 
+import fr.univtours.examplanner.controllers.SubjectController;
 import fr.univtours.examplanner.entities.WithIDEntity;
 import fr.univtours.examplanner.enums.Degree;
+import fr.univtours.examplanner.exceptions.ControllerException;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -18,11 +20,11 @@ public class MockUpDTO extends WithIDEntity {
 	@NotNull
 	private final String name;
 
-	/**
-	 * Matières de la maquette
-	 */
-	@NotNull
-	private final List<SubjectDTO> subjects = new ArrayList<>();
+    /**
+     * Matières de la maquette
+     */
+    @NotNull
+    private final List< @NotNull String > subjects = new ArrayList<>();
 
 	/**
 	 * Niveau de la maquette
@@ -49,8 +51,7 @@ public class MockUpDTO extends WithIDEntity {
 			@Nullable String id,
 			@NotNull String name,
 			@NotNull Degree degree,
-			int semester,
-			@NotNull List< SubjectDTO > subjects
+			int semester, @NotNull List< @NotNull String > subjects
 	) {
 		super(id);
 		this.name = name;
@@ -105,27 +106,39 @@ public class MockUpDTO extends WithIDEntity {
 	 *
 	 * @param semester le nouveau semestre
 	 * @throws IllegalArgumentException si le semestre est inférieur à 1
-	 */
+     */
 
-	public void setSemester( int semester ) throws IllegalArgumentException {
-		if ( 1 > semester ) {
-			throw new IllegalArgumentException("Semester must be greater than 0");
-		}
-		this.semester = semester;
-	}
+    public void setSemester( int semester ) throws IllegalArgumentException {
+        if ( 1 > semester ) {
+            throw new IllegalArgumentException("Semester must be greater than 0");
+        }
+        this.semester = semester;
+    }
 
-	public @NotNull List< SubjectDTO > getSubjects() {
-		return subjects;
-	}
+    public @NotNull List< SubjectDTO > getSubjects() {
+        return subjects.stream().map(s -> {
+            try {
+                return SubjectController.getById(s);
+            } catch ( ControllerException ignored ) {
+                return null;
+            }
+        }).filter(Objects::nonNull).toList();
+    }
 
-	/**
-	 * Ajoute une matière à la liste
-	 *
-	 * @param subject Matière à ajouter
-	 */
+    public @NotNull List< String > getSubjectsIDs() {
+        return subjects;
+    }
 
-	public void addSubject( @NotNull SubjectDTO subject ) {
-		this.subjects.add(subject);
+    /**
+     * Ajoute une matière à la liste
+     *
+     * @param subject Matière à ajouter
+     */
+
+    public void addSubject( @NotNull SubjectDTO subject ) {
+        if ( Objects.nonNull(subject.getId()) ) {
+            this.subjects.add(subject.getId());
+        }
 	}
 
 	/**
@@ -135,7 +148,7 @@ public class MockUpDTO extends WithIDEntity {
 	 */
 
 	public void addSubject( @NotNull List< SubjectDTO > subjects ) {
-		this.subjects.addAll(subjects);
+        this.subjects.addAll(subjects.stream().map(WithIDEntity::getId).filter(Objects::nonNull).toList());
 	}
 
 	/**
@@ -145,7 +158,7 @@ public class MockUpDTO extends WithIDEntity {
 	 */
 
 	public void removeSubject( @NotNull SubjectDTO subject ) {
-		this.subjects.remove(subject);
+        this.subjects.remove(subject.getId());
 	}
 
 	/**
@@ -155,7 +168,7 @@ public class MockUpDTO extends WithIDEntity {
 	 */
 
 	public void removeSubject( @NotNull List< SubjectDTO > subjects ) {
-		this.subjects.removeAll(subjects);
+        this.subjects.removeAll(subjects.stream().map(WithIDEntity::getId).toList());
 	}
 
 	@Override
