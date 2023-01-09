@@ -26,7 +26,7 @@ public class GroupRepo implements BaseRepo<GroupDTO, String> {
      */
     public @NotNull List< GroupDTO > getAllFromExam( ExamDTO e ) throws RepoException {
         String idE = e.getId();
-        String sql = "SELECT group FROM _ExamToGroup WHERE exam = ?";
+        String sql = "SELECT `group` FROM _ExamToGroup WHERE exam = ?";
         List< GroupDTO > result = new ArrayList<>();
         try ( PreparedStatement stm = Database.getConnection().prepareStatement(sql) ) {
             stm.setString(1, idE);
@@ -47,8 +47,8 @@ public class GroupRepo implements BaseRepo<GroupDTO, String> {
             throw new RepoException("Getting group failed, no rows affected", ex);
 
         }
-
     }
+
 
     /**
      * Récupère tous les sous-groupes du groupe passé en paramètre
@@ -77,21 +77,22 @@ public class GroupRepo implements BaseRepo<GroupDTO, String> {
         String id = hasId ? entity.getId() : Database.getNewUUID();
         String sql;
         if ( hasId ) {
-            sql = "INSERT INTO Group (id, name, containReducedMobilityPerson, numberOfStudentsWithoutAdjustment, " +
-                  "numberOfStudentsWithWritingNeeds, numberOfStudentsWithIsolatedRooms, numberOfStudentsWithPartTime)" +
-                  " " +
-                  "VALUES (" +
-                  id +
-                  ", ?, ?, ?, ?, ?, ?)";
-        } else {
-            sql = "UPDATE Group SET nom= ?, " +
+            sql = "UPDATE `Group` SET `name` = ?, " +
                   "containReducedMobilityPerson = ?, " +
                   "numberOfStudentsWithoutAdjustment = ?, " +
                   "numberOfStudentsWithWritingNeeds = ?, " +
                   "numberOfStudentsWithIsolatedRooms = ?, " +
                   "numberOfStudentsWithPartTime = ? " +
-                  "WHERE id = " +
-                  id;
+                  "WHERE id = '" +
+                  id +
+                  "'";
+        } else {
+            sql = "INSERT INTO `Group` (id, `name`, containReducedMobilityPerson, numberOfStudentsWithoutAdjustment, " +
+                  "numberOfStudentsWithWritingNeeds, numberOfStudentsWithIsolatedRooms, numberOfStudentsWithPartTime)" +
+                  " " +
+                  "VALUES ('" +
+                  id +
+                  "', ?, ?, ?, ?, ?, ?)";
         }
         try ( PreparedStatement stm = Database.getConnection().prepareStatement(sql) ) {
             stm.setString(1, entity.getName());

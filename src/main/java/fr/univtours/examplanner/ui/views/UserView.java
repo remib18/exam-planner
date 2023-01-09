@@ -40,12 +40,14 @@ public class UserView {
 			try {
 				UserController.save(user);
 			} catch ( ControllerException e ) {
-				e.printStackTrace();
+				throw new RuntimeException(e);
 			}
 		});
 		view.setOnDeleteRequest(() -> {
 			view.getTable().getSelectionModel().getSelectedItems().forEach(item -> {
-				try {UserController.delete(item.getValue());} catch ( ControllerException e ) {e.printStackTrace();}
+				try {UserController.delete(item.getValue());} catch ( ControllerException e ) {
+					throw new RuntimeException(e);
+				}
 			});
 		});
 		return new Scene(view);
@@ -78,7 +80,9 @@ public class UserView {
 				TreeItem< UserDTO > item = new TreeItem<>(user);
 				root.getChildren().add(item);
 			}
-		} catch ( ControllerException ignored ) {}
+		} catch ( ControllerException e ) {
+			throw new RuntimeException(e);
+		}
 
 		return root;
 	}

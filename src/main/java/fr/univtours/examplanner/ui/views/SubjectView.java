@@ -16,26 +16,28 @@ import java.util.List;
 
 public class SubjectView {
 
-    public static final String TITLE = "app.title.slot";
+    public static final String TITLE = "app.title.subject";
 
     private SubjectView() {super();}
 
     public static @NotNull Scene getScene() throws IOException {
-        DataView< SubjectDTO > view = new DataView<>("images/Group.png",
-                "feature.group",
+        DataView< SubjectDTO > view = new DataView<>("images/Managers.png",
+                "feature.subject",
                 new DataTable<>(getColumns(), SubjectView::getData)
         );
         view.setOnAddRequest(() -> new SubjectDTO(null, "<name>"));
-        view.setOnSaveRequest(group -> {
+        view.setOnSaveRequest(subject -> {
             try {
-                SubjectController.save(group);
+                SubjectController.save(subject);
             } catch ( ControllerException e ) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         });
         view.setOnDeleteRequest(() -> {
             view.getTable().getSelectionModel().getSelectedItems().forEach(item -> {
-                try {SubjectController.delete(item.getValue());} catch ( ControllerException e ) {e.printStackTrace();}
+                try {SubjectController.delete(item.getValue());} catch ( ControllerException e ) {
+                    throw new RuntimeException(e);
+                }
             });
         });
         return new Scene(view);
@@ -43,8 +45,7 @@ public class SubjectView {
 
     private static @NotNull List< TableColumnDeclaration< SubjectDTO, ? > > getColumns() {
         List< TableColumnDeclaration< SubjectDTO, ? > > columns = new ArrayList<>();
-        columns.add(new TableColumnDeclaration<>("id", "mockup.id", false));
-        columns.add(new TableColumnDeclaration<>("name", "mockup.name", true));
+        columns.add(new TableColumnDeclaration<>("name", "subject.name", false));
         return columns;
     }
 
@@ -54,12 +55,14 @@ public class SubjectView {
         root.setExpanded(true);
 
         try {
-            List< SubjectDTO > groups = SubjectController.getAll();
-            for ( SubjectDTO group : groups ) {
-                TreeItem< SubjectDTO > item = new TreeItem<>(group);
+            List< SubjectDTO > subjects = SubjectController.getAll();
+            for ( SubjectDTO subject : subjects ) {
+                TreeItem< SubjectDTO > item = new TreeItem<>(subject);
                 root.getChildren().add(item);
             }
-        } catch ( ControllerException ignored ) {}
+        } catch ( ControllerException e ) {
+            throw new RuntimeException(e);
+        }
         return root;
     }
 

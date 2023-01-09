@@ -97,20 +97,60 @@ public class GroupDTO extends WithIDEntity implements EditableEntity {
 		return name.get();
 	}
 
-	public void setName( @NotNull String name) {
-		this.name.set(name);
+	public SimpleObjectProperty< String > nameProperty() {
+		return name;
+	}
+
+	public SimpleObjectProperty< Boolean > containsStudentsWithReducedMobilityProperty() {
+		return containsStudentsWithReducedMobility;
+	}
+
+	public SimpleObjectProperty< Integer > numberOfStudentsWithWriterNeedsProperty() {
+		return numberOfStudentsWithWriterNeeds;
+	}
+
+	public SimpleObjectProperty< Integer > numberOfStudentsWithIsolationNeedsProperty() {
+		return numberOfStudentsWithIsolationNeeds;
+	}
+
+	public SimpleObjectProperty< Integer > numberOfStudentsWithPartTimeNeedsProperty() {
+		return numberOfStudentsWithPartTimeNeeds;
+	}
+
+	public SimpleObjectProperty< Integer > numberOfStudentsWithoutAdjustmentProperty() {
+		return numberOfStudentsWithoutAdjustment;
+	}
+
+	public SimpleObjectProperty< List< String > > childrenProperty() {
+		return childrenIDs;
+	}
+
+	@Override
+	public void set( String property, Object value ) throws ControllerException {
+		switch ( property ) {
+			case "name" -> setName((String) value);
+			case "containsStudentsWithReducedMobility" -> setContainsStudentsWithReducedMobility((Boolean) value);
+			case "numberOfStudentsWithWriterNeeds" -> setNumberOfStudentsWithWriterNeeds((Integer) value);
+			case "numberOfStudentsWithIsolationNeeds" -> setNumberOfStudentsWithIsolationNeeds((Integer) value);
+			case "numberOfStudentsWithPartTimeNeeds" -> setNumberOfStudentsWithPartTimeNeeds((Integer) value);
+			case "numberOfStudentsWithoutAdjustment" -> setNumberOfStudentsWithoutAdjustment((Integer) value);
+			default -> throw new IllegalArgumentException("Unknown property: " + property);
+		}
+		if ( Objects.nonNull(id.get()) ) {
+			GroupController.save(this);
+		}
 	}
 
 	public boolean doesContainsStudentsWithReducedMobility() {
 		return containsStudentsWithReducedMobility.get();
 	}
 
-	public void setContainsStudentsWithReducedMobility(boolean containsStudentsWithReducedMobility ) {
-		this.containsStudentsWithReducedMobility.set(containsStudentsWithReducedMobility);
-	}
-
 	public int getNumberOfStudentsWithWriterNeeds() {
 		return numberOfStudentsWithWriterNeeds.get();
+	}
+
+	public void setName( @NotNull String name ) {
+		this.name.set(name);
 	}
 
 	public void setNumberOfStudentsWithWriterNeeds( int numberOfStudentsWithWriterNeeds ) {
@@ -121,8 +161,8 @@ public class GroupDTO extends WithIDEntity implements EditableEntity {
 		return numberOfStudentsWithIsolationNeeds.get();
 	}
 
-	public void setNumberOfStudentsWithIsolationNeeds(int numberOfStudentsWithIsolationNeeds ) {
-		this.numberOfStudentsWithIsolationNeeds.set(numberOfStudentsWithIsolationNeeds);
+	public void setContainsStudentsWithReducedMobility( boolean containsStudentsWithReducedMobility ) {
+		this.containsStudentsWithReducedMobility.set(containsStudentsWithReducedMobility);
 	}
 
 	public int getNumberOfStudentsWithPartTimeNeeds() {
@@ -137,19 +177,16 @@ public class GroupDTO extends WithIDEntity implements EditableEntity {
 		return numberOfStudentsWithoutAdjustment.get();
 	}
 
-	public void setnumberOfStudentsWithoutAdjustment( int numberOfStudentsWithoutAdjustment ) {
-		this.numberOfStudentsWithoutAdjustment.set(numberOfStudentsWithoutAdjustment);
+	public void setNumberOfStudentsWithIsolationNeeds( int numberOfStudentsWithIsolationNeeds ) {
+		this.numberOfStudentsWithIsolationNeeds.set(numberOfStudentsWithIsolationNeeds);
 	}
 
 	public @NotNull List< String > getChildrenIDs() {
 		return childrenIDs.get();
 	}
 
-	public void addChild(@NotNull GroupDTO child ) throws IllegalArgumentException {
-		if ( childrenIDs.get().contains(child) ) {
-			throw new IllegalArgumentException("Cannot add a child twice");
-		}
-		childrenIDs.get().add(child.getId());
+	public void setNumberOfStudentsWithoutAdjustment( int numberOfStudentsWithoutAdjustment ) {
+		this.numberOfStudentsWithoutAdjustment.set(numberOfStudentsWithoutAdjustment);
 	}
 
 	public void addChild( @NotNull List< GroupDTO > children ) {
@@ -218,8 +255,10 @@ public class GroupDTO extends WithIDEntity implements EditableEntity {
 		}).filter(Objects::nonNull).toList();
 	}
 
-	@Override
-	public void set( String property, Object value ) throws ControllerException {
-
+	public void addChild( @NotNull GroupDTO child ) throws IllegalArgumentException {
+		if ( childrenIDs.get().contains(child) ) {
+			throw new IllegalArgumentException("Cannot add a child twice");
+		}
+		childrenIDs.get().add(child.getId());
 	}
 }

@@ -9,6 +9,8 @@ import fr.univtours.examplanner.utils.TableColumnDeclaration;
 import fr.univtours.examplanner.utils.Tree;
 import javafx.scene.Scene;
 import javafx.scene.control.TreeItem;
+import javafx.util.converter.BooleanStringConverter;
+import javafx.util.converter.IntegerStringConverter;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -31,12 +33,14 @@ public class GroupView {
 			try {
 				GroupController.save(group);
 			} catch ( ControllerException e ) {
-				e.printStackTrace();
+				throw new RuntimeException(e);
 			}
 		});
 		view.setOnDeleteRequest(() -> {
 			view.getTable().getSelectionModel().getSelectedItems().forEach(item -> {
-				try {GroupController.delete(item.getValue());} catch ( ControllerException e ) {e.printStackTrace();}
+				try {GroupController.delete(item.getValue());} catch ( ControllerException e ) {
+					throw new RuntimeException(e);
+				}
 			});
 		});
 		return new Scene(view);
@@ -46,25 +50,35 @@ public class GroupView {
 		List< TableColumnDeclaration< GroupDTO, ? > > columns = new ArrayList<>();
 		columns.add(new TableColumnDeclaration<>("id", "feature.group.id", false));
 		columns.add(new TableColumnDeclaration<>("name", "feature.group.name", true));
-		columns.add(new TableColumnDeclaration<>("containsStudentsWithReducedMobility",
+		columns.add(new TableColumnDeclaration<>(
+				"containsStudentsWithReducedMobility",
 				"feature.group.containsStudentsWithReducedMobility",
-				true
+				true,
+				new BooleanStringConverter()
 		));
-		columns.add(new TableColumnDeclaration<>("numberOfStudentsWithWriterNeeds",
+		columns.add(new TableColumnDeclaration<>(
+				"numberOfStudentsWithWriterNeeds",
 				"feature.group.numberOfStudentsWithWriterNeeds",
-				true
+				true,
+				new IntegerStringConverter()
 		));
-		columns.add(new TableColumnDeclaration<>("numberOfStudentsWithIsolationNeeds",
+		columns.add(new TableColumnDeclaration<>(
+				"numberOfStudentsWithIsolationNeeds",
 				"feature.group.numberOfStudentsWithIsolationNeeds",
-				true
+				true,
+				new IntegerStringConverter()
 		));
-		columns.add(new TableColumnDeclaration<>("numberOfStudentsWithPartTimeNeeds",
+		columns.add(new TableColumnDeclaration<>(
+				"numberOfStudentsWithPartTimeNeeds",
 				"feature.group.numberOfStudentsWithPartTimeNeeds",
-				true
+				true,
+				new IntegerStringConverter()
 		));
-		columns.add(new TableColumnDeclaration<>("numberOfStudentsWithoutAdjustment",
+		columns.add(new TableColumnDeclaration<>(
+				"numberOfStudentsWithoutAdjustment",
 				"feature.group.numberOfStudentsWithoutAdjustment",
-				true
+				true,
+				new IntegerStringConverter()
 		));
 		columns.add(new TableColumnDeclaration<>("childrenIDs", "feature.group.childrenIDs", false));
 		return columns;
@@ -83,7 +97,9 @@ public class GroupView {
 				item.getChildren().addAll(Tree.fromList(group.getChildren()));
 				root.getChildren().add(item);
 			}
-		} catch ( ControllerException ignored ) {}
+		} catch ( ControllerException e ) {
+			throw new RuntimeException(e);
+		}
 		return root;
 	}
 

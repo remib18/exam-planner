@@ -2,8 +2,6 @@ package fr.univtours.examplanner.enums;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.text.ParseException;
-
 /**
  * Configuration de la salle
  */
@@ -13,13 +11,13 @@ public enum RoomEquipment {
     Board,
     Webcam;
 
-    public static RoomEquipment parse( @NotNull String equipment ) throws ParseException {
+    public static RoomEquipment parse( @NotNull String equipment ) {
         return switch ( equipment ) {
             case "Projector" -> RoomEquipment.Projector;
             case "Speaker" -> RoomEquipment.Speaker;
             case "Board" -> RoomEquipment.Board;
             case "Webcam" -> RoomEquipment.Webcam;
-            default -> throw new ParseException("Equipment" + equipment + " doesn't exist on RoomEquipment.", 1);
+            default -> null;
         };
     }
 

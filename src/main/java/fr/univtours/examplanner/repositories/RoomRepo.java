@@ -6,7 +6,6 @@ import fr.univtours.examplanner.exceptions.MappingException;
 import fr.univtours.examplanner.exceptions.RepoException;
 import fr.univtours.examplanner.mappers.RoomMapper;
 import fr.univtours.examplanner.utils.Database;
-import fr.univtours.examplanner.utils.EntityUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -39,12 +38,41 @@ public class RoomRepo implements BaseRepo< RoomDTO, String > {
         }
     }
 
-    public @NotNull RoomDTO getById( @NotNull String name ) throws RepoException {
-        List< RoomDTO > res = getAllFrom("name", name);
-        if ( res.isEmpty() ) {
-            return null;
+    @Override
+    public @NotNull RoomDTO save( @NotNull RoomDTO entity ) throws RepoException {
+        String name = entity.getName();
+        String sql;
+        if ( Objects.isNull(getById(entity.getName())) ) {
+            sql = "INSERT INTO room (name, places, types, equipments, computerEnvironment) VALUES ('" +
+                  name +
+                  "', ?, ?, ?, ?)";
+        } else {
+            sql = "UPDATE Room SET places = ?, types = ?, equipments = ?, computerEnvironment = ? WHERE name = '" +
+                  name +
+                  "'";
         }
-        return res.get(0);
+        try ( PreparedStatement pstmt = Database.getConnection().prepareStatement(sql) ) {
+            pstmt.setInt(1, entity.getPlaces());
+            pstmt.setString(2, entity.getType().toString());
+
+            String CE = "";
+            //Database.listToMysqlSet(entity.getComputerEnvironments().stream().map
+            // (ComputerEnvironment::toString).toList());
+            pstmt.setString(3, CE);
+
+            String equipments = "";//Database.listToMysqlSet(entity.getEquipments().stream().map
+            // (RoomEquipment::toString).toList());
+            pstmt.setString(4, equipments);
+
+            int rows = pstmt.executeUpdate();
+            if ( 0 == rows ) {
+                throw new RepoException("Creating room failed, no rows affected", null);
+            }
+            entity.setName(entity.getName());
+            return entity;
+        } catch ( DatabaseConnectionException | SQLException e ) {
+            throw new RepoException("Creating room failed, no rows affected", e);
+        }
     }
 
     public @NotNull RoomDTO getByPlaces( @NotNull int places ) throws RepoException {
@@ -99,51 +127,24 @@ public class RoomRepo implements BaseRepo< RoomDTO, String > {
         }
     }
 
-    @Override
-    public @NotNull RoomDTO save( @NotNull RoomDTO entity ) throws RepoException {
-        boolean hasId = !Objects.isNull(entity.getName());
-        String id = hasId ? entity.getName() : Database.getNewUUID();
-        String sql;
-        if ( hasId ) {
-            sql = "INSERT INTO room (name, places, types, equipments, computerEnvironments) VALUES ( " +
-                  id +
-                  " ," +
-                  "?, ?," +
-                  " ?, ?)";
-        } else {
-            sql = "UPDATE room SET places = ?, types = ?, equipments = ?, computerEnvironments = ? WHERE name = " + id;
+    public @Nullable RoomDTO getById( @NotNull String name ) throws RepoException {
+        List< RoomDTO > res = getAllFrom("name", name);
+        if ( res.isEmpty() ) {
+            return null;
         }
-        try ( PreparedStatement pstmt = Database.getConnection().prepareStatement(sql) ) {
-            pstmt.setInt(1, entity.getPlaces());
-            pstmt.setString(2, entity.getType().toString());
-
-            String CE = EntityUtils.listToString(entity.getComputerEnvironments(), el -> el.toString());
-            CE = CE.substring(1, CE.length() - 1);
-            pstmt.setString(3, CE);
-
-            String equipments = EntityUtils.listToString(entity.getEquipments(), el -> el.toString());
-            equipments = equipments.substring(1, equipments.length() - 1);
-            pstmt.setString(4, equipments);
-
-            int rows = pstmt.executeUpdate();
-            if ( 0 == rows ) {
-                throw new RepoException("Creating room failed, no rows affected", null);
-            }
-            entity.setName(entity.getName());
-            return entity;
-        } catch ( DatabaseConnectionException | SQLException e ) {
-            throw new RepoException("Creating room failed, no rows affected", e);
-        }
+        return res.get(0);
     }
-
 
     @Override
     public boolean delete( @NotNull RoomDTO entity ) throws RepoException {
         String name = entity.getName();
-        String sql = "DELETE FROM `room` WHERE name = ?";
+        String sql = "DELETE FROM `room` WHERE `name` = ?";
         try ( PreparedStatement stm = Database.getConnection().prepareStatement(sql) ) {
             stm.setString(1, name);
-            stm.execute(sql);
+            int rows = stm.executeUpdate();
+            if ( 0 == rows ) {
+                throw new RepoException("No row affected.", null);
+            }
             return true;
         } catch ( SQLException | DatabaseConnectionException e ) {
             throw new RepoException("Deleting room failed, no rows affected", e);

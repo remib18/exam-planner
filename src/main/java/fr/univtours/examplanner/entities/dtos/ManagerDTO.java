@@ -53,43 +53,44 @@ public class ManagerDTO extends WithIDEntity implements EditableEntity {
 
     public SimpleObjectProperty< Civility > civilityProperty() {return civility;}
 
-    public @NotNull String getLastName() {
-        return lastName.get();
-    }
+	public @NotNull String getLastName() {
+		return lastName.get();
+	}
 
-    public void setLastName( @NotNull String lastName ) {
-        this.lastName.set(lastName);
-    }
+	public void setLastName( @NotNull String lastName ) {
+		this.lastName.set(lastName);
+	}
 
-    public SimpleObjectProperty< String > lastNameProperty() {return lastName;}
+	public SimpleObjectProperty< String > lastNameProperty() {return lastName;}
 
-    public @NotNull String getFirstName() {
-        return firstName.get();
-    }
+	public @NotNull String getFirstName() {
+		return firstName.get();
+	}
 
-    public void setFirstName( @NotNull String firstName ) {
-        this.firstName.set(firstName);
-    }
+	public void setFirstName( @NotNull String firstName ) {
+		this.firstName.set(firstName);
+	}
 
-    public SimpleObjectProperty< String > firstNameProperty() {return firstName;}
+	public @NotNull SimpleObjectProperty< @NotNull String > firstNameProperty() {
+		return firstName;
+	}
 
-    @Override
-    public boolean equals( Object o ) {
-        if ( this == o ) return true;
-        if ( null == o || getClass() != o.getClass() ) return false;
-        ManagerDTO that = (ManagerDTO) o;
-        return Objects.equals(id, that.id);
-    }
+	@Override
+	public boolean equals( Object o ) {
+		if ( this == o ) return true;
+		if ( null == o || getClass() != o.getClass() ) return false;
+		ManagerDTO that = (ManagerDTO) o;
+		return Objects.equals(id, that.id);
+	}
 
-    @Override
+	@Override
 	public int hashCode() {
 		return Objects.hash(id, civility, lastName, firstName);
 	}
 
 	@Override
 	public String toString() {
-		return "ManagerDTO{" +
-			   "\n\tid: " +
+		return "ManagerDTO{" + "\n\tid: " +
 			   id +
 			   ", \n\tcivility: " +
 			   civility +

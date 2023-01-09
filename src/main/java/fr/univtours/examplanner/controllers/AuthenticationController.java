@@ -69,6 +69,7 @@ public class AuthenticationController {
      */
     private static boolean checkPassword( @NotNull String password, @Nullable String encryptedPassword ) {
         String encrypted = encryptPassword(password);
+        // System.out.println(encrypted);
         return encrypted.equals(encryptedPassword);
     }
 

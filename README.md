@@ -39,7 +39,7 @@ Celui-ci se chargera d'ajouter des données factices à la base de donnée.
 
 Vous disposerez alors de 3 utilisateurs:
 
-- `scooling`
+- `schooling`
 - `department`
 - `manager`
 

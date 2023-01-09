@@ -2,6 +2,9 @@ package fr.univtours.examplanner.controllers;
 
 import fr.univtours.examplanner.entities.dtos.RoomDTO;
 import fr.univtours.examplanner.entities.dtos.SlotDTO;
+import fr.univtours.examplanner.enums.ComputerEnvironment;
+import fr.univtours.examplanner.enums.RoomEquipment;
+import fr.univtours.examplanner.enums.RoomType;
 import fr.univtours.examplanner.exceptions.ControllerException;
 import fr.univtours.examplanner.exceptions.RepoException;
 import fr.univtours.examplanner.repositories.RoomRepo;
@@ -88,9 +91,9 @@ public class RoomController {
 
     public static @NotNull RoomDTO create(
             @NotNull int places,
-            @NotNull String type,
-            @Nullable List< String > computerEnvironment,
-            @NotNull List< String > roomEquipment,
+            @NotNull RoomType type,
+            @Nullable List< ComputerEnvironment > computerEnvironment,
+            @NotNull List< RoomEquipment > roomEquipment,
             @Nullable List< SlotDTO > availableSlots
     ) throws ControllerException {
         try {

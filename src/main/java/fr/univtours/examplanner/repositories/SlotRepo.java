@@ -14,7 +14,6 @@ import org.jetbrains.annotations.Nullable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
@@ -49,9 +48,8 @@ public class SlotRepo implements BaseRepo<SlotDTO, String> {
         try ( PreparedStatement pstmt = Database.getConnection().prepareStatement(sql) ) {
 
 
-            pstmt.setString(1, entity.getStart().toString());
-            pstmt.setString(1, SlotDTO.getCalendarDate(entity.getStart()));
-            pstmt.setFloat(2, SlotDTO.getHourMins(entity.getStart()));
+            pstmt.setDate(1, entity.getDay());
+            pstmt.setFloat(1, entity.getHour());
             pstmt.setFloat(3, entity.getDuration());
 
             int rows = pstmt.executeUpdate();
@@ -93,16 +91,6 @@ public class SlotRepo implements BaseRepo<SlotDTO, String> {
             return null;
         }
         return res.get(0);
-    }
-
-
-    public @NotNull List< SlotDTO > getFromStart( @NotNull Calendar start )
-    throws RepoException, DatabaseConnectionException, SQLException, MappingException {
-        String jour = SlotDTO.getCalendarDate(start);
-        String hour = String.valueOf(SlotDTO.getHourMins(start));
-        String sql = "SELECT * FROM _slottoroom WHERE date = " + jour + " AND heure = " + hour;
-        ResultSet res = Database.getConnection().createStatement().executeQuery(sql);
-        return ( new SlotMapper() ).entityToDTO(res);
     }
 
     public @NotNull SlotDTO getByDuration( @NotNull float duration ) throws RepoException {

@@ -32,12 +32,14 @@ public class ManagerView {
             try {
                 ManagerController.save(manager);
             } catch ( ControllerException e ) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         });
         view.setOnDeleteRequest(() -> {
             view.getTable().getSelectionModel().getSelectedItems().forEach(item -> {
-                try {ManagerController.delete(item.getValue());} catch ( ControllerException e ) {e.printStackTrace();}
+                try {ManagerController.delete(item.getValue());} catch ( ControllerException e ) {
+                    throw new RuntimeException(e);
+                }
             });
         });
         return new Scene(view);
@@ -76,7 +78,9 @@ public class ManagerView {
         Civility civility = event.getNewValue();
         try {
             manager.set("civility", civility);
-        } catch ( ControllerException ignored ) {}
+        } catch ( ControllerException e ) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

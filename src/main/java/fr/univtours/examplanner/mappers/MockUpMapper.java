@@ -2,6 +2,7 @@ package fr.univtours.examplanner.mappers;
 
 import fr.univtours.examplanner.entities.dtos.MockUpDTO;
 import fr.univtours.examplanner.enums.Degree;
+import fr.univtours.examplanner.enums.MockupYear;
 import fr.univtours.examplanner.exceptions.MappingException;
 import fr.univtours.examplanner.utils.Database;
 import org.jetbrains.annotations.NotNull;
@@ -20,10 +21,11 @@ public class MockUpMapper implements BaseMapper {
             while ( entities.next() ) {
                 String id = entities.getString("id");
                 String name = entities.getString("name");
+                MockupYear year = MockupYear.parse(entities.getString("year"));
                 Degree degree = Degree.parse(entities.getString("degree"));
                 int semester = entities.getInt("semester");
                 List< String > subjects = Database.mysqlSetToList(entities.getString("subjects"));
-                mockup.add(new MockUpDTO(id, name, degree, semester, subjects));
+                mockup.add(new MockUpDTO(id, name, year, degree, semester, subjects));
             }
             return mockup;
         } catch ( SQLException | ParseException e ) {

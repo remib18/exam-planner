@@ -2,6 +2,7 @@ package fr.univtours.examplanner.entities.dtos;
 
 import fr.univtours.examplanner.entities.EditableEntity;
 import fr.univtours.examplanner.exceptions.ControllerException;
+import javafx.beans.property.SimpleObjectProperty;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -19,32 +20,36 @@ public class DepartmentDTO implements EditableEntity {
     /**
      * Nom du département
      */
-	@NotNull
-	private String name;
+    @NotNull
+    private final SimpleObjectProperty< @NotNull String > name = new SimpleObjectProperty<>();
 
-	public DepartmentDTO(@NotNull String name) {
-		this.name = name;
-	}
+    public DepartmentDTO( @NotNull String name ) {
+        this.name.set(name);
+    }
 
-	public @NotNull String getName() {
-		return name;
-	}
+    public SimpleObjectProperty< String > nameProperty() {
+        return name;
+    }
 
-	public void setName(@NotNull String name ) {
-        if ( Objects.isNull(this.name) || this.name.equals("<name>") ) {
-            this.name = name;
-		}
-	}
+    public @NotNull String getName() {
+        return name.get();
+    }
 
-	public @NotNull List<MockUpDTO> getMockUpDTOs() {
-		return MockUpDTOs;
-	}
+    public void setName( @NotNull String name ) {
+        if ( this.name.get().equals("<name>") ) {
+            this.name.set(name);
+        }
+    }
 
-	public void addMockUpDTO(@NotNull MockUpDTO MockUpDTO) {
-		this.MockUpDTOs.add(MockUpDTO);
-	}
+    public @NotNull List< MockUpDTO > getMockUpDTOs() {
+        return MockUpDTOs;
+    }
 
-	public void addMockUpDTO(@NotNull List<MockUpDTO> MockUpDTOs) {
+    public void addMockUpDTO( @NotNull MockUpDTO MockUpDTO ) {
+        this.MockUpDTOs.add(MockUpDTO);
+    }
+
+    public void addMockUpDTO( @NotNull List< MockUpDTO > MockUpDTOs ) {
 		this.MockUpDTOs.addAll(MockUpDTOs);
 	}
 
@@ -77,6 +82,7 @@ public class DepartmentDTO implements EditableEntity {
     @Override
     public void set( String property, Object value ) throws ControllerException {
 		if ( property.equals("name") ) {
+            setName((String) value);
 		} else {
 			throw new UnsupportedOperationException("");
 		}

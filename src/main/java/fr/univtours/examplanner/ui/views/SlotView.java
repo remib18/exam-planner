@@ -8,11 +8,13 @@ import fr.univtours.examplanner.ui.components.DataView;
 import fr.univtours.examplanner.utils.TableColumnDeclaration;
 import javafx.scene.Scene;
 import javafx.scene.control.TreeItem;
+import javafx.util.converter.DateStringConverter;
+import javafx.util.converter.FloatStringConverter;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class SlotView {
@@ -22,21 +24,23 @@ public class SlotView {
     private SlotView() {super();}
 
     public static @NotNull Scene getScene() throws IOException {
-        DataView< SlotDTO > view = new DataView<>("images/Group.png",
-                "feature.group",
+        DataView< SlotDTO > view = new DataView<>("images/Slot.png",
+                "feature.slot",
                 new DataTable<>(getColumns(), SlotView::getData)
         );
-        view.setOnAddRequest(() -> new SlotDTO("<name>", new Calendar.Builder().build(), 1));
-        view.setOnSaveRequest(group -> {
+        view.setOnAddRequest(() -> new SlotDTO(null, new Date(2023, 01, 01), 3, 1));
+        view.setOnSaveRequest(slot -> {
             try {
-                SlotController.save(group);
+                SlotController.save(slot);
             } catch ( ControllerException e ) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         });
         view.setOnDeleteRequest(() -> {
             view.getTable().getSelectionModel().getSelectedItems().forEach(item -> {
-                try {SlotController.delete(item.getValue());} catch ( ControllerException e ) {e.printStackTrace();}
+                try {SlotController.delete(item.getValue());} catch ( ControllerException e ) {
+                    throw new RuntimeException(e);
+                }
             });
         });
         return new Scene(view);
@@ -44,7 +48,10 @@ public class SlotView {
 
     private static @NotNull List< TableColumnDeclaration< SlotDTO, ? > > getColumns() {
         List< TableColumnDeclaration< SlotDTO, ? > > columns = new ArrayList<>();
-        columns.add(new TableColumnDeclaration<>("name", "department.name", true));
+        columns.add(new TableColumnDeclaration<>("id", "slot.id", false));
+        columns.add(new TableColumnDeclaration<>("day", "slot.day", true, new DateStringConverter()));
+        columns.add(new TableColumnDeclaration<>("hour", "slot.hour", true, new FloatStringConverter()));
+        columns.add(new TableColumnDeclaration<>("duration", "slot.duration", true, new FloatStringConverter()));
         return columns;
     }
 
@@ -54,12 +61,14 @@ public class SlotView {
         root.setExpanded(true);
 
         try {
-            List< SlotDTO > groups = SlotController.getAll();
-            for ( SlotDTO group : groups ) {
-                TreeItem< SlotDTO > item = new TreeItem<>(group);
+            List< SlotDTO > slots = SlotController.getAll();
+            for ( SlotDTO slot : slots ) {
+                TreeItem< SlotDTO > item = new TreeItem<>(slot);
                 root.getChildren().add(item);
             }
-        } catch ( ControllerException ignored ) {}
+        } catch ( ControllerException e ) {
+            throw new RuntimeException(e);
+        }
         return root;
     }
 

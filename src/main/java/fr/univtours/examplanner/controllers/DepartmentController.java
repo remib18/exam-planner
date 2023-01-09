@@ -21,7 +21,7 @@ public class DepartmentController {
 
     private static DepartmentController instance;
 
-    private DepartmentController() {
+    public DepartmentController() {
         super();
         repo = new DepartmentRepo();
     }

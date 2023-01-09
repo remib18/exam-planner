@@ -2,12 +2,15 @@ package fr.univtours.examplanner.ui.views;
 
 import fr.univtours.examplanner.controllers.RoomController;
 import fr.univtours.examplanner.entities.dtos.RoomDTO;
+import fr.univtours.examplanner.enums.RoomType;
 import fr.univtours.examplanner.exceptions.ControllerException;
 import fr.univtours.examplanner.ui.components.DataTable;
 import fr.univtours.examplanner.ui.components.DataView;
 import fr.univtours.examplanner.utils.TableColumnDeclaration;
 import javafx.scene.Scene;
 import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeTableColumn;
+import javafx.util.converter.IntegerStringConverter;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -21,27 +24,29 @@ public class RoomView {
     private RoomView() {super();}
 
     public static @NotNull Scene getScene() throws IOException {
-        DataView< RoomDTO > view = new DataView<>("images/Group.png",
-                "feature.group",
+        DataView< RoomDTO > view = new DataView<>("images/Room.png",
+                "feature.room",
                 new DataTable<>(getColumns(), RoomView::getData)
         );
         view.setOnAddRequest(() -> new RoomDTO("<name>",
                 0,
-                "",
+                RoomType.Amphitheater,
                 new ArrayList<>(),
                 new ArrayList<>(),
                 new ArrayList<>()
         ));
-        view.setOnSaveRequest(group -> {
+        view.setOnSaveRequest(room -> {
             try {
-                RoomController.save(group);
+                RoomController.save(room);
             } catch ( ControllerException e ) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         });
         view.setOnDeleteRequest(() -> {
             view.getTable().getSelectionModel().getSelectedItems().forEach(item -> {
-                try {RoomController.delete(item.getValue());} catch ( ControllerException e ) {e.printStackTrace();}
+                try {RoomController.delete(item.getValue());} catch ( ControllerException e ) {
+                    throw new RuntimeException(e);
+                }
             });
         });
         return new Scene(view);
@@ -50,23 +55,64 @@ public class RoomView {
     private static @NotNull List< TableColumnDeclaration< RoomDTO, ? > > getColumns() {
         List< TableColumnDeclaration< RoomDTO, ? > > columns = new ArrayList<>();
         columns.add(new TableColumnDeclaration<>("name", "exam.name", true));
-        // TODO: complete
+        columns.add(new TableColumnDeclaration<>("places",
+                "exam.places",
+                true,
+                RoomView::handlePlacesChange,
+                new IntegerStringConverter(),
+                TableColumnDeclaration.Type.TEXT,
+                null
+        ));
+        columns.add(new TableColumnDeclaration<>("type",
+                "exam.type",
+                true,
+                RoomView::handleTypeChange,
+                RoomType.getConverter(),
+                TableColumnDeclaration.Type.COMBOBOX,
+                List.of(RoomType.values())
+        ));
         return columns;
     }
-
 
     private static @NotNull TreeItem< RoomDTO > getData() {
         TreeItem< RoomDTO > root = new TreeItem<>();
         root.setExpanded(true);
 
         try {
-            List< RoomDTO > groups = RoomController.getAll();
-            for ( RoomDTO group : groups ) {
-                TreeItem< RoomDTO > item = new TreeItem<>(group);
+            List< RoomDTO > rooms = RoomController.getAll();
+            for ( RoomDTO room : rooms ) {
+                TreeItem< RoomDTO > item = new TreeItem<>(room);
                 root.getChildren().add(item);
             }
-        } catch ( ControllerException ignored ) {}
+        } catch ( ControllerException e ) {
+            throw new RuntimeException(e);
+        }
         return root;
+    }
+
+    private static void handlePlacesChange( TreeTableColumn.CellEditEvent< RoomDTO, Integer > event ) {
+        RoomDTO room = event.getRowValue().getValue();
+        Integer newValue = event.getNewValue();
+
+        room.setPlaces(newValue);
+        try {
+            RoomController.save(room);
+        } catch ( ControllerException e ) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static void handleTypeChange( TreeTableColumn.CellEditEvent< RoomDTO, RoomType > event ) {
+        RoomDTO room = event.getRowValue().getValue();
+        RoomType newValue = event.getNewValue();
+
+        room.setType(newValue);
+        try {
+            RoomController.save(room);
+        } catch ( ControllerException e ) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 }

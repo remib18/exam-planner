@@ -34,7 +34,7 @@ public enum SceneController {
                 case Mockup -> MockupView.getScene();
             };
 		} catch (IOException e) {
-			e.printStackTrace();
+            e.printStackTrace();
 			return new Scene(new Label("Erreur lors du chargement de la scène"));
 		}
 	}

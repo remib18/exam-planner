@@ -2,15 +2,12 @@ package fr.univtours.examplanner.controllers;
 
 import fr.univtours.examplanner.entities.dtos.SlotDTO;
 import fr.univtours.examplanner.exceptions.ControllerException;
-import fr.univtours.examplanner.exceptions.DatabaseConnectionException;
-import fr.univtours.examplanner.exceptions.MappingException;
 import fr.univtours.examplanner.exceptions.RepoException;
 import fr.univtours.examplanner.repositories.SlotRepo;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.sql.SQLException;
-import java.util.Calendar;
+import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -35,14 +32,6 @@ public class SlotController {
             throw new ControllerException("An error occurred during the data fetching.", e);
         }
 
-    }
-
-    public static @Nullable List< SlotDTO > getFromStart( @NotNull Calendar start ) throws ControllerException {
-        try {
-            return getInstance().repo.getFromStart(start);
-        } catch ( RepoException | DatabaseConnectionException | MappingException | SQLException e ) {
-            throw new ControllerException("An error occurred during the data fetching.", e);
-        }
     }
 
     /**
@@ -73,11 +62,10 @@ public class SlotController {
      * @return l'horaire créé
      */
     public static SlotDTO create(
-            @NotNull Calendar start, @NotNull Float durationFloat
+            @NotNull Date start, float hour, float durationFloat
     ) throws ControllerException {
         try {
-
-            return getInstance().repo.save(new SlotDTO(null, start, durationFloat));
+            return getInstance().repo.save(new SlotDTO(null, start, hour, durationFloat));
         } catch ( RepoException e ) {
             throw new ControllerException("An error occurred during the data saving.", e);
         }

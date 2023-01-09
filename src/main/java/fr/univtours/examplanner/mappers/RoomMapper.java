@@ -2,6 +2,9 @@ package fr.univtours.examplanner.mappers;
 
 import fr.univtours.examplanner.entities.dtos.RoomDTO;
 import fr.univtours.examplanner.entities.dtos.SlotDTO;
+import fr.univtours.examplanner.enums.ComputerEnvironment;
+import fr.univtours.examplanner.enums.RoomEquipment;
+import fr.univtours.examplanner.enums.RoomType;
 import fr.univtours.examplanner.exceptions.DatabaseConnectionException;
 import fr.univtours.examplanner.exceptions.MappingException;
 import fr.univtours.examplanner.utils.Database;
@@ -31,24 +34,27 @@ public class RoomMapper implements BaseMapper {
             while ( entities.next() ) {
                 String name = entities.getString("name");
                 int places = entities.getInt("places");
-                String type = entities.getString("type");
+                RoomType type = RoomType.parse(Database.mysqlSetToList(entities.getString("types")).get(0));
 
                 Connection conn = Database.getConnection();
                 Statement stmt = conn.createStatement();
-                ResultSet rsStR = stmt.executeQuery("SELECT * FROM _slottoroom WHERE name = " + name);
+                ResultSet rsStR = stmt.executeQuery("SELECT * FROM _slottoroom WHERE room = '" + name + "'");
                 List< String > SlotsName = new ArrayList<>();
                 while ( rsStR.next() ) {
                     SlotsName.add(rsStR.getString("slot"));
                 }
                 List< SlotDTO > availableSlot = new ArrayList<>();
 
-                ResultSet rs = stmt.executeQuery("SELECT * FROM room WHERE name = " + name);
-                List< String > computerEnvironment = new ArrayList<>();
-                List< String > roomEquipment = new ArrayList<>();
-                while ( rs.next() ) {
-                    computerEnvironment.add(rs.getString("computerEnvironment"));
-                    roomEquipment.add(rs.getString("roomEquipment"));
+                ResultSet rs = stmt.executeQuery("SELECT * FROM room WHERE name = '" + name + "'");
+                if ( !rs.next() ) {
+                    throw new ParseException("", 0);
                 }
+                List< ComputerEnvironment > computerEnvironment = Database.mysqlSetToList(rs.getString(
+                        "computerEnvironment")).stream().map(comp -> ComputerEnvironment.parse(comp)).toList();
+                List< RoomEquipment > roomEquipment = Database.mysqlSetToList(rs.getString("equipments"))
+                                                              .stream()
+                                                              .map(eq -> RoomEquipment.parse(eq))
+                                                              .toList();
 
                 room.add(new RoomDTO(name, places, type, computerEnvironment, roomEquipment, availableSlot));
 

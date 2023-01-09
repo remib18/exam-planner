@@ -22,7 +22,7 @@ public class ExamController {
 
     private static ExamController instance;
 
-    private ExamController() {
+    public ExamController() {
         super();
         repo = new ExamRepo();
     }

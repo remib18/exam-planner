@@ -13,16 +13,24 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class DepartmentView {
 
     public static final String TITLE = "app.title.department";
 
-    private DepartmentView() {super();}
+    private static DepartmentView instance;
+
+    private final DepartmentController controller;
+
+    public DepartmentView() {
+        super();
+        controller = new DepartmentController();
+    }
 
     public static @NotNull Scene getScene() throws IOException {
-        DataView< DepartmentDTO > view = new DataView<>("images/Group.png",
-                "feature.group",
+        DataView< DepartmentDTO > view = new DataView<>("images/Department.png",
+                "feature.department",
                 new DataTable<>(getColumns(), DepartmentView::getData)
         );
         view.setOnAddRequest(() -> new DepartmentDTO("<name>"));
@@ -30,13 +38,13 @@ public class DepartmentView {
             try {
                 DepartmentController.save(group);
             } catch ( ControllerException e ) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         });
         view.setOnDeleteRequest(() -> {
             view.getTable().getSelectionModel().getSelectedItems().forEach(item -> {
                 try {DepartmentController.delete(item.getValue());} catch ( ControllerException e ) {
-                    e.printStackTrace();
+                    throw new RuntimeException(e);
                 }
             });
         });
@@ -49,17 +57,22 @@ public class DepartmentView {
         return columns;
     }
 
-
-    private static @NotNull TreeItem< DepartmentDTO > getData() {
+    private static @NotNull TreeItem< DepartmentDTO > getData() throws ControllerException {
         TreeItem< DepartmentDTO > root = new TreeItem<>();
         root.setExpanded(true);
-
-        List< DepartmentDTO > groups = DepartmentController.getAll();
-        for ( DepartmentDTO group : groups ) {
-            TreeItem< DepartmentDTO > item = new TreeItem<>(group);
+        List< DepartmentDTO > departments = getInstance().controller.getAll();
+        for ( DepartmentDTO department : departments ) {
+            TreeItem< DepartmentDTO > item = new TreeItem<>(department);
             root.getChildren().add(item);
         }
         return root;
+    }
+
+    private static DepartmentView getInstance() {
+        if ( Objects.isNull(instance) ) {
+            instance = new DepartmentView();
+        }
+        return instance;
     }
 
 }
