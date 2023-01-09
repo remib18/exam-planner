@@ -1,6 +1,7 @@
 package fr.univtours.examplanner.entities.dtos;
 
 import fr.univtours.examplanner.controllers.SubjectController;
+import fr.univtours.examplanner.entities.EditableEntity;
 import fr.univtours.examplanner.entities.WithIDEntity;
 import fr.univtours.examplanner.enums.Degree;
 import fr.univtours.examplanner.exceptions.ControllerException;
@@ -12,13 +13,13 @@ import java.util.List;
 import java.util.Objects;
 
 // Maquette ou cursus
-public class MockUpDTO extends WithIDEntity {
+public class MockUpDTO extends WithIDEntity implements EditableEntity {
 
-	/**
-	 * Nom de la maquette
-	 */
-	@NotNull
-	private final String name;
+    /**
+     * Nom de la maquette
+     */
+    @NotNull
+    private final String name;
 
     /**
      * Matières de la maquette
@@ -182,16 +183,26 @@ public class MockUpDTO extends WithIDEntity {
 	@Override
 	public int hashCode() {
 		return Objects.hash(id, name, degree, semester, subjects);
-	}
+    }
 
-	@Override
-	public String toString() {
-		return "Mockup{" +
-				"\n\tid: " + id +
-				", \n\tname: " + name +
-				", \n\tdegree: " + degree +
-				", \n\tsemester: " + semester +
-				", \n\tsubjects: " + subjects +
-				"\n}";
-	}
+    @Override
+    public String toString() {
+        return "Mockup{" +
+               "\n\tid: " +
+               id +
+               ", \n\tname: " +
+               name +
+               ", \n\tdegree: " +
+               degree +
+               ", \n\tsemester: " +
+               semester +
+               ", \n\tsubjects: " +
+               subjects +
+               "\n}";
+    }
+
+    @Override
+    public void set( String property, Object value ) throws ControllerException {
+        // TODO: Implémenter, transformer les attributs en simple object property
+    }
 }

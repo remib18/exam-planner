@@ -1,22 +1,24 @@
 package fr.univtours.examplanner.entities.dtos;
 
+import fr.univtours.examplanner.entities.EditableEntity;
 import fr.univtours.examplanner.entities.WithIDEntity;
+import fr.univtours.examplanner.exceptions.ControllerException;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
-public class SubjectDTO extends WithIDEntity {
+public class SubjectDTO extends WithIDEntity implements EditableEntity {
 
-	/**
-	 * Nom de la matière
-	 */
-	@NotNull
-	private String name;
+    /**
+     * Nom de la matière
+     */
+    @NotNull
+    private String name;
 
-	/**
-	 * Matière d'un cursus
-	 *
+    /**
+     * Matière d'un cursus
+     *
 	 * @param id   Identifiant de la matière dans la base de donnée, null si la matière n'est pas encore enregistrée
 	 * @param name Nom de la matière
 	 */
@@ -55,14 +57,16 @@ public class SubjectDTO extends WithIDEntity {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name);
-	}
+        return Objects.hash(id, name);
+    }
 
-	@Override
-	public String toString() {
-		return "SubjectDTO{" +
-				"\n\tid: " + id +
-				", \n\tname: " + name +
-				"\n}";
-	}
+    @Override
+    public String toString() {
+        return "SubjectDTO{" + "\n\tid: " + id + ", \n\tname: " + name + "\n}";
+    }
+
+    @Override
+    public void set( String property, Object value ) throws ControllerException {
+        // TODO: Implement, attributs en SimpleObjectProperty
+    }
 }

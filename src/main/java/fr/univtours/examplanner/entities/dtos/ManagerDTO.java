@@ -41,41 +41,47 @@ public class ManagerDTO extends WithIDEntity implements EditableEntity {
 		this.civility.set(civility);
 		this.lastName.set(lastName);
 		this.firstName.set(firstName);
-	}
+    }
 
-	public @NotNull Civility getCivility() {
-		return civility.get();
-	}
+    public @NotNull Civility getCivility() {
+        return civility.get();
+    }
 
-	public void setCivility(@NotNull Civility civility ) {
-		this.civility.set(civility);
-	}
+    public void setCivility( @NotNull Civility civility ) {
+        this.civility.set(civility);
+    }
 
-	public @NotNull String getLastName() {
-		return lastName.get();
-	}
+    public SimpleObjectProperty< Civility > civilityProperty() {return civility;}
 
-	public void setLastName(@NotNull String lastName ) {
-		this.lastName.set(lastName);
-	}
+    public @NotNull String getLastName() {
+        return lastName.get();
+    }
 
-	public @NotNull String getFirstName() {
-		return firstName.get();
-	}
+    public void setLastName( @NotNull String lastName ) {
+        this.lastName.set(lastName);
+    }
 
-	public void setFirstName(@NotNull String firstName ) {
-		this.firstName.set(firstName);
-	}
+    public SimpleObjectProperty< String > lastNameProperty() {return lastName;}
 
-	@Override
-	public boolean equals( Object o ) {
-		if ( this == o ) return true;
-		if ( null == o || getClass() != o.getClass()) return false;
-		ManagerDTO that = (ManagerDTO) o;
-		return Objects.equals(id, that.id);
-	}
+    public @NotNull String getFirstName() {
+        return firstName.get();
+    }
 
-	@Override
+    public void setFirstName( @NotNull String firstName ) {
+        this.firstName.set(firstName);
+    }
+
+    public SimpleObjectProperty< String > firstNameProperty() {return firstName;}
+
+    @Override
+    public boolean equals( Object o ) {
+        if ( this == o ) return true;
+        if ( null == o || getClass() != o.getClass() ) return false;
+        ManagerDTO that = (ManagerDTO) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
 	public int hashCode() {
 		return Objects.hash(id, civility, lastName, firstName);
 	}

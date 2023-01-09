@@ -1,23 +1,25 @@
 package fr.univtours.examplanner.entities.dtos;
 
+import fr.univtours.examplanner.entities.EditableEntity;
 import fr.univtours.examplanner.entities.WithIDEntity;
+import fr.univtours.examplanner.exceptions.ControllerException;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Calendar;
 import java.util.Objects;
 
-public class SlotDTO extends WithIDEntity {
+public class SlotDTO extends WithIDEntity implements EditableEntity {
 
     /**
      * Date et heure de début du créneau
      */
     private @NotNull Calendar start;
 
-	/**
-	 * Durée du créneau en heures
-	 */
-	private float duration;
+    /**
+     * Durée du créneau en heures
+     */
+    private float duration;
 
     /**
      * Créneau disponible pour les examens
@@ -73,14 +75,15 @@ public class SlotDTO extends WithIDEntity {
 	@Override
 	public int hashCode() {
 		return Objects.hash(id, start, duration);
-	}
+    }
 
-	@Override
-	public @NotNull String toString() {
-		return "SlotDTO{" +
-				"\n\tid: " + id +
-				", \n\tstart: " + start +
-				", \n\tduration: " + duration +
-				"\n}";
-	}
+    @Override
+    public @NotNull String toString() {
+        return "SlotDTO{" + "\n\tid: " + id + ", \n\tstart: " + start + ", \n\tduration: " + duration + "\n}";
+    }
+
+    @Override
+    public void set( String property, Object value ) throws ControllerException {
+        // TODO: implement, passer tous les attributs en SimpleObjectProperty
+    }
 }

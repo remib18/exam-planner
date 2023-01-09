@@ -1,8 +1,10 @@
 package fr.univtours.examplanner.entities.dtos;
 
+import fr.univtours.examplanner.entities.EditableEntity;
 import fr.univtours.examplanner.enums.ComputerEnvironment;
 import fr.univtours.examplanner.enums.RoomEquipment;
 import fr.univtours.examplanner.enums.RoomType;
+import fr.univtours.examplanner.exceptions.ControllerException;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -11,17 +13,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class RoomDTO {
+public class RoomDTO implements EditableEntity {
 
-	/**
-	 * Description de l'environnement des posts pour les étudiants
-	 */
-	private final List< ComputerEnvironment > computerEnvironments = new ArrayList<>();
+    /**
+     * Description de l'environnement des posts pour les étudiants
+     */
+    private final List< ComputerEnvironment > computerEnvironments = new ArrayList<>();
 
-	/**
-	 * Équipements de la salle
-	 */
-	private final List< RoomEquipment > equipments = new ArrayList<>();
+    /**
+     * Équipements de la salle
+     */
+    private final List< RoomEquipment > equipments = new ArrayList<>();
 
 	/**
 	 * Type de la salle
@@ -163,15 +165,26 @@ public class RoomDTO {
 		return Objects.hash(name, places, type, computerEnvironments, equipments, availableSlots);
 	}
 
-	@Override
-	public String toString() {
-		return "RoomDTO{" +
-				"\n\tname: " + name +
-				", \n\tplaces: " + places +
-				", \n\ttype: " + type +
-				", \n\tcomputerEnvironments: " + computerEnvironments +
-				", \n\tequipments: " + equipments +
-				", \n\tavailableSlots: " + availableSlots +
-				"\n}";
-	}
+    @Override
+    public String toString() {
+        return "RoomDTO{" +
+               "\n\tname: " +
+               name +
+               ", \n\tplaces: " +
+               places +
+               ", \n\ttype: " +
+               type +
+               ", \n\tcomputerEnvironments: " +
+               computerEnvironments +
+               ", \n\tequipments: " +
+               equipments +
+               ", \n\tavailableSlots: " +
+               availableSlots +
+               "\n}";
+    }
+
+    @Override
+    public void set( String property, Object value ) throws ControllerException {
+        // TODO
+    }
 }
