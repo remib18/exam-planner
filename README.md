@@ -71,6 +71,8 @@ déployée via GitHub Pages à l'adresse suivante: https://remib18.github.io/exa
 
 ### Exécution des tests
 
+Il est important que la BDD soit définie et exempte de données pour lancer les tests.
+
 Pour lancer les tests, exécutez la configuration `Run Tests` fournie avec le projet.
 
 ### Code couvert par les tests
@@ -86,17 +88,21 @@ Pour lancer les tests, exécutez la configuration `Run Tests` fournie avec le pr
 - [x] Gestion des utilisateurs
 - [x] Gestion des départements
 - [x] Gestion des salles
-- [x] Gestion des examens
+- [ ] Gestion des examens
 - [x] Gestion des groupes
-- [x] Gestion des surveillants
+- [ ] Gestion des surveillants
 - [x] Gestion des Horaires
 - [x] Système de traduction intégré
 - [ ] Fichier de configuration
 - [ ] Export des données
 
-### Known bugs
+Note : de nombreuses fonctionnalités ont été désactivés afin de fournir une application exempte de bugs.
 
-- [ ] RAS
+### Known bugs & Fonctionnalité non développée ou désactivés
+
+- Date des créneaux non modifiable
+- La gestion des exams, des surveillants, des maquettes et des sujets (normalement disponibles pour les rôles "
+  département") est désactivé car buggée
 
 ## Authors
 
