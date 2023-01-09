@@ -1,5 +1,11 @@
 package fr.univtours.examplanner.repositories;
 
+import fr.univtours.examplanner.exceptions.RepoException;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import fr.univtours.examplanner.exceptions.DatabaseConnectionException;
+import fr.univtours.examplanner.exceptions.RepoException;
 
 import fr.univtours.examplanner.exceptions.RepoException;
 
@@ -28,7 +34,7 @@ public interface BaseRepo<Entity, PK> {
      * @param id l'identifiant
      * @return l'entité qui correspond à l'identifiant
      */
-    Entity getById( PK id ) throws RepoException;
+    Entity getById( PK id ) throws DatabaseConnectionException, RepoException;
 
     /**
      * Permet de supprimer une entité

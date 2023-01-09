@@ -12,6 +12,7 @@ module fr.univtours.examplanner {
     opens fr.univtours.examplanner to javafx.fxml;
     opens fr.univtours.examplanner.ui to javafx.fxml;
     opens fr.univtours.examplanner.ui.controllers to javafx.fxml;
+    opens fr.univtours.examplanner.ui.controllers.popups to javafx.fxml;
     opens fr.univtours.examplanner.ui.components to javafx.fxml;
 
     // Exports (nécessaire pour documentation)
@@ -26,6 +27,7 @@ module fr.univtours.examplanner {
     exports fr.univtours.examplanner.translations;
     exports fr.univtours.examplanner.ui;
     exports fr.univtours.examplanner.ui.controllers;
+    exports fr.univtours.examplanner.ui.controllers.popups;
     exports fr.univtours.examplanner.ui.states;
     exports fr.univtours.examplanner.ui.views;
     exports fr.univtours.examplanner.utils;

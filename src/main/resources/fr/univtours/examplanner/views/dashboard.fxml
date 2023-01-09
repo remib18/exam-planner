@@ -2,11 +2,10 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles/global.css"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="438.0" prefWidth="600.0" stylesheets="@../styles/global.css"
             xmlns="http://javafx.com/javafx/19">
     <children>
         <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="32.0"
@@ -23,8 +22,8 @@
                 </ImageView>
             </bottom>
             <top>
-                <VBox alignment="CENTER" fillWidth="false" prefHeight="73.0" prefWidth="536.0" scaleShape="false"
-                      spacing="5.0" BorderPane.alignment="CENTER">
+                <VBox alignment="CENTER" fillWidth="false" prefHeight="101.0" prefWidth="536.0" scaleShape="false"
+                      spacing="5.0" stylesheets="@../styles/dashboard.css" BorderPane.alignment="CENTER">
                     <children>
                         <HBox alignment="TOP_CENTER" prefHeight="24.0" prefWidth="536.0" spacing="5.0">
                             <children>
@@ -42,8 +41,23 @@
                                 </Text>
                             </children>
                         </HBox>
+                        <HBox alignment="CENTER" onMouseClicked="#handleUpdatePassword" prefHeight="24.0"
+                              prefWidth="225.0" scaleShape="false" spacing="5.0" styleClass="fake-btn">
+                            <children>
+                                <Text fx:id="changePasswordText" fill="#ffffffe6" strokeType="OUTSIDE" strokeWidth="0.0"
+                                      text="ui.dashboard.change-password"/>
+                                <ImageView fitHeight="16.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/password-reset.png"/>
+                                    </image>
+                                </ImageView>
+                            </children>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </HBox>
                         <HBox alignment="CENTER" onMouseClicked="#handleDisconnect" prefHeight="24.0" prefWidth="225.0"
-                              scaleShape="false" spacing="5.0">
+                              scaleShape="false" spacing="5.0" styleClass="fake-btn">
                             <children>
                                 <Text fx:id="signOutText" fill="#ffffffe6" strokeType="OUTSIDE" strokeWidth="0.0"
                                       text="ui.dashboard.signout"/>
@@ -59,20 +73,13 @@
                         </HBox>
                     </children>
                     <padding>
-                        <Insets top="10.0"/>
+                        <Insets bottom="10.0" top="10.0"/>
                     </padding>
                 </VBox>
             </top>
             <center>
-                <FlowPane
-                        fx:id="tiles"
-                        alignment="CENTER"
-                        columnHalignment="CENTER"
-                        hgap="24.0"
-                        vgap="24.0"
-                        prefHeight="236.0"
-                        prefWidth="536.0"
-                        BorderPane.alignment="CENTER"/>
+                <FlowPane fx:id="tiles" alignment="CENTER" columnHalignment="CENTER" hgap="24.0" prefHeight="236.0"
+                          prefWidth="536.0" vgap="24.0" BorderPane.alignment="CENTER"/>
             </center>
         </BorderPane>
     </children>

@@ -5,12 +5,16 @@
 
 .button {
     -fx-background-color: #524F74;
+    -fx-border-radius: 4pt;
 }
 
+.combo-box,
 .text-field {
-    -fx-background-color: transparent;
-    -fx-border-color: #B1AFBB;
-    -fx-border-width: .5px;
-    -fx-border-radius: 4px;
-    -fx-text-fill: #c2c2cc;
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-border-radius: 4pt;
+    -fx-text-fill: #ebebef;
+}
+
+.combo-box .arrow {
+    -fx-background-color: #ebebef;
 }

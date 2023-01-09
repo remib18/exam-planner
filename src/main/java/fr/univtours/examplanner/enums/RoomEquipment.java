@@ -1,18 +1,30 @@
 package fr.univtours.examplanner.enums;
 
-import fr.univtours.examplanner.translations.Translation;
+import org.jetbrains.annotations.NotNull;
+
+import java.text.ParseException;
 
 /**
  * Configuration de la salle
  */
 public enum RoomEquipment {
-	Projector,
-	Speaker,
-	Board,
-	Webcam;
+    Projector,
+    Speaker,
+    Board,
+    Webcam;
 
-	@Override
-	public String toString() {
-		return Translation.get("computerEnvironment." + name());
-	}
+    public static RoomEquipment parse( @NotNull String equipment ) throws ParseException {
+        return switch ( equipment ) {
+            case "Projector" -> RoomEquipment.Projector;
+            case "Speaker" -> RoomEquipment.Speaker;
+            case "Board" -> RoomEquipment.Board;
+            case "Webcam" -> RoomEquipment.Webcam;
+            default -> throw new ParseException("Equipment" + equipment + " doesn't exist on RoomEquipment.", 1);
+        };
+    }
+
+    @Override
+    public String toString() {
+        return name();
+    }
 }
