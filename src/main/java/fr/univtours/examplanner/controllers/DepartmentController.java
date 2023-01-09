@@ -7,7 +7,6 @@ import fr.univtours.examplanner.repositories.DepartmentRepo;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -21,7 +20,7 @@ public class DepartmentController implements BaseController<DepartmentDTO> {
 
     private static DepartmentController instance;
 
-    private DepartmentController() {
+    public DepartmentController() {
         repo = new DepartmentRepo();
     }
 
@@ -37,7 +36,7 @@ public class DepartmentController implements BaseController<DepartmentDTO> {
      *
      * @return la liste des départements
      */
-    public @NotNull List<DepartmentDTO> getAll() throws ControllerException {
+    public static @NotNull List<DepartmentDTO> getAll() throws ControllerException {
         try {
             return getInstance().repo.getAll();
         } catch ( RepoException e ) {
@@ -45,7 +44,7 @@ public class DepartmentController implements BaseController<DepartmentDTO> {
         }
     }
 
-    public @NotNull DepartmentDTO getByName(@NotNull String name) throws ControllerException {
+    public static @NotNull DepartmentDTO getByName( @NotNull String name ) throws ControllerException {
         try {
             return getInstance().repo.getById(name);
         } catch ( RepoException e ) {
@@ -59,7 +58,7 @@ public class DepartmentController implements BaseController<DepartmentDTO> {
      * @param id l'identifiant du département
      * @return le département correspondant à l'identifiant
      */
-    public @Nullable DepartmentDTO getByID( String id ) {
+    public static @Nullable DepartmentDTO getByID( String id ) {
         // TODO implement here
         throw new UnsupportedOperationException();
     }

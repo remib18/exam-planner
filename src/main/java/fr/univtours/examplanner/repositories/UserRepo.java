@@ -17,6 +17,11 @@ import java.util.List;
 import java.util.Objects;
 
 public class UserRepo implements BaseRepo<UserDTO, String> {
+    private final UserMapper mapper;
+
+    public UserRepo(){
+        mapper = new UserMapper();
+    }
 
     /**
      * Récupère tous utilisateurs en fonction du rôle passé en paramètre
@@ -57,7 +62,7 @@ public class UserRepo implements BaseRepo<UserDTO, String> {
             if ( withOptions ) {
                 stm.setString(1, value);
             }
-            return UserMapper.entityToDTO(stm.executeQuery());
+            return mapper.entityToDTO(stm.executeQuery());
         } catch ( SQLException | DatabaseConnectionException | MappingException e ) {
             throw new RepoException("Getting users failed, no rows affected.", e);
         }

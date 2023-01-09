@@ -7,7 +7,10 @@ import fr.univtours.examplanner.exceptions.MappingException;
 import fr.univtours.examplanner.utils.Database;
 import org.jetbrains.annotations.NotNull;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +23,7 @@ public class ExamMapper implements BaseMapper {
      * @return = classe {@link ExamDTO}
      */
     @Override
-    public @NotNull List< ExamDTO> EntityToDTO( ResultSet entities ) throws MappingException {
+    public @NotNull List< ExamDTO> entityToDTO( ResultSet entities ) throws MappingException {
 
         List <ExamDTO> exams = new ArrayList<>();
         try {
@@ -29,7 +32,7 @@ public class ExamMapper implements BaseMapper {
                     String id = entities.getString("id");
                     String name = entities.getString("name");
                     float duration = entities.getFloat("duration");
-                    ExamType type = ExamType.setTypeByString(entities.getString("type"));
+                    ExamType type = ExamType.parse(entities.getString("type"));
                     String subject = entities.getString("subject");
 
                     Connection conn = Database.getConnection();

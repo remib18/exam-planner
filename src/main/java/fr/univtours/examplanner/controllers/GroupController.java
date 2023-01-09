@@ -5,6 +5,7 @@ import fr.univtours.examplanner.exceptions.ControllerException;
 import fr.univtours.examplanner.exceptions.RepoException;
 import fr.univtours.examplanner.repositories.GroupRepo;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Objects;
@@ -19,7 +20,7 @@ public class GroupController implements BaseController< GroupDTO > {
 
     private static GroupController instance;
 
-    private GroupController() {
+    public GroupController() {
         repo = new GroupRepo();
     }
 
@@ -41,6 +42,14 @@ public class GroupController implements BaseController< GroupDTO > {
             instance = new GroupController();
         }
         return instance;
+    }
+
+    public static GroupDTO getById( @NotNull String id ) throws ControllerException {
+        try {
+            return getInstance().repo.getById(id);
+        } catch ( RepoException e ) {
+            throw new ControllerException("An error occurred during the data fetching.", e);
+        }
     }
 
     /**
@@ -105,6 +114,12 @@ public class GroupController implements BaseController< GroupDTO > {
             throw new ControllerException("An error occurred during the data deletion.", e);
         }
     }
-
+    public static @Nullable GroupDTO getByID( String id ) throws ControllerException {
+        try {
+            return getInstance().repo.getById(id);
+        } catch ( RepoException e ) {
+            throw new ControllerException("Fail to fetch", e);
+        }
+    }
 
 }

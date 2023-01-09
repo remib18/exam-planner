@@ -1,15 +1,73 @@
 package fr.univtours.examplanner.ui.views;
 
+import fr.univtours.examplanner.controllers.DepartmentController;
+import fr.univtours.examplanner.entities.dtos.DepartmentDTO;
+import fr.univtours.examplanner.exceptions.ControllerException;
+import fr.univtours.examplanner.ui.components.DataTable;
+import fr.univtours.examplanner.ui.components.DataView;
+import fr.univtours.examplanner.utils.TableColumnDeclaration;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
+import javafx.scene.control.TreeItem;
 import org.jetbrains.annotations.NotNull;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class DepartmentView {
 
 	public static final String TITLE = "app.title.department";
+	private static DepartmentView instance;
 
-	public static @NotNull Scene getScene() {
-		return new Scene(new Label(TITLE), 320, 240);
+	private final DepartmentController controller;
+
+	private static DepartmentView getInstance() {
+		if ( Objects.isNull(instance) ) {
+			instance = new DepartmentView();
+		}
+		return instance;
+	}
+	private DepartmentView() {
+		super();
+		controller = new DepartmentController();
 	}
 
+	public static @NotNull Scene getScene() throws IOException {
+		DataView< DepartmentDTO > view = new DataView<>("images/Department.png",
+				"feature.department",
+				new DataTable<>(getColumns(), DepartmentView::getData)
+		);
+		view.setOnAddRequest(() -> new DepartmentDTO(null));
+		view.setOnSaveRequest(department -> {
+			try {
+				getInstance().controller.save(department);
+			} catch ( ControllerException e ) {
+				e.printStackTrace();
+			}
+		});
+		view.setOnDeleteRequest(() -> {
+			view.getTable().getSelectionModel().getSelectedItems().forEach(item -> {
+				try {getInstance().controller.delete(item.getValue());} catch ( ControllerException e ) {e.printStackTrace();}
+			});
+		});
+		return new Scene(view);
+	}
+
+	private static @NotNull List< TableColumnDeclaration< DepartmentDTO, ? > > getColumns() {
+		List< TableColumnDeclaration< DepartmentDTO, ? > > columns = new ArrayList<>();
+		columns.add(new TableColumnDeclaration<>("name", "feature.department.name", false));
+		return columns;
+	}
+
+	private static @NotNull TreeItem< DepartmentDTO > getData() throws ControllerException {
+		TreeItem< DepartmentDTO > root = new TreeItem<>();
+		root.setExpanded(true);
+		List< DepartmentDTO > departments = getInstance().controller.getAll();
+		for ( DepartmentDTO department : departments ) {
+			TreeItem< DepartmentDTO > item = new TreeItem<>(department);
+			root.getChildren().add(item);
+		}
+		return root;
+	}
 }

@@ -18,7 +18,8 @@ public class SlotMapper implements BaseMapper {
      * @param entities = résultats de la requête SQL
      * @return = classe {@link SlotDTO}
      */
-    public static @NotNull List< SlotDTO > EntityToDTO( @NotNull ResultSet entities ) throws MappingException {
+    @Override
+    public @NotNull List< SlotDTO > entityToDTO( @NotNull ResultSet entities ) throws MappingException {
         List< SlotDTO > slot = new ArrayList<>();
         try {
             while ( entities.next() ) {

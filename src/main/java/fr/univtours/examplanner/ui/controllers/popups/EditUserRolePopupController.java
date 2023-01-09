@@ -21,11 +21,32 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
+
+
+
 public class EditUserRolePopupController extends BasicViewController {
+
+    private static EditUserRolePopupController instance;
+
+    private DepartmentController depcontroller;
+
+    private ManagerController mancontroller;
+
+    private static EditUserRolePopupController getInstance() {
+        if ( Objects.isNull(instance) ) {
+            instance = new EditUserRolePopupController();
+        }
+        return instance;
+    }
+    private EditUserRolePopupController() {
+        super();
+        depcontroller = new DepartmentController();
+        mancontroller = new ManagerController();
+    }
 
     private final @NotNull SimpleObjectProperty< @NotNull UserRole > role = new SimpleObjectProperty<>();
 
-    private final @NotNull UserDTO user;
+    private @NotNull UserDTO user;
 
     @FXML
     private Text userMailText;
@@ -77,7 +98,7 @@ public class EditUserRolePopupController extends BasicViewController {
     private Button cancelBtn;
 
     @Override
-    protected void init() {
+    protected void init() throws ControllerException {
         userRoleDropDown.getItems().addAll(UserRole.values());
         userRoleDropDown.setValue(role.get());
         userRoleDropDown.valueProperty().addListener(( observable, oldValue, newValue ) -> {
@@ -87,19 +108,23 @@ public class EditUserRolePopupController extends BasicViewController {
         userMailText.setText(user.getMail());
 
         role.addListener(( observable, oldValue, newValue ) -> {
-            handleRoleChange();
+            try {
+                handleRoleChange();
+            } catch ( ControllerException e ) {
+                throw new RuntimeException(e);
+            }
         });
         handleRoleChange();
     }
 
-    private void handleRoleChange() {
+    private void handleRoleChange() throws ControllerException {
         departmentOrManagerDropdown.getItems().clear();
         departmentOrManagerDropdown.setDisable(false);
         departmentOrManagerDropdown.setValue(null);
         refreshTextLabel();
         switch ( role.get() ) {
             case Department -> {
-                departmentOrManagerDropdown.getItems().addAll(DepartmentController.getAll());
+                departmentOrManagerDropdown.getItems().addAll(getInstance().depcontroller.getAll());
                 departmentOrManagerDropdown.setValue(user.getDepartment());
                 departmentOrManagerDropdown.setConverter(new DepartmentDTOStringConverter());
                 departmentOrManagerDropdown.valueProperty().addListener(( observable, oldValue, newValue ) -> {
@@ -108,7 +133,7 @@ public class EditUserRolePopupController extends BasicViewController {
                 });
             }
             case Manager -> {
-                departmentOrManagerDropdown.getItems().addAll(ManagerController.getAll());
+                departmentOrManagerDropdown.getItems().addAll(getInstance().mancontroller.getAll());
                 departmentOrManagerDropdown.setValue(user.getManager());
                 departmentOrManagerDropdown.setConverter(new ManagerDTOStringConverter());
                 departmentOrManagerDropdown.valueProperty().addListener(( observable, oldValue, newValue ) -> {
@@ -160,7 +185,11 @@ public class EditUserRolePopupController extends BasicViewController {
             if ( Objects.isNull(s) ) return null;
             String lastName = s.split(" ")[0];
             String firstName = s.split(" ")[1];
-            return ManagerController.getByFullName(lastName, firstName);
+            try {
+                return getInstance().mancontroller.getByFullName(lastName, firstName);
+            } catch ( ControllerException e ) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -175,7 +204,11 @@ public class EditUserRolePopupController extends BasicViewController {
         @Override
         public DepartmentDTO fromString( String s ) {
             if ( Objects.isNull(s) ) return null;
-            return DepartmentController.getByName(s);
+            try {
+                return DepartmentController.getByName(s);
+            } catch ( ControllerException e ) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }

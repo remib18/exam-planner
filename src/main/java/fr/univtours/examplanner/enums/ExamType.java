@@ -1,5 +1,9 @@
 package fr.univtours.examplanner.enums;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.text.ParseException;
+
 /**
  * Type d'examen (continu ou partiel)
  */
@@ -9,7 +13,7 @@ public enum ExamType {
 
     private final String type;
 
-    private ExamType(String type){
+    ExamType(String type){
         this.type = type;
     }
 
@@ -17,14 +21,13 @@ public enum ExamType {
         return type;
     }
 
-    public static ExamType setTypeByString( String type ){
-        switch ( type ){
-            case "Continuous" :
-                return ExamType.Continuous;
-            case "Final" :
-                return ExamType.Final;
-        }
-        throw new UnsupportedOperationException("Should be unreachable");
+    public static ExamType parse( @NotNull String type ) throws ParseException {
+        return switch ( type ) {
+            case "Continuous" -> ExamType.Continuous;
+            case "Final" -> ExamType.Final;
+            default -> throw new ParseException("Type " + type + " doesn't exist on ExamType.", 1);
+        };
     }
+
 }
 

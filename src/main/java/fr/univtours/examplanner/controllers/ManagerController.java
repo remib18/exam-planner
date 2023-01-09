@@ -21,7 +21,7 @@ public class ManagerController implements BaseController<ManagerDTO> {
 
     private static ManagerController instance;
 
-    private ManagerController() {
+    public ManagerController() {
         repo = new ManagerRepo();
     }
 
@@ -38,16 +38,27 @@ public class ManagerController implements BaseController<ManagerDTO> {
         }
     }
 
-    private static ManagerController getInstance() {
+    private ManagerController getInstance() {
         if ( Objects.isNull(instance) ) {
             instance = new ManagerController();
         }
         return instance;
     }
 
-    public @Nullable ManagerDTO getByID( String id ) {
-        // TODO implement here
-        throw new UnsupportedOperationException();
+    public @Nullable ManagerDTO getByID( String id ) throws ControllerException {
+        try {
+            return getInstance().repo.getById(id);
+        } catch ( RepoException e ) {
+            throw new ControllerException("Fail to fetch", e);
+        }
+    }
+
+    public  ManagerDTO getByFullName( String lastName, String firstName ) throws ControllerException {
+        try {
+            return getInstance().repo.getByFullName(lastName, firstName);
+        } catch ( RepoException e ) {
+            throw new ControllerException("Fail to fetch", e);
+        }
     }
 
     /**

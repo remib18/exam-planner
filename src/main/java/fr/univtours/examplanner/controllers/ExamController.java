@@ -9,7 +9,6 @@ import fr.univtours.examplanner.exceptions.RepoException;
 import fr.univtours.examplanner.repositories.ExamRepo;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,7 +22,7 @@ public class ExamController implements BaseController< ExamDTO > {
 
     private static ExamController instance;
 
-    private ExamController() {
+    public ExamController() {
         repo = new ExamRepo();
     }
 

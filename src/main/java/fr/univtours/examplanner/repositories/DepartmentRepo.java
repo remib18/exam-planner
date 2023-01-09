@@ -12,7 +12,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.*;
+import java.util.List;
 
 public class DepartmentRepo implements BaseRepo<DepartmentDTO, String> {
     private final DepartmentMapper mapper;
@@ -41,7 +41,7 @@ public class DepartmentRepo implements BaseRepo<DepartmentDTO, String> {
             Connection conn = Database.getConnection();
             Statement stm = conn.createStatement();
             ResultSet rs = stm.executeQuery("SELECT * FROM Department");
-            return mapper.EntityToDTO(rs);
+            return mapper.entityToDTO(rs);
         } catch ( DatabaseConnectionException | SQLException | MappingException e ) {
             throw new RepoException("Fail to fetch", e);
         }
@@ -52,7 +52,7 @@ public class DepartmentRepo implements BaseRepo<DepartmentDTO, String> {
             Connection conn = Database.getConnection();
             Statement stm = conn.createStatement();
             ResultSet rs = stm.executeQuery("SELECT * FROM Department WHERE name = '" + name + "'");
-            return mapper.EntityToDTO(rs).get(0);
+            return mapper.entityToDTO(rs).get(0);
         } catch ( DatabaseConnectionException | SQLException | MappingException e ) {
             throw new RepoException("Fail to fetch", e);
         }

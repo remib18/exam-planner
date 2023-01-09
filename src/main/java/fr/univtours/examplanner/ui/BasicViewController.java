@@ -1,6 +1,7 @@
 package fr.univtours.examplanner.ui;
 
 import fr.univtours.examplanner.Storage;
+import fr.univtours.examplanner.exceptions.ControllerException;
 import javafx.fxml.FXML;
 
 public abstract class BasicViewController {
@@ -10,7 +11,7 @@ public abstract class BasicViewController {
 	 * Ne pas {@code Override}, utiliser {@link #init()} à la place
 	 */
 	@FXML
-	private void initialize() {
+	private void initialize() throws ControllerException {
 
 		Storage.languageProperty().addListener(( observable, oldValue, newValue ) -> {
 			onLanguageUpdate();
@@ -23,7 +24,7 @@ public abstract class BasicViewController {
 	/**
 	 * Poursuit l'initialisation de la vue
 	 */
-	protected abstract void init();
+	protected abstract void init() throws ControllerException;
 
 	/**
 	 * Appelé lorsque la langue est changée et au chargement de la vue

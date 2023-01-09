@@ -23,6 +23,7 @@ public class ExamRepo implements BaseRepo< ExamDTO, String> {
     public ExamRepo(){
         mapper = new ExamMapper();
     }
+
     private @NotNull List< ExamDTO > getAllFrom( @Nullable String key, @Nullable String value ) throws RepoException {
         String sql = "SELECT * FROM exam";
         boolean withOptions = !Objects.isNull(key) && !Objects.isNull(value);
@@ -33,7 +34,7 @@ public class ExamRepo implements BaseRepo< ExamDTO, String> {
             if ( withOptions ) {
                 stm.setString(1, value);
             }
-            return mapper.EntityToDTO(stm.executeQuery());
+            return mapper.entityToDTO(stm.executeQuery());
         } catch ( SQLException | DatabaseConnectionException | MappingException e ) {
             throw new RepoException("Getting examens failed, no rows affected.", e);
         }
@@ -73,7 +74,7 @@ public class ExamRepo implements BaseRepo< ExamDTO, String> {
         try {
             String sql = "SELECT child FROM _examtoexam WHERE parent = '" + exam.getId() + "'";
             ResultSet previousExamsIds = Database.getConnection().createStatement().executeQuery(sql);
-            return mapper.EntityToDTO(previousExamsIds);
+            return mapper.entityToDTO(previousExamsIds);
         } catch ( SQLException | DatabaseConnectionException | MappingException e ) {
             throw new RepoException("Fail to fetch", e);
         }
@@ -83,7 +84,7 @@ public class ExamRepo implements BaseRepo< ExamDTO, String> {
         try {
             String sql = "SELECT exam FROM _examtogroup WHERE group = '" + group.getId() + "'";
             ResultSet examsIds = Database.getConnection().createStatement().executeQuery(sql);
-            return mapper.EntityToDTO(examsIds);
+            return mapper.entityToDTO(examsIds);
         } catch ( SQLException | DatabaseConnectionException | MappingException e ) {
             throw new RepoException("Fail to fetch", e);
         }
@@ -93,7 +94,7 @@ public class ExamRepo implements BaseRepo< ExamDTO, String> {
         try {
             String sql = "SELECT exam FROM _examtomanager WHERE manager = '" + manager.getId() + "'";
             ResultSet examsIds = Database.getConnection().createStatement().executeQuery(sql);
-            return mapper.EntityToDTO(examsIds);
+            return mapper.entityToDTO(examsIds);
         } catch ( SQLException | DatabaseConnectionException | MappingException e ) {
             throw new RepoException("Fail to fetch", e);
         }

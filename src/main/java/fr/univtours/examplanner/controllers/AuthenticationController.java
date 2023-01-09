@@ -77,6 +77,7 @@ public class AuthenticationController {
      * @return vrai si le mot de passe est valide et faux sinon
      */
     private static boolean checkPassword( @NotNull String password, @Nullable String encryptedPassword ) {
+        System.out.println(password);
         String encrypted = encryptPassword(password);
         return encrypted.equals(encryptedPassword);
     }

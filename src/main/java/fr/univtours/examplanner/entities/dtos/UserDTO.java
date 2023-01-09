@@ -15,6 +15,8 @@ import java.util.Objects;
 
 public class UserDTO extends WithIDEntity implements EditableEntity {
 
+
+
     /**
      * Information manager correspondantes à l'utilisateur<br/> Si null, l'utilisateur n'est pas un manager
      */
@@ -40,6 +42,10 @@ public class UserDTO extends WithIDEntity implements EditableEntity {
     @NotNull
     private final SimpleObjectProperty< @NotNull String > password = new SimpleObjectProperty<>();
 
+
+
+
+    private final ManagerController controller;
     /**
      * Utilisateur
      *
@@ -62,6 +68,7 @@ public class UserDTO extends WithIDEntity implements EditableEntity {
         this.password.set(password);
         this.departmentID.set(departmentID);
         this.managerID.set(managerID);
+        controller = new ManagerController();
     }
 
     public @NotNull SimpleObjectProperty< @Nullable String > mailProperty() {
@@ -115,10 +122,10 @@ public class UserDTO extends WithIDEntity implements EditableEntity {
         return managerID.get();
     }
 
-    public @Nullable ManagerDTO getManager() {
+    public @Nullable ManagerDTO getManager() throws ControllerException{
         String mid = managerID.get();
         if ( Objects.isNull(mid) ) return null;
-        return ManagerController.getByID(mid);
+        return controller.getByID(mid);
     }
 
     public void setManager( @Nullable ManagerDTO manager ) {

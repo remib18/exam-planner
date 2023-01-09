@@ -17,7 +17,8 @@ public class UserMapper implements BaseMapper{
      * @param entities = résultats de la requête SQL
      * @return = classe {@link UserDTO}
      */
-    public static @NotNull List< UserDTO > entityToDTO( @NotNull ResultSet entities ) throws MappingException {
+
+    public @NotNull List< UserDTO > entityToDTO( @NotNull ResultSet entities ) throws MappingException {
         List< UserDTO > users = new ArrayList<>();
         try {
             while ( entities.next() ) {
@@ -33,5 +34,6 @@ public class UserMapper implements BaseMapper{
             throw new MappingException("Unable to map entity.", e);
         }
     }
+
 
 }

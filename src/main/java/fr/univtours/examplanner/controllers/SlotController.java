@@ -22,7 +22,7 @@ public class SlotController {
     @NotNull
     private final SlotRepo repo;
 
-    private SlotController() {
+    public SlotController() {
         repo = new SlotRepo();
     }
 
@@ -78,7 +78,7 @@ public class SlotController {
         try {
 
             return getInstance().repo.save(new SlotDTO(null, start, durationFloat));
-        } catch ( RepoException | DatabaseConnectionException | SQLException e ) {
+        } catch ( RepoException e ) {
             throw new ControllerException("An error occurred during the data saving.", e);
         }
     }
@@ -91,7 +91,7 @@ public class SlotController {
     public void save( @NotNull SlotDTO entity ) throws ControllerException {
         try {
             getInstance().repo.save(entity);
-        } catch ( RepoException | SQLException | DatabaseConnectionException e ) {
+        } catch ( RepoException e ) {
             throw new ControllerException("An error occurred during the data saving.", e);
         }
     }

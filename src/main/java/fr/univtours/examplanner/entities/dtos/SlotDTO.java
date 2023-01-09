@@ -1,13 +1,15 @@
 package fr.univtours.examplanner.entities.dtos;
 
+import fr.univtours.examplanner.entities.EditableEntity;
 import fr.univtours.examplanner.entities.WithIDEntity;
+import fr.univtours.examplanner.exceptions.ControllerException;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Calendar;
 import java.util.Objects;
 
-public class SlotDTO extends WithIDEntity {
+public class SlotDTO extends WithIDEntity implements EditableEntity {
 
     /**
      * Date et heure de début du créneau
@@ -26,7 +28,7 @@ public class SlotDTO extends WithIDEntity {
      * @param start    Date et heure de début du créneau
      * @param duration Durée du créneau en heures
      */
-    public SlotDTO( @Nullable String id, @NotNull Calendar start, float duration ) {
+    public SlotDTO( @NotNull String id, @Nullable Calendar start, @NotNull Float duration ) {
         super(id);
         this.start = start;
         this.duration = duration;
@@ -83,4 +85,8 @@ public class SlotDTO extends WithIDEntity {
 				", \n\tduration: " + duration +
 				"\n}";
 	}
+
+    @Override
+    public void set( String property, Object value ) throws ControllerException {
+    }
 }

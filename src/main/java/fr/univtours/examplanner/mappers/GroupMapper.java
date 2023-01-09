@@ -26,7 +26,8 @@ public class GroupMapper implements BaseMapper{
      * @param entities  = résultats de la requête SQL
      * @return = classe {@link GroupDTO}
      */
-    public @NotNull List< GroupDTO > EntityToDTO( @NotNull ResultSet entities ) throws MappingException {
+    @Override
+    public @NotNull List< GroupDTO > entityToDTO( @NotNull ResultSet entities ) throws MappingException {
         List< GroupDTO > group = new ArrayList<>();
         try {
             while ( entities.next() ) {

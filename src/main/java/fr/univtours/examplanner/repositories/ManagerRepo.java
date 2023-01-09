@@ -1,6 +1,7 @@
 package fr.univtours.examplanner.repositories;
 
-import fr.univtours.examplanner.entities.Exam;
+
+import fr.univtours.examplanner.entities.dtos.ExamDTO;
 import fr.univtours.examplanner.entities.dtos.ManagerDTO;
 import fr.univtours.examplanner.enums.Civility;
 import fr.univtours.examplanner.exceptions.DatabaseConnectionException;
@@ -24,7 +25,7 @@ public class ManagerRepo implements BaseRepo< ManagerDTO, String > {
      * @param e un examen
      * @return la liste des managers correspondants à l'examen
      */
-    public @NotNull List< ManagerDTO > getAllFromExam( @NotNull Exam e ) throws RepoException {
+    public @NotNull List< ManagerDTO > getAllFromExam( @NotNull ExamDTO e ) throws RepoException {
         String idE = e.getId();
         String sql = "SELECT manager FROM _ExamToManager WHERE exam = ?";
         List< ManagerDTO > result = new ArrayList<>();
@@ -122,5 +123,26 @@ public class ManagerRepo implements BaseRepo< ManagerDTO, String > {
             throw new RepoException("Deleting manager failed, no rows affected", e);
         }
         return true;
+    }
+
+    public ManagerDTO getByFullName( String lastName, String firstName ) throws RepoException {
+        String sql = "SELECT * FROM Manager WHERE lastname = ? AND firstname = ?";
+        try ( PreparedStatement stm = Database.getConnection().prepareStatement(sql) ) {
+            stm.setString(1, lastName);
+            stm.setString(2, firstName);
+            stm.execute(sql);
+            ResultSet res = stm.executeQuery();
+            ManagerDTO manager = new ManagerDTO(null, null, null, null);
+            while ( res.next() ) {
+                String idM = res.getString("id");
+                Civility civility = Civility.parse("civility");
+                String lastname = res.getString("lastname");
+                String firstname = res.getString("firstname");
+                manager = new ManagerDTO(idM, civility, lastname, firstname);
+            }
+            return manager;
+        } catch ( SQLException | DatabaseConnectionException | ParseException e ) {
+            throw new RepoException("Getting manager failed, no rows affected", e);
+        }
     }
 }

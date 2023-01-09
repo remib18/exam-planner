@@ -17,17 +17,21 @@ public class DepartmentMapper implements BaseMapper {
      * @param entities = résultats de la requête SQL
      * @return = classe {@link DepartmentDTO}
      */
-    public @NotNull List < DepartmentDTO > EntityToDTO( ResultSet entities ) throws MappingException,
-            SQLException {
-        if ( entities.next() ) {
-            List< DepartmentDTO > departments = new ArrayList<>();
-            while ( entities.next() ) {
-                String name = entities.getString("name");
-                DepartmentDTO department = new DepartmentDTO(name);
-                departments.add(department);
+    @Override
+    public @NotNull List < DepartmentDTO > entityToDTO( ResultSet entities ) throws MappingException {
+        try {
+            if ( entities.next() ) {
+                List< DepartmentDTO > departments = new ArrayList<>();
+                while ( entities.next() ) {
+                    String name = entities.getString("name");
+                    DepartmentDTO department = new DepartmentDTO(name);
+                    departments.add(department);
+                }
+                return departments;
             }
-            return departments;
+        } catch ( SQLException e ) {
+            throw new MappingException("Fail to connect",e);
         }
-            throw  new MappingException("No result to map.", null);
+        throw  new MappingException("No result to map.", null);
     }
 }

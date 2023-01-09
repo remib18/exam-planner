@@ -3,9 +3,11 @@ package fr.univtours.examplanner.entities.dtos;
 import fr.univtours.examplanner.controllers.ExamController;
 import fr.univtours.examplanner.controllers.GroupController;
 import fr.univtours.examplanner.controllers.ManagerController;
+import fr.univtours.examplanner.entities.EditableEntity;
 import fr.univtours.examplanner.entities.WithIDEntity;
 import fr.univtours.examplanner.enums.ExamType;
 import fr.univtours.examplanner.exceptions.ControllerException;
+import javafx.beans.property.SimpleObjectProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -13,44 +15,58 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ExamDTO extends WithIDEntity {
+public class ExamDTO extends WithIDEntity implements EditableEntity {
+
+	private static ExamDTO instance;
+
+	private final ExamController controller;
+
+	public ExamDTO(){
+		super();
+		controller = new ExamController();
+	}
+	private static ExamDTO getInstance() {
+		if ( Objects.isNull(instance) ) {
+			instance = new ExamDTO();
+		}
+		return instance;
+	}
+
+
 
 	/**
 	 * Groupes d'étudiants participant à l'examen
 	 */
 	@NotNull
-	private final List<String> groupsIDs = new ArrayList<>();
+	private final SimpleObjectProperty< @NotNull String > groupsIDs = new SimpleObjectProperty<>();
 
 	/**
 	 * Surveillants de l'examen
 	 */
 	@NotNull
-	private final List<String> managersIDs = new ArrayList<>();
-
+	private final SimpleObjectProperty< @NotNull String > managersIDs = new SimpleObjectProperty<>();
 	/**
 	 * Précédence de l'examen
 	 */
 	@NotNull
-	private final List<String> previousExamsIDs = new ArrayList<>();
-
+	private final SimpleObjectProperty< @NotNull String > previousExamsIDs = new SimpleObjectProperty<>();
 	/**
 	 * Nom de l'examen
 	 */
-	@NotNull
-	private String name;
+	private final SimpleObjectProperty< @NotNull String > name = new SimpleObjectProperty<>();
 	/**
 	 * Sujet de l'examen
 	 */
 	@NotNull
-	private String subject;
+	private final SimpleObjectProperty< @NotNull String > subject = new SimpleObjectProperty<>();
 
 	/**
 	 * Durée de l'examen en heures
 	 */
-	private float duration;
+	private final SimpleObjectProperty< @NotNull Float > duration = new SimpleObjectProperty<>();
 
 	@NotNull
-	private ExamType type ;
+	private final SimpleObjectProperty< @NotNull ExamType > type = new SimpleObjectProperty<>();
 
 	/**
 	 * Examen
@@ -76,31 +92,30 @@ public class ExamDTO extends WithIDEntity {
 			@NotNull List<String> previousExamsIDs
 	) {
 		super(id);
-		this.name = name;
-		this.type = type;
-		this.groupsIDs.addAll(groupsIDs);
+		this.name.set(name);
+		this.type.set(type);
+		this.groupsIDs.set(groupsIDs.toString());
 		this.managersIDs.addAll(managersIDs);
-		this.subject = subject;
+		this.subject.set(subject);
 		setDuration(duration);
-		this.previousExamsIDs.addAll(previousExamsIDs);
+		this.previousExamsIDs.set(previousExamsIDs.toString());
+		controller = new ExamController();
 	}
 
 	public @NotNull String getName() {
-		return name;
+		return name.get();
 	}
 
-	public void setName(@NotNull String name) {
-		this.name = name;
-	}
+	public void setName(@NotNull String name) { this.name.set(name); }
 
-	public @NotNull ExamType getType() { return type; }
+	public @NotNull ExamType getType() { return type.get(); }
 
-	public void setType(@NotNull ExamType type) { this.type = type; }
+	public void setType(@NotNull ExamType type) { this.type.set(type); }
 
 	public @NotNull List<GroupDTO> getGroups() throws ControllerException {
 		return groupsIDs.stream().map(gid -> {
 			try {
-				return (new GroupController()).getById(gid);
+				return (new GroupController()).getByID(gid);
 			} catch ( ControllerException e ) {
 				throw new RuntimeException("Fail", e);
 			}
@@ -109,31 +124,26 @@ public class ExamDTO extends WithIDEntity {
 
 	public void addGroup(@NotNull GroupDTO group) {
 		if ( Objects.isNull(group.getId()) ) return;
-		this.groupsIDs.add(group.getId());
+		this.groupsIDs.set(group.getId());
 	}
 
 	public void addGroup(@NotNull List<GroupDTO> groups) {
-		this.groupsIDs.addAll(groups.stream()
-									.filter(g -> !Objects.isNull(g.getId()))
-									.map(g -> g.getId())
-									.toList());
+		groups.stream()
+			  .filter(g -> !Objects.isNull(g.getId()))
+			  .map(g -> g.getId())
+			  .forEach(this.groupsIDs::setValue);
 	}
 
-	public void removeGroup(@NotNull GroupDTO group) {
-		this.groupsIDs.remove(group.getId());
-	}
 
 	public void removeGroup(@NotNull List<GroupDTO> groups) {
-		this.groupsIDs.removeAll(groups.stream()
-									   .filter(g -> !Objects.isNull(g.getId()))
-									   .map(g -> g.getId())
-									   .toList());
+		List<GroupDTO> stringList = new ArrayList<>(groups);
+		stringList.forEach(groups -> e );
 	}
 
 	public @NotNull List<ManagerDTO> getManagers() throws ControllerException {
 		return managersIDs.stream().map(mid -> {
 			try {
-				return (new ManagerController()).getById(mid);
+				return (new ManagerController()).getByID(mid);
 			} catch ( ControllerException e ) {
 				throw new RuntimeException("Fail", e);
 			}
@@ -164,22 +174,20 @@ public class ExamDTO extends WithIDEntity {
 	}
 
 	public @NotNull String getSubject() {
-		return subject;
+		return subject.get();
 	}
 
-	public void setSubject(@NotNull SubjectDTO subject) {
-		this.subject = subject.getName();
-	}
+	public void setSubject(@NotNull SubjectDTO subject) { this.subject.set(subject.getName()); }
 
 	public float getDuration() {
-		return duration;
+		return duration.get();
 	}
 
 	public void setDuration(float duration) {
-		if (duration < 0) {
+		if ( 0 > duration ) {
 			throw new IllegalArgumentException("La durée d'un examen ne peut pas être négative");
 		}
-		this.duration = duration;
+		this.duration.set(duration);
 	}
 
 	public @NotNull List< ExamDTO > getPreviousExams() {
@@ -194,14 +202,14 @@ public class ExamDTO extends WithIDEntity {
 
 	public void addPreviousExam(@NotNull ExamDTO exam) {
 		if ( Objects.isNull(exam.getId()) ) return;
-		this.groupsIDs.add(exam.getId());
+		this.groupsIDs.set(exam.getId());
 	}
 
 	public void addPreviousExam(@NotNull List< ExamDTO > exams) {
-		this.groupsIDs.addAll(exams.stream()
-									  .filter(e -> !Objects.isNull(e.getId()))
-									  .map(e -> e.getId())
-									  .toList());	}
+		exams.stream()
+			 .filter(e -> !Objects.isNull(e.getId()))
+			 .map(e -> e.getId())
+			 .forEach(this.groupsIDs::setValue);	}
 
 	public void removePreviousExam(@NotNull ExamDTO exam) {
 		this.previousExamsIDs.remove(exam.getId());
@@ -216,7 +224,7 @@ public class ExamDTO extends WithIDEntity {
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
+		if ( null == o || getClass() != o.getClass()) return false;
 		ExamDTO exam = (ExamDTO) o;
 		return Objects.equals(id, exam.id);
 	}
@@ -231,12 +239,30 @@ public class ExamDTO extends WithIDEntity {
 		return "Exam{" +
 				"\n\tid: " + id +
 				", \n\tname: " + name +
-			    ", \n\tname: " + type.getTypeString() +
+			    ", \n\ttype: " + type.getTypeString() +
 				", \n\tgroupsIds: " + groupsIDs +
 				", \n\tmanagersIds: " + managersIDs +
 				", \n\tsubject: " + subject +
 				", \n\tduration: " + duration +
 				", \n\tpreviousExamsIds: " + previousExamsIDs +
 				"\n}";
+	}
+
+	@Override
+	public void set( String property, Object value ) throws ControllerException
+		{
+		switch ( property ) {
+			case "name" -> setName((String) value);
+			case "type" ->setType((ExamType) value);
+			case "groupsIds" ->(() value)
+			case "subject" ->(() value)
+			case "duration" ->(() value)
+			case "previousExamsIds" ->(() value)
+
+			default -> throw new IllegalArgumentException("Unknown property " + property);
+		}
+		if ( Objects.nonNull(id.get()) ) {
+			getInstance().controller.save(this);
+		}
 	}
 }
