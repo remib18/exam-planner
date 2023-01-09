@@ -1,6 +1,7 @@
 package fr.univtours.examplanner.mappers;
 
 import fr.univtours.examplanner.entities.dtos.SubjectDTO;
+import fr.univtours.examplanner.exceptions.MappingException;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.ResultSet;
@@ -18,7 +19,7 @@ public class SubjectMapper implements BaseMapper {
      *
      * @throws MappingException
      */
-    public static @NotNull List< SubjectDTO > entityToDo( @NotNull ResultSet entities ) throws MappingException {
+    public @NotNull List< SubjectDTO > entityToDTO( @NotNull ResultSet entities ) throws MappingException {
         List< SubjectDTO > subjects = new ArrayList<>();
         try {
             while ( entities.next() ) {

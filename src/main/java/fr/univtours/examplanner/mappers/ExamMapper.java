@@ -7,11 +7,15 @@ import fr.univtours.examplanner.exceptions.MappingException;
 import fr.univtours.examplanner.utils.Database;
 import org.jetbrains.annotations.NotNull;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ExamMapper implements BaseMapper {
+
     /**
      * Créée une nouvelle classe FinalExamDTO(id, name, groups, managers, subject, duration, previousExams) grâce aux
      * éléments de la requête SQL (entities)
@@ -20,9 +24,9 @@ public class ExamMapper implements BaseMapper {
      * @return = classe {@link ExamDTO}
      */
     @Override
-    public @NotNull List< ExamDTO> EntityToDTO( ResultSet entities ) throws MappingException {
+    public @NotNull List< ExamDTO > entityToDTO( @NotNull ResultSet entities ) throws MappingException {
 
-        List <ExamDTO> exams = new ArrayList<>();
+        List< ExamDTO > exams = new ArrayList<>();
         try {
             if ( entities.next() ) {
                 while ( entities.next() ) {

@@ -25,7 +25,7 @@ public class RoomMapper implements BaseMapper {
      * @param entities = résultats de la requête SQL
      * @return = classe {@link RoomDTO}
      */
-    public static @NotNull List< RoomDTO > EntityToDTO( @NotNull ResultSet entities ) throws MappingException {
+    public @NotNull List< RoomDTO > entityToDTO( @NotNull ResultSet entities ) throws MappingException {
         List< RoomDTO > room = new ArrayList<>();
         try {
             while ( entities.next() ) {

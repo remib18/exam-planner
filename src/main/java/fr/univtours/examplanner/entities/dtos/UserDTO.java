@@ -115,7 +115,7 @@ public class UserDTO extends WithIDEntity implements EditableEntity {
         return managerID.get();
     }
 
-    public @Nullable ManagerDTO getManager() {
+    public @Nullable ManagerDTO getManager() throws ControllerException {
         String mid = managerID.get();
         if ( Objects.isNull(mid) ) return null;
         return ManagerController.getByID(mid);

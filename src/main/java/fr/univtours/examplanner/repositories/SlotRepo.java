@@ -30,22 +30,21 @@ public class SlotRepo implements BaseRepo<SlotDTO, String> {
         try {
             String sql = "SELECT * FROM _slottoroom WHERE room = " + room.getName();
             ResultSet res = Database.getConnection().createStatement().executeQuery(sql);
-            return SlotMapper.EntityToDTO(res);
+            return ( new SlotMapper() ).entityToDTO(res);
         } catch ( SQLException | DatabaseConnectionException | MappingException e ) {
             throw new RepoException("Getting slots failed, no rows affected.", e);
         }
     }
 
     @Override
-    public @NotNull SlotDTO save( @NotNull SlotDTO entity )
-    throws SQLException, DatabaseConnectionException, RepoException {
+    public @NotNull SlotDTO save( @NotNull SlotDTO entity ) throws RepoException {
         boolean hasId = !Objects.isNull(entity.getId());
         String id = hasId ? entity.getId() : Database.getNewUUID();
         String sql;
         if ( hasId ) {
             sql = "INSERT INTO slot (id, day, hour, duration) VALUES (" + id + ", " + "?, ?," + " ?, ?)";
         } else {
-            sql = "UPDATE slot SET day = ?, hour = ?, duration = ? WHERE id = " + entity.getId();
+            sql = "UPDATE slot SET day = ?, hour = ?, duration = ? WHERE id = " + id;
         }
         try ( PreparedStatement pstmt = Database.getConnection().prepareStatement(sql) ) {
 
@@ -81,7 +80,7 @@ public class SlotRepo implements BaseRepo<SlotDTO, String> {
             if ( withOptions ) {
                 stm.setString(1, value);
             }
-            return SlotMapper.EntityToDTO(stm.executeQuery());
+            return ( new SlotMapper() ).entityToDTO(stm.executeQuery());
         } catch ( SQLException | DatabaseConnectionException | MappingException e ) {
             throw new RepoException("Getting slots failed, no rows affected.", e);
         }
@@ -103,7 +102,7 @@ public class SlotRepo implements BaseRepo<SlotDTO, String> {
         String hour = String.valueOf(SlotDTO.getHourMins(start));
         String sql = "SELECT * FROM _slottoroom WHERE date = " + jour + " AND heure = " + hour;
         ResultSet res = Database.getConnection().createStatement().executeQuery(sql);
-        return SlotMapper.EntityToDTO(res);
+        return ( new SlotMapper() ).entityToDTO(res);
     }
 
     public @NotNull SlotDTO getByDuration( @NotNull float duration ) throws RepoException {

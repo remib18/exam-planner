@@ -57,7 +57,7 @@ public class UserRepo implements BaseRepo<UserDTO, String> {
             if ( withOptions ) {
                 stm.setString(1, value);
             }
-            return UserMapper.entityToDTO(stm.executeQuery());
+            return ( new UserMapper() ).entityToDTO(stm.executeQuery());
         } catch ( SQLException | DatabaseConnectionException | MappingException e ) {
             throw new RepoException("Getting users failed, no rows affected.", e);
         }

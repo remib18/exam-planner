@@ -50,9 +50,9 @@ public class ManagerRepo implements BaseRepo< ManagerDTO, String > {
         String id = hasId ? entity.getId() : Database.getNewUUID();
         String sql;
         if ( hasId ) {
-            sql = "INSERT INTO Manager (id, civility, lastname, firstname) VALUES (" + id + ",?, ?, ?)";
+            sql = "INSERT INTO Manager (id, civility, lastname, firstname) VALUES ('" + id + "',?, ?, ?)";
         } else {
-            sql = "UPDATE Manager SET civility = ?, lastname = ?, firstname= ? WHERE id = " + id;
+            sql = "UPDATE Manager SET civility = ?, lastname = ?, firstname= ? WHERE id = '" + id + "'";
         }
         try ( PreparedStatement stm = Database.getConnection().prepareStatement(sql) ) {
             stm.setString(1, entity.getCivility().name());

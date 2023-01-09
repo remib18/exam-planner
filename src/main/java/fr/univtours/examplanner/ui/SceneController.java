@@ -30,9 +30,9 @@ public enum SceneController {
                 case Room -> RoomView.getScene();
                 case Slot -> SlotView.getScene();
                 case User -> UserView.getScene();
-                case Subject -> new Scene(new Label("Subject"));
-                case Mockup -> new Scene(new Label("Mockup"));
-			};
+                case Subject -> SubjectView.getScene();
+                case Mockup -> MockupView.getScene();
+            };
 		} catch (IOException e) {
 			e.printStackTrace();
 			return new Scene(new Label("Erreur lors du chargement de la scène"));

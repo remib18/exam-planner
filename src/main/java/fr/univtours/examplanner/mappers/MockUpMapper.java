@@ -14,7 +14,7 @@ import java.util.List;
 
 public class MockUpMapper implements BaseMapper {
 
-    public static @NotNull List< MockUpDTO > entityToDTO( @NotNull ResultSet entities ) throws MappingException {
+    public @NotNull List< MockUpDTO > entityToDTO( @NotNull ResultSet entities ) throws MappingException {
         List< MockUpDTO > mockup = new ArrayList<>();
         try {
             while ( entities.next() ) {

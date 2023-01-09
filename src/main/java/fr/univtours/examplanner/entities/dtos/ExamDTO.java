@@ -3,6 +3,7 @@ package fr.univtours.examplanner.entities.dtos;
 import fr.univtours.examplanner.controllers.ExamController;
 import fr.univtours.examplanner.controllers.GroupController;
 import fr.univtours.examplanner.controllers.ManagerController;
+import fr.univtours.examplanner.entities.EditableEntity;
 import fr.univtours.examplanner.entities.WithIDEntity;
 import fr.univtours.examplanner.enums.ExamType;
 import fr.univtours.examplanner.exceptions.ControllerException;
@@ -13,17 +14,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ExamDTO extends WithIDEntity {
+public class ExamDTO extends WithIDEntity implements EditableEntity {
 
-	/**
-	 * Groupes d'étudiants participant à l'examen
-	 */
-	@NotNull
-	private final List<String> groupsIDs = new ArrayList<>();
+    /**
+     * Groupes d'étudiants participant à l'examen
+     */
+    @NotNull
+    private final List< String > groupsIDs = new ArrayList<>();
 
-	/**
-	 * Surveillants de l'examen
-	 */
+    /**
+     * Surveillants de l'examen
+     */
 	@NotNull
 	private final List<String> managersIDs = new ArrayList<>();
 
@@ -99,8 +100,8 @@ public class ExamDTO extends WithIDEntity {
 
 	public @NotNull List<GroupDTO> getGroups() throws ControllerException {
 		return groupsIDs.stream().map(gid -> {
-			try {
-				return (new GroupController()).getById(gid);
+            try {
+                return GroupController.getById(gid);
 			} catch ( ControllerException e ) {
 				throw new RuntimeException("Fail", e);
 			}
@@ -132,8 +133,8 @@ public class ExamDTO extends WithIDEntity {
 
 	public @NotNull List<ManagerDTO> getManagers() throws ControllerException {
 		return managersIDs.stream().map(mid -> {
-			try {
-				return (new ManagerController()).getById(mid);
+            try {
+                return ManagerController.getByID(mid);
 			} catch ( ControllerException e ) {
 				throw new RuntimeException("Fail", e);
 			}
@@ -176,7 +177,7 @@ public class ExamDTO extends WithIDEntity {
 	}
 
 	public void setDuration(float duration) {
-		if (duration < 0) {
+		if ( 0 > duration ) {
 			throw new IllegalArgumentException("La durée d'un examen ne peut pas être négative");
 		}
 		this.duration = duration;
@@ -184,8 +185,8 @@ public class ExamDTO extends WithIDEntity {
 
 	public @NotNull List< ExamDTO > getPreviousExams() {
 		return previousExamsIDs.stream().map(peid -> {
-			try {
-				return (new ExamController()).getById(peid);
+            try {
+                return ExamController.getById(peid);
 			} catch ( ControllerException e ) {
 				throw new RuntimeException("Fail", e);
 			}
@@ -216,7 +217,7 @@ public class ExamDTO extends WithIDEntity {
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
+		if ( null == o || getClass() != o.getClass()) return false;
 		ExamDTO exam = (ExamDTO) o;
 		return Objects.equals(id, exam.id);
 	}
@@ -227,16 +228,34 @@ public class ExamDTO extends WithIDEntity {
 	}
 
 	@Override
-	public String toString() {
-		return "Exam{" +
-				"\n\tid: " + id +
-				", \n\tname: " + name +
-			    ", \n\tname: " + type.getTypeString() +
-				", \n\tgroupsIds: " + groupsIDs +
-				", \n\tmanagersIds: " + managersIDs +
-				", \n\tsubject: " + subject +
-				", \n\tduration: " + duration +
-				", \n\tpreviousExamsIds: " + previousExamsIDs +
-				"\n}";
-	}
+    public String toString() {
+        return "Exam{" +
+               "\n\tid: " +
+               id +
+               ", \n\tname: " +
+               name +
+               ", \n\ttype: " +
+               type.getTypeString() +
+               ", \n\tgroupsIds: " +
+               groupsIDs +
+               ", \n\tmanagersIds: " +
+               managersIDs +
+               ", \n\tsubject: " +
+               subject +
+               ", \n\tduration: " +
+               duration +
+               ", \n\tpreviousExamsIds: " +
+               previousExamsIDs +
+               "\n}";
+    }
+
+    @Override
+    public void set( String property, Object value ) throws ControllerException {
+        switch ( property ) {
+            case "name" -> name = (String) value;
+            case "type" -> type = (ExamType) value;
+            case "subject" -> setSubject((SubjectDTO) value);
+            case "duration" -> setDuration((Float) value);
+        }
+    }
 }

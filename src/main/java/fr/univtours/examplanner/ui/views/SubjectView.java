@@ -1,7 +1,7 @@
 package fr.univtours.examplanner.ui.views;
 
-import fr.univtours.examplanner.controllers.SlotController;
-import fr.univtours.examplanner.entities.dtos.SlotDTO;
+import fr.univtours.examplanner.controllers.SubjectController;
+import fr.univtours.examplanner.entities.dtos.SubjectDTO;
 import fr.univtours.examplanner.exceptions.ControllerException;
 import fr.univtours.examplanner.ui.components.DataTable;
 import fr.univtours.examplanner.ui.components.DataView;
@@ -12,51 +12,51 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
-public class SlotView {
+public class SubjectView {
 
     public static final String TITLE = "app.title.slot";
 
-    private SlotView() {super();}
+    private SubjectView() {super();}
 
     public static @NotNull Scene getScene() throws IOException {
-        DataView< SlotDTO > view = new DataView<>("images/Group.png",
+        DataView< SubjectDTO > view = new DataView<>("images/Group.png",
                 "feature.group",
-                new DataTable<>(getColumns(), SlotView::getData)
+                new DataTable<>(getColumns(), SubjectView::getData)
         );
-        view.setOnAddRequest(() -> new SlotDTO("<name>", new Calendar.Builder().build(), 1));
+        view.setOnAddRequest(() -> new SubjectDTO(null, "<name>"));
         view.setOnSaveRequest(group -> {
             try {
-                SlotController.save(group);
+                SubjectController.save(group);
             } catch ( ControllerException e ) {
                 e.printStackTrace();
             }
         });
         view.setOnDeleteRequest(() -> {
             view.getTable().getSelectionModel().getSelectedItems().forEach(item -> {
-                try {SlotController.delete(item.getValue());} catch ( ControllerException e ) {e.printStackTrace();}
+                try {SubjectController.delete(item.getValue());} catch ( ControllerException e ) {e.printStackTrace();}
             });
         });
         return new Scene(view);
     }
 
-    private static @NotNull List< TableColumnDeclaration< SlotDTO, ? > > getColumns() {
-        List< TableColumnDeclaration< SlotDTO, ? > > columns = new ArrayList<>();
-        columns.add(new TableColumnDeclaration<>("name", "department.name", true));
+    private static @NotNull List< TableColumnDeclaration< SubjectDTO, ? > > getColumns() {
+        List< TableColumnDeclaration< SubjectDTO, ? > > columns = new ArrayList<>();
+        columns.add(new TableColumnDeclaration<>("id", "mockup.id", false));
+        columns.add(new TableColumnDeclaration<>("name", "mockup.name", true));
         return columns;
     }
 
 
-    private static @NotNull TreeItem< SlotDTO > getData() {
-        TreeItem< SlotDTO > root = new TreeItem<>();
+    private static @NotNull TreeItem< SubjectDTO > getData() {
+        TreeItem< SubjectDTO > root = new TreeItem<>();
         root.setExpanded(true);
 
         try {
-            List< SlotDTO > groups = SlotController.getAll();
-            for ( SlotDTO group : groups ) {
-                TreeItem< SlotDTO > item = new TreeItem<>(group);
+            List< SubjectDTO > groups = SubjectController.getAll();
+            for ( SubjectDTO group : groups ) {
+                TreeItem< SubjectDTO > item = new TreeItem<>(group);
                 root.getChildren().add(item);
             }
         } catch ( ControllerException ignored ) {}

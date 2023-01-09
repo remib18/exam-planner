@@ -3,13 +3,11 @@ package fr.univtours.examplanner.controllers;
 import fr.univtours.examplanner.entities.dtos.RoomDTO;
 import fr.univtours.examplanner.entities.dtos.SlotDTO;
 import fr.univtours.examplanner.exceptions.ControllerException;
-import fr.univtours.examplanner.exceptions.DatabaseConnectionException;
 import fr.univtours.examplanner.exceptions.RepoException;
 import fr.univtours.examplanner.repositories.RoomRepo;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Objects;
@@ -96,12 +94,14 @@ public class RoomController {
             @Nullable List< SlotDTO > availableSlots
     ) throws ControllerException {
         try {
-            return getInstance().repo.save(new RoomDTO(null, places, type,
+            return getInstance().repo.save(new RoomDTO(null,
+                    places,
+                    type,
                     computerEnvironment,
                     roomEquipment,
                     availableSlots
             ));
-        } catch ( RepoException | ParseException | SQLException | DatabaseConnectionException e ) {
+        } catch ( RepoException | ParseException e ) {
             throw new ControllerException("An error occurred during the data saving.", e);
 
         }
@@ -115,7 +115,7 @@ public class RoomController {
     public static void save( @NotNull RoomDTO entity ) throws ControllerException {
         try {
             getInstance().repo.save(entity);
-        } catch ( RepoException | SQLException | DatabaseConnectionException e ) {
+        } catch ( RepoException e ) {
             throw new ControllerException("An error occurred during the data saving.", e);
         }
     }

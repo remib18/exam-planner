@@ -11,23 +11,26 @@ import java.util.List;
 
 public class DepartmentMapper implements BaseMapper {
     /**
-     * Créée une nouvelle classe DepartmentDTO(name, MockUpDTOs)
-     * grâce aux éléments de la requête SQL (entities)
+     * Créée une nouvelle classe DepartmentDTO(name, MockUpDTOs) grâce aux éléments de la requête SQL (entities)
      *
      * @param entities = résultats de la requête SQL
      * @return = classe {@link DepartmentDTO}
      */
-    public @NotNull List < DepartmentDTO > EntityToDTO( ResultSet entities ) throws MappingException,
-            SQLException {
-        if ( entities.next() ) {
-            List< DepartmentDTO > departments = new ArrayList<>();
-            while ( entities.next() ) {
-                String name = entities.getString("name");
-                DepartmentDTO department = new DepartmentDTO(name);
-                departments.add(department);
+    public @NotNull List< DepartmentDTO > entityToDTO( ResultSet entities ) throws MappingException {
+        try {
+            if ( entities.next() ) {
+                List< DepartmentDTO > departments = new ArrayList<>();
+                while ( entities.next() ) {
+                    String name = entities.getString("name");
+                    DepartmentDTO department = new DepartmentDTO(name);
+                    departments.add(department);
+                }
+                return departments;
             }
-            return departments;
+            throw new MappingException("No result to map.", null);
+        } catch ( SQLException e ) {
+            throw new MappingException("Unable to map entity.", e);
         }
-            throw  new MappingException("No result to map.", null);
     }
+
 }

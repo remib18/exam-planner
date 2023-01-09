@@ -33,7 +33,7 @@ public class RoomRepo implements BaseRepo< RoomDTO, String > {
             if ( withOptions ) {
                 stm.setString(1, value);
             }
-            return RoomMapper.EntityToDTO(stm.executeQuery());
+            return ( new RoomMapper() ).entityToDTO(stm.executeQuery());
         } catch ( SQLException | DatabaseConnectionException | MappingException e ) {
             throw new RepoException("Getting rooms failed, no rows affected.", e);
         }
@@ -60,7 +60,7 @@ public class RoomRepo implements BaseRepo< RoomDTO, String > {
         try ( PreparedStatement stm = Database.getConnection().prepareStatement(sql) ) {
             stm.setString(1, type);
             stm.execute(sql);
-            return RoomMapper.EntityToDTO(stm.executeQuery());
+            return ( new RoomMapper() ).entityToDTO(stm.executeQuery());
         } catch ( DatabaseConnectionException | SQLException | MappingException e ) {
             throw new RepoException("Fail", e);
         }
@@ -71,7 +71,7 @@ public class RoomRepo implements BaseRepo< RoomDTO, String > {
         try ( PreparedStatement stm = Database.getConnection().prepareStatement(sql) ) {
             stm.setString(1, CE);
             stm.execute(sql);
-            return RoomMapper.EntityToDTO(stm.executeQuery());
+            return ( new RoomMapper() ).entityToDTO(stm.executeQuery());
         } catch ( DatabaseConnectionException | SQLException | MappingException e ) {
             throw new RepoException("Fail", e);
         }
@@ -82,7 +82,7 @@ public class RoomRepo implements BaseRepo< RoomDTO, String > {
         try ( PreparedStatement stm = Database.getConnection().prepareStatement(sql) ) {
             stm.setString(1, Equipments);
             stm.execute(sql);
-            return RoomMapper.EntityToDTO(stm.executeQuery());
+            return ( new RoomMapper() ).entityToDTO(stm.executeQuery());
         } catch ( DatabaseConnectionException | SQLException | MappingException e ) {
             throw new RepoException("Fail", e);
         }
@@ -92,7 +92,7 @@ public class RoomRepo implements BaseRepo< RoomDTO, String > {
         String sql = "SELECT * FROM _slottoroom WHERE room = ?";
         try ( PreparedStatement stm = Database.getConnection().prepareStatement(sql) ) {
             stm.setString(1, name);
-            return RoomMapper.EntityToDTO(stm.executeQuery());
+            return ( new RoomMapper() ).entityToDTO(stm.executeQuery());
 
         } catch ( DatabaseConnectionException | SQLException | MappingException e ) {
             throw new RuntimeException(e);
@@ -100,18 +100,18 @@ public class RoomRepo implements BaseRepo< RoomDTO, String > {
     }
 
     @Override
-    public @NotNull RoomDTO save( @NotNull RoomDTO entity )
-    throws SQLException, DatabaseConnectionException, RepoException {
+    public @NotNull RoomDTO save( @NotNull RoomDTO entity ) throws RepoException {
         boolean hasId = !Objects.isNull(entity.getName());
         String id = hasId ? entity.getName() : Database.getNewUUID();
         String sql;
         if ( hasId ) {
-            sql = "INSERT INTO room (name, places, types, equipments, computerEnvironments) VALUES ( id ," +
+            sql = "INSERT INTO room (name, places, types, equipments, computerEnvironments) VALUES ( " +
+                  id +
+                  " ," +
                   "?, ?," +
                   " ?, ?)";
         } else {
-            sql = "UPDATE room SET places = ?, types = ?, equipments = ?, computerEnvironments = ? WHERE name = " +
-                  entity.getName();
+            sql = "UPDATE room SET places = ?, types = ?, equipments = ?, computerEnvironments = ? WHERE name = " + id;
         }
         try ( PreparedStatement pstmt = Database.getConnection().prepareStatement(sql) ) {
             pstmt.setInt(1, entity.getPlaces());

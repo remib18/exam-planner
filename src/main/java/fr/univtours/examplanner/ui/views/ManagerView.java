@@ -46,7 +46,8 @@ public class ManagerView {
     private static @NotNull List< TableColumnDeclaration< ManagerDTO, ? > > getColumns() {
         List< TableColumnDeclaration< ManagerDTO, ? > > columns = new ArrayList<>();
         columns.add(new TableColumnDeclaration<>("id", "feature.manager.id", false));
-        columns.add(new TableColumnDeclaration<>("civility",
+        columns.add(new TableColumnDeclaration<>(
+                "civility",
                 "feature.manager.civility",
                 true,
                 ManagerView::handleCivilityChange,
@@ -54,8 +55,8 @@ public class ManagerView {
                 TableColumnDeclaration.Type.COMBOBOX,
                 Civility.getOptions()
         ));
-        columns.add(new TableColumnDeclaration<>("lastname", "feature.manager.lastname", true));
-        columns.add(new TableColumnDeclaration<>("firstname", "feature.manager.firstname", true));
+        columns.add(new TableColumnDeclaration<>("lastName", "feature.manager.lastname", true));
+        columns.add(new TableColumnDeclaration<>("firstName", "feature.manager.firstname", true));
         return columns;
     }
 

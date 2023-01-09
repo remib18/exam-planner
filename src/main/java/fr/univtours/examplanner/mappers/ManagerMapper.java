@@ -18,7 +18,7 @@ public class ManagerMapper implements BaseMapper{
      * @param entities = résultats de la requête SQL
      * @return = classe {@link ManagerDTO}
      */
-    public @NotNull ManagerDTO EntityToDTO( @NotNull ResultSet entities ) throws MappingException {
+    public @NotNull ManagerDTO entityToDTO( @NotNull ResultSet entities ) throws MappingException {
         ManagerDTO manager = new ManagerDTO(null, null, null, null);
         try {
             while ( entities.next() ) {

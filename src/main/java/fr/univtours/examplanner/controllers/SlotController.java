@@ -78,7 +78,7 @@ public class SlotController {
         try {
 
             return getInstance().repo.save(new SlotDTO(null, start, durationFloat));
-        } catch ( RepoException | DatabaseConnectionException | SQLException e ) {
+        } catch ( RepoException e ) {
             throw new ControllerException("An error occurred during the data saving.", e);
         }
     }
@@ -88,10 +88,10 @@ public class SlotController {
      *
      * @param entity l'horaire à modifier
      */
-    public void save( @NotNull SlotDTO entity ) throws ControllerException {
+    public static void save( @NotNull SlotDTO entity ) throws ControllerException {
         try {
             getInstance().repo.save(entity);
-        } catch ( RepoException | SQLException | DatabaseConnectionException e ) {
+        } catch ( RepoException e ) {
             throw new ControllerException("An error occurred during the data saving.", e);
         }
     }

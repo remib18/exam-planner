@@ -9,11 +9,10 @@ import fr.univtours.examplanner.exceptions.RepoException;
 import fr.univtours.examplanner.repositories.ExamRepo;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ExamController implements BaseController< ExamDTO > {
+public class ExamController {
 
     /**
      * Interface avec la base de données permettant d'effectuer des opérations standards sur les examens
@@ -24,6 +23,7 @@ public class ExamController implements BaseController< ExamDTO > {
     private static ExamController instance;
 
     private ExamController() {
+        super();
         repo = new ExamRepo();
     }
 
@@ -39,15 +39,15 @@ public class ExamController implements BaseController< ExamDTO > {
      *
      * @return la liste des examens
      */
-    public @NotNull List< ExamDTO > getAll() throws ControllerException {
+    public static @NotNull List< ExamDTO > getAll() throws ControllerException {
         try {
             return getInstance().repo.getAll();
         } catch ( RepoException e ) {
-            throw new ControllerException("Fail to fetch",e);
+            throw new ControllerException("Fail to fetch", e);
         }
     }
 
-    public @NotNull List<ExamDTO> getAllFromExam(@NotNull ExamDTO exam) throws ControllerException {
+    public static @NotNull List< ExamDTO > getAllFromExam( @NotNull ExamDTO exam ) throws ControllerException {
         try {
             return getInstance().repo.getAllFromExam(exam);
         } catch ( RepoException e ) {
@@ -55,7 +55,7 @@ public class ExamController implements BaseController< ExamDTO > {
         }
     }
 
-    public @NotNull List<ExamDTO> getAllFromGroup(@NotNull GroupDTO group) throws ControllerException {
+    public static @NotNull List< ExamDTO > getAllFromGroup( @NotNull GroupDTO group ) throws ControllerException {
         try {
             return getInstance().repo.getAllFromGroup(group);
         } catch ( RepoException e ) {
@@ -63,7 +63,7 @@ public class ExamController implements BaseController< ExamDTO > {
         }
     }
 
-    public @NotNull List<ExamDTO> getAllFromManager(@NotNull ManagerDTO manager) throws ControllerException {
+    public static @NotNull List< ExamDTO > getAllFromManager( @NotNull ManagerDTO manager ) throws ControllerException {
         try {
             return getInstance().repo.getAllFromManager(manager);
         } catch ( RepoException e ) {
@@ -71,7 +71,7 @@ public class ExamController implements BaseController< ExamDTO > {
         }
     }
 
-    public @NotNull ExamDTO getById(@NotNull String id) throws ControllerException {
+    public static @NotNull ExamDTO getById( @NotNull String id ) throws ControllerException {
         try {
             return getInstance().repo.getById(id);
         } catch ( RepoException e ) {
@@ -79,7 +79,7 @@ public class ExamController implements BaseController< ExamDTO > {
         }
     }
 
-    public @NotNull ExamDTO getByName(@NotNull String name) throws ControllerException {
+    public static @NotNull ExamDTO getByName( @NotNull String name ) throws ControllerException {
         try {
             return getInstance().repo.getByName(name);
         } catch ( RepoException e ) {
@@ -87,7 +87,7 @@ public class ExamController implements BaseController< ExamDTO > {
         }
     }
 
-    public @NotNull ExamDTO getByDuration(@NotNull float duration) throws ControllerException {
+    public static @NotNull ExamDTO getByDuration( @NotNull float duration ) throws ControllerException {
         try {
             return getInstance().repo.getByDuration(duration);
         } catch ( RepoException e ) {
@@ -95,7 +95,7 @@ public class ExamController implements BaseController< ExamDTO > {
         }
     }
 
-    public @NotNull List<ExamDTO> getAllForType(@NotNull ExamType type) throws ControllerException {
+    public static @NotNull List< ExamDTO > getAllForType( @NotNull ExamType type ) throws ControllerException {
         try {
             return getInstance().repo.getAllForType(type);
         } catch ( RepoException e ) {
@@ -108,7 +108,7 @@ public class ExamController implements BaseController< ExamDTO > {
      *
      * @param entity l'examen à modifier
      */
-    public void save( @NotNull ExamDTO entity ) throws ControllerException {
+    public static void save( @NotNull ExamDTO entity ) throws ControllerException {
         try {
             getInstance().repo.save(entity);
         } catch ( RepoException e ) {
@@ -121,7 +121,7 @@ public class ExamController implements BaseController< ExamDTO > {
      *
      * @param entity l'examen à supprimer
      */
-    public void delete( @NotNull ExamDTO entity ) throws ControllerException {
+    public static void delete( @NotNull ExamDTO entity ) throws ControllerException {
         try {
             getInstance().repo.delete(entity);
         } catch ( RepoException e ) {
