@@ -1,6 +1,7 @@
 package fr.univtours.examplanner.mappers;
 
 import fr.univtours.examplanner.entities.dtos.SubjectDTO;
+import fr.univtours.examplanner.exceptions.MappingException;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.ResultSet;

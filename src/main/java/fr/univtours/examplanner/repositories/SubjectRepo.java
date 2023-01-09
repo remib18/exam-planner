@@ -88,7 +88,7 @@ public class SubjectRepo implements BaseRepo< SubjectDTO, String > {
             if ( !hasId ) {
                 entity.setId(id);
             }
-            return entity
+            return entity;
         } catch ( SQLException | DatabaseConnectionException e ) {
             throw new RepoException("Saving subject failed, no rows affected", e);
         }
