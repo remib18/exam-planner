@@ -41,22 +41,24 @@ public class SlotRepo implements BaseRepo<SlotDTO, String> {
         String id = hasId ? entity.getId() : Database.getNewUUID();
         String sql;
         if ( hasId ) {
-            sql = "INSERT INTO slot (id, day, hour, duration) VALUES (" + id + ", " + "?, ?," + " ?, ?)";
+            sql = "UPDATE slot SET day = ?, hour = ?, duration = ? WHERE id = '" + id + "'";
         } else {
-            sql = "UPDATE slot SET day = ?, hour = ?, duration = ? WHERE id = " + id;
+            sql = "INSERT INTO slot (id, day, hour, duration) VALUES ('" + id + "', " + "?, ?," + " ?)";
         }
         try ( PreparedStatement pstmt = Database.getConnection().prepareStatement(sql) ) {
 
 
             pstmt.setDate(1, entity.getDay());
-            pstmt.setFloat(1, entity.getHour());
+            pstmt.setFloat(2, entity.getHour());
             pstmt.setFloat(3, entity.getDuration());
 
             int rows = pstmt.executeUpdate();
             if ( 0 == rows ) {
                 throw new RepoException("Creating slot failed, no rows affected", null);
             }
-            entity.setId(entity.getId());
+            if ( Objects.isNull(entity.getId()) ) {
+                entity.setId(id);
+            }
             return entity;
         } catch ( DatabaseConnectionException | SQLException e ) {
             throw new RepoException("Fail to save", e);

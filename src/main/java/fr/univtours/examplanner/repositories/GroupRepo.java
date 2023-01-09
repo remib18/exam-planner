@@ -105,7 +105,9 @@ public class GroupRepo implements BaseRepo<GroupDTO, String> {
             if ( 0 == rows ) {
                 throw new RepoException("Creating group failed, no rows affected", null);
             }
-            entity.setId(id);
+            if ( Objects.isNull(entity.getId()) ) {
+                entity.setId(id);
+            }
             return entity;
         } catch ( SQLException | DatabaseConnectionException e ) {
             throw new RepoException("Creating group failed, no rows affected", e);
@@ -165,10 +167,13 @@ public class GroupRepo implements BaseRepo<GroupDTO, String> {
     @Override
     public boolean delete( @NotNull GroupDTO entity ) throws RepoException {
         String id = entity.getId();
+        if ( Objects.isNull(id) ) {
+            throw new RepoException("You must provide an id.", null);
+        }
         String sql = "DELETE FROM `Group` WHERE id = ?";
         try ( PreparedStatement stm = Database.getConnection().prepareStatement(sql) ) {
             stm.setString(1, id);
-            stm.execute(sql);
+            stm.executeUpdate();
         } catch ( SQLException | DatabaseConnectionException e ) {
             throw new RepoException("Deleting group failed, no rows affected", e);
         }

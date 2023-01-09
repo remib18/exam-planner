@@ -49,7 +49,7 @@ public class SlotView {
     private static @NotNull List< TableColumnDeclaration< SlotDTO, ? > > getColumns() {
         List< TableColumnDeclaration< SlotDTO, ? > > columns = new ArrayList<>();
         columns.add(new TableColumnDeclaration<>("id", "slot.id", false));
-        columns.add(new TableColumnDeclaration<>("day", "slot.day", true, new DateStringConverter()));
+        columns.add(new TableColumnDeclaration<>("day", "slot.day", false, new DateStringConverter()));
         columns.add(new TableColumnDeclaration<>("hour", "slot.hour", true, new FloatStringConverter()));
         columns.add(new TableColumnDeclaration<>("duration", "slot.duration", true, new FloatStringConverter()));
         return columns;
