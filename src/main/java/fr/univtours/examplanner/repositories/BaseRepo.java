@@ -7,6 +7,8 @@ import org.jetbrains.annotations.Nullable;
 import fr.univtours.examplanner.exceptions.DatabaseConnectionException;
 import fr.univtours.examplanner.exceptions.RepoException;
 
+import fr.univtours.examplanner.exceptions.RepoException;
+
 import java.util.List;
 
 public interface BaseRepo<Entity, PK> {
