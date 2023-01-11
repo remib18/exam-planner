@@ -569,7 +569,7 @@ VALUES ('aaaaaaaa-aee0-4795-9655-bd6909bd690a', 'schooling', null, null,
         '22fa799b871efc06156b7b793920643a8711bdb9d147723151d7f48e70bd2df9'),
        ('aaaaaaaa-aee0-4795-9655-bd6909bd690b', 'department', 'Anglais', null,
         '2ad29f65743a0524d916bfb3e24f5034c970b8daa7749699a88bd7096129fa09'),
-       ('aaaaaaaa-aee0-4795-9655-bd6909bd690c', 'manager', null, '197a35f7-6b2d-4d00-8d2a-09dfd64ae45c',
+       ('aaaaaaaa-aee0-479
         '6ee4a469cd4e91053847f5d3fcb61dbcc91e8f0ef10be7748da4c4a1ba382d17');
 
 INSERT INTO `user` (`id`, `mail`, `department`, `manager`, `password`)
@@ -593,6 +593,7 @@ VALUES ('13317305-aee0-4795-9655-bd6909bd690c', 'FelicienPomerleau@gustr.com', '
         'e1e07b19-b617-46cb-b931-89b59611ef1e', 'Boam5ike'),
        ('d545dbdb-01c0-43a1-a677-dee1df166885', 'ReneTheberge@superrito.com', 'Biologique',
         'a7eb779e-4591-44a0-98f1-49f84a788b34', 'Easie2ebaet');
+
 -- --------------------------------------------------------
 
 --
@@ -1085,7 +1086,6 @@ INSERT INTO `_subjecttomockup` (`subject`, `mockUp`) VALUES
 ('Integrale', 'MasterThree_Histoire'),
 ('Integrale', 'MasterThree_Physique'),
 ('Integrale', 'MasterTwo_Mathematique');
-
 
 COMMIT;
 
