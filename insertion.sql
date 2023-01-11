@@ -11,17 +11,66 @@ SET
 SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET
-time_zone = "+00:00";
+    time_zone = "+00:00";
 
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT = @@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS = @@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION = @@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
+
+DELETE
+FROM _SubjectToMockUp;
+DELETE
+FROM _SlotToRoom;
+DELETE
+FROM _GroupToGroup;
+DELETE
+FROM _ExamToSlot;
+DELETE
+FROM _ExamToRoom;
+DELETE
+FROM _ExamToManager;
+DELETE
+FROM _ExamToGroup;
+DELETE
+FROM _ExamToExam;
+DELETE
+FROM _ExamToDepartment;
+DELETE
+FROM User;
+DELETE
+FROM Exam;
+DELETE
+FROM Subject;
+DELETE
+FROM Slot;
+DELETE
+FROM Room;
+DELETE
+FROM MockUp;
+DELETE
+FROM Manager;
+DELETE
+FROM `Group`;
+DELETE
+FROM Department;
 
 --
 -- Base de données : `exam_planner`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Déchargement des données de la table `subject`
+--
+
+INSERT INTO `subject` (`name`)
+VALUES ('Codage'),
+       ('Derivée'),
+       ('Dissection'),
+       ('Integrale');
 
 -- --------------------------------------------------------
 
@@ -513,26 +562,14 @@ INSERT INTO `slot` (`id`, `day`, `hour`, `duration`)VALUES ('049340e2-a174-4806-
 -- --------------------------------------------------------
 
 --
--- Déchargement des données de la table `subject`
---
-
-INSERT INTO `subject` (`name`)
-VALUES ('Codage'),
-       ('Derivée'),
-       ('Dissection'),
-       ('Integrale');
-
--- --------------------------------------------------------
-
---
 -- Déchargement des données de la table `user`
 --
 INSERT INTO `User` (id, mail, department, manager, password)
-VALUES ('aaaaaaaaa-aee0-4795-9655-bd6909bd690c', 'schooling', null, null,
+VALUES ('aaaaaaaa-aee0-4795-9655-bd6909bd690a', 'schooling', null, null,
         '22fa799b871efc06156b7b793920643a8711bdb9d147723151d7f48e70bd2df9'),
-       ('aaaaaaaaa-aee0-4795-9655-bd6909bd690c', 'department', 'Anglais', null,
+       ('aaaaaaaa-aee0-4795-9655-bd6909bd690b', 'department', 'Anglais', null,
         '2ad29f65743a0524d916bfb3e24f5034c970b8daa7749699a88bd7096129fa09'),
-       ('aaaaaaaaa-aee0-4795-9655-bd6909bd690c', 'manager', '7c334929-a33a-4ff4-8703-2b22dec3adc0', null,
+       ('aaaaaaaa-aee0-4795-9655-bd6909bd690c', 'manager', null, '197a35f7-6b2d-4d00-8d2a-09dfd64ae45c',
         '6ee4a469cd4e91053847f5d3fcb61dbcc91e8f0ef10be7748da4c4a1ba382d17');
 
 INSERT INTO `user` (`id`, `mail`, `department`, `manager`, `password`)
@@ -556,7 +593,6 @@ VALUES ('13317305-aee0-4795-9655-bd6909bd690c', 'FelicienPomerleau@gustr.com', '
         'e1e07b19-b617-46cb-b931-89b59611ef1e', 'Boam5ike'),
        ('d545dbdb-01c0-43a1-a677-dee1df166885', 'ReneTheberge@superrito.com', 'Biologique',
         'a7eb779e-4591-44a0-98f1-49f84a788b34', 'Easie2ebaet');
-
 -- --------------------------------------------------------
 
 --
@@ -1050,216 +1086,7 @@ INSERT INTO `_subjecttomockup` (`subject`, `mockUp`) VALUES
 ('Integrale', 'MasterThree_Physique'),
 ('Integrale', 'MasterTwo_Mathematique');
 
---
--- Index pour les tables déchargées
---
 
---
--- Index pour la table `department`
---
-ALTER TABLE `department`
-  ADD PRIMARY KEY (`name`);
-
---
--- Index pour la table `exam`
---
-ALTER TABLE `exam`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `Exam_Subject_FK` (`subject`);
-
---
--- Index pour la table `group`
---
-ALTER TABLE `group`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `manager`
---
-ALTER TABLE `manager`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `mockup`
---
-ALTER TABLE `mockup`
-  ADD PRIMARY KEY (`name`),
-  ADD KEY `MockUp_Department_FK` (`department`);
-
---
--- Index pour la table `room`
---
-ALTER TABLE `room`
-  ADD PRIMARY KEY (`name`);
-
---
--- Index pour la table `slot`
---
-ALTER TABLE `slot`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `subject`
---
-ALTER TABLE `subject`
-  ADD PRIMARY KEY (`name`);
-
---
--- Index pour la table `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `User_Department_FK` (`department`),
-  ADD KEY `User_Manager_FK` (`manager`);
-
---
--- Index pour la table `_examtodepartment`
---
-ALTER TABLE `_examtodepartment`
-  ADD PRIMARY KEY (`exam`,`department`),
-  ADD KEY `_ExamToDepartment_Department_FK` (`department`);
-
---
--- Index pour la table `_examtoexam`
---
-ALTER TABLE `_examtoexam`
-  ADD PRIMARY KEY (`parent`,`child`),
-  ADD KEY `_ExamToExam_Exam_child_FK` (`child`);
-
---
--- Index pour la table `_examtogroup`
---
-ALTER TABLE `_examtogroup`
-  ADD PRIMARY KEY (`exam`,`group`),
-  ADD KEY `_ExamToGroup_Group_FK` (`group`);
-
---
--- Index pour la table `_examtomanager`
---
-ALTER TABLE `_examtomanager`
-  ADD PRIMARY KEY (`exam`,`manager`),
-  ADD KEY `_ExamToManager_Manager_FK` (`manager`);
-
---
--- Index pour la table `_examtoroom`
---
-ALTER TABLE `_examtoroom`
-  ADD PRIMARY KEY (`exam`,`room`),
-  ADD KEY `_ExamToRoom_Room_FK` (`room`);
-
---
--- Index pour la table `_examtoslot`
---
-ALTER TABLE `_examtoslot`
-  ADD PRIMARY KEY (`exam`,`slot`),
-  ADD KEY `_ExamToSlot_Group_FK` (`slot`);
-
---
--- Index pour la table `_grouptogroup`
---
-ALTER TABLE `_grouptogroup`
-  ADD PRIMARY KEY (`parent`,`child`),
-  ADD KEY `__GroupToGroup_Group_child_FK` (`child`);
-
---
--- Index pour la table `_slottoroom`
---
-ALTER TABLE `_slottoroom`
-  ADD PRIMARY KEY (`slot`,`room`),
-  ADD KEY `_SlotToRoom_Room_FK` (`room`);
-
---
--- Index pour la table `_subjecttomockup`
---
-ALTER TABLE `_subjecttomockup`
-  ADD PRIMARY KEY (`subject`,`mockUp`),
-  ADD KEY `SubjectToMockUp_MockUp_FK` (`mockUp`);
-
---
--- Contraintes pour les tables déchargées
---
-
---
--- Contraintes pour la table `exam`
---
-ALTER TABLE `exam`
-  ADD CONSTRAINT `Exam_Subject_FK` FOREIGN KEY (`subject`) REFERENCES `subject` (`name`);
-
---
--- Contraintes pour la table `mockup`
---
-ALTER TABLE `mockup`
-  ADD CONSTRAINT `MockUp_Department_FK` FOREIGN KEY (`department`) REFERENCES `department` (`name`);
-
---
--- Contraintes pour la table `user`
---
-ALTER TABLE `user`
-  ADD CONSTRAINT `User_Department_FK` FOREIGN KEY (`department`) REFERENCES `department` (`name`),
-  ADD CONSTRAINT `User_Manager_FK` FOREIGN KEY (`manager`) REFERENCES `manager` (`id`);
-
---
--- Contraintes pour la table `_examtodepartment`
---
-ALTER TABLE `_examtodepartment`
-  ADD CONSTRAINT `_ExamToDepartment_Department_FK` FOREIGN KEY (`department`) REFERENCES `department` (`name`),
-  ADD CONSTRAINT `_ExamToDepartment_Exam_FK` FOREIGN KEY (`exam`) REFERENCES `exam` (`id`);
-
---
--- Contraintes pour la table `_examtoexam`
---
-ALTER TABLE `_examtoexam`
-  ADD CONSTRAINT `_ExamToExam_Exam_child_FK` FOREIGN KEY (`child`) REFERENCES `exam` (`id`),
-  ADD CONSTRAINT `_ExamToExam_Exam_parent_FK` FOREIGN KEY (`parent`) REFERENCES `exam` (`id`);
-
---
--- Contraintes pour la table `_examtogroup`
---
-ALTER TABLE `_examtogroup`
-  ADD CONSTRAINT `_ExamToGroup_Exam_FK` FOREIGN KEY (`exam`) REFERENCES `exam` (`id`),
-  ADD CONSTRAINT `_ExamToGroup_Group_FK` FOREIGN KEY (`group`) REFERENCES `group` (`id`);
-
---
--- Contraintes pour la table `_examtomanager`
---
-ALTER TABLE `_examtomanager`
-  ADD CONSTRAINT `_ExamToManager_Exam_FK` FOREIGN KEY (`exam`) REFERENCES `exam` (`id`),
-  ADD CONSTRAINT `_ExamToManager_Manager_FK` FOREIGN KEY (`manager`) REFERENCES `manager` (`id`);
-
---
--- Contraintes pour la table `_examtoroom`
---
-ALTER TABLE `_examtoroom`
-  ADD CONSTRAINT `_ExamToRoom_Exam_FK` FOREIGN KEY (`exam`) REFERENCES `exam` (`id`),
-  ADD CONSTRAINT `_ExamToRoom_Room_FK` FOREIGN KEY (`room`) REFERENCES `room` (`name`);
-
---
--- Contraintes pour la table `_examtoslot`
---
-ALTER TABLE `_examtoslot`
-  ADD CONSTRAINT `_ExamToSlot_Exam_FK` FOREIGN KEY (`exam`) REFERENCES `exam` (`id`),
-  ADD CONSTRAINT `_ExamToSlot_Group_FK` FOREIGN KEY (`slot`) REFERENCES `slot` (`id`);
-
---
--- Contraintes pour la table `_grouptogroup`
---
-ALTER TABLE `_grouptogroup`
-  ADD CONSTRAINT `__GroupToGroup_Group_child_FK` FOREIGN KEY (`child`) REFERENCES `group` (`id`),
-  ADD CONSTRAINT `__GroupToGroup_Group_parent_FK` FOREIGN KEY (`parent`) REFERENCES `group` (`id`);
-
---
--- Contraintes pour la table `_slottoroom`
---
-ALTER TABLE `_slottoroom`
-  ADD CONSTRAINT `_SlotToRoom_Exam_FK` FOREIGN KEY (`slot`) REFERENCES `slot` (`id`),
-  ADD CONSTRAINT `_SlotToRoom_Room_FK` FOREIGN KEY (`room`) REFERENCES `room` (`name`);
-
---
--- Contraintes pour la table `_subjecttomockup`
---
-ALTER TABLE `_subjecttomockup`
-  ADD CONSTRAINT `SubjectToMockUp_MockUp_FK` FOREIGN KEY (`mockUp`) REFERENCES `mockup` (`name`),
-  ADD CONSTRAINT `SubjectToMockUp_Subject_FK` FOREIGN KEY (`subject`) REFERENCES `subject` (`name`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
