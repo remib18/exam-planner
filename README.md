@@ -103,6 +103,8 @@ Note : de nombreuses fonctionnalités ont été désactivés afin de fournir une
 - Date des créneaux non modifiable
 - La gestion des exams, des surveillants, des maquettes et des sujets (normalement disponibles pour les rôles "
   département") est désactivé car buggée
+- La suppression d'élément ayant des relations avec d'autres éléments lèvera une erreur (l'app ne crashera pas) (fix:
+  delete cascade en bdd)
 
 ## Authors
 
