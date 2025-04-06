@@ -1,110 +1,103 @@
 # Exam Planner
 
-Un projet universitaire ayant pour but de simplifier la gestion et la planification des examens pour l'université 🥳.
+A university project aimed at simplifying exam management and planning for the university 🥳.
+
+Important consideration: we do not recommend using the following software as is for production environment.
 
 ## Installation
 
-Note : Nous recommandons l'utilisation d'IntelliJ IDEA pour l'exécution de l'environnement de développement ou de
-production.
-Vous trouverez dans ce guide des actions exécutables tel que `Run App` qui sont cliquables dans IntelliJ IDEA.
+Note: We recommend using IntelliJ IDEA for running the development or production environment.
+In this guide, you'll find executable actions such as `Run App` which are clickable in IntelliJ IDEA.
 
-### Environnement
+### Environment
 
-Il est possible d'utiliser des versions différentes de Java, mais nous recommandons d'utiliser la version 18 au minimum.
-Notez qu'il est possible que certaines fonctionnalités ne soient pas disponibles dans les versions antérieures à la 19.
+It's possible to use different versions of Java, but we recommend using at least version 18.
+Note that some features may not be available in versions earlier than 19.
 
 - Java 19.0.1 (openJDK)
 - Maven 3.8.5
 - IntelliJ IDEA 2022.3.1
 - Git 2.33.0
 - MySQL 8.0.31
-- Systèmes d'exploitations : MacOS ARM64 (13.1), Windows (10, 11)
+- Operating Systems: MacOS ARM64 (13.1), Windows (10, 11)
 
-### Configuration de la BDD
+### Database Configuration
 
-Il n'est à l'heure actuelle pas possible de modifier la configuration de la BDD depuis un fichier de configuration. Si
-vous ne pouvez vous conformer à l'utilisateur `root` sans mot de passe sur le serveur `localhost` (port `3306`), vous
-devrez modifier le fichier `src/main/java/fr/univtours/examplanner/utils/Database` et modifier les paramètres de
-connexion à la BDD.
+Currently, it's not possible to modify the database configuration from a configuration file. If you cannot conform to the `root` user with no password on the `localhost` server (port `3306`), you will need to modify the file `src/main/java/fr/univtours/examplanner/utils/Database` and change the database connection parameters.
 
-Lancez le script SQL `generation.sql` à la racine du projet.
+Run the SQL script `generation.sql` at the root of the project.
 
-Celui-ci se chargera de créer la base de donnée. Assurez-vous de ne pas déjà avoir de BDD nommée `exam_planner`.
+This will create the database. Make sure you don't already have a database named `exam_planner`.
 
-### Ajout de données factices
+### Adding Mock Data
 
-Lancez le script SQL `insertion.sql` à la racine du projet.
+Run the SQL script `insertion.sql` at the root of the project.
 
-Celui-ci se chargera d'ajouter des données factices à la base de donnée.
+This will add mock data to the database.
 
-Vous disposerez alors de 3 utilisateurs:
+You will then have 3 users:
 
 - `schooling`
 - `department`
 - `manager`
 
-Ils ont tous par défaut le même mot de passe que leur nom d'utilisateur et ils ont tous un type d'accès correspondant à
-leur nom.
+They all have the same password as their username by default, and they all have an access type corresponding to their name.
 
-### Installation et exécution avec IntelliJ
+### Installation and Execution with IntelliJ
 
-Installez le projet à l'aide d'IntelliJ IDEA via la configuration `Run App` fournie avec le projet.
+Install the project using IntelliJ IDEA via the `Run App` configuration provided with the project.
 
-### Ou installation avec Maven
+### Or Installation with Maven
 
-Installez le projet à l'aide de Maven
+Install the project using Maven
 
 ```bash
   mvn resources:copy-resources
   mvn dependency:copy-dependencies
 ```
 
-Nous n'avons pas réussi à faire fonctionner `maven package`. Il est donc nécessaire de passer par IntelliJ pour lancer
-l'application.
+We were unable to get `maven package` to work. It is therefore necessary to go through IntelliJ to launch the application.
 
 ## Documentation
 
-Vous trouverez la documentation du projet dans la branche `docs`. Vous avez également une documentation en ligne
-déployée via GitHub Pages à l'adresse suivante: https://remib18.github.io/exam-planner
+You can find the project documentation in the `docs` branch. You also have online documentation deployed via GitHub Pages at the following address: https://remib18.github.io/exam-planner
 
 ## Tests
 
-### Exécution des tests
+### Running Tests
 
-Il est important que la BDD soit définie et exempte de données pour lancer les tests.
+It is important that the database is defined and free of data to run the tests.
 
-Pour lancer les tests, exécutez la configuration `Run Tests` fournie avec le projet.
+To run the tests, execute the `Run Tests` configuration provided with the project.
 
-### Code couvert par les tests
+### Code Covered by Tests
 
-- La connection à la BDD
-- Les différentes opérations CRUD sur les utilisateurs
+- Database connection
+- Various CRUD operations on users
 
-## Avancement
+## Progress
 
-### Fonctionnalités
+### Features
 
-- [x] Authentification
-- [x] Gestion des utilisateurs
-- [x] Gestion des départements
-- [x] Gestion des salles
-- [ ] Gestion des examens
-- [x] Gestion des groupes
-- [ ] Gestion des surveillants
-- [x] Gestion des Horaires
-- [x] Système de traduction intégré
-- [ ] Fichier de configuration
-- [ ] Export des données
+- [x] Authentication
+- [x] User management
+- [x] Department management
+- [x] Room management
+- [ ] Exam management
+- [x] Group management
+- [ ] Proctor management
+- [x] Schedule management
+- [x] Integrated translation system
+- [ ] Configuration file
+- [ ] Data export
 
-Note : de nombreuses fonctionnalités ont été désactivés afin de fournir une application exempte de bugs.
+Note: many features have been disabled in order to provide a bug-free application.
 
-### Known bugs & Fonctionnalité non développée ou désactivés
+### Known Bugs & Features Not Developed or Disabled
 
-- Date des créneaux non modifiable
-- La gestion des exams, des surveillants, des maquettes et des sujets (normalement disponibles pour les rôles "
-  département") est désactivé car buggée
-- La suppression d'élément ayant des relations avec d'autres éléments lèvera une erreur (l'app ne crashera pas) (fix:
-  delete cascade en bdd)
+- Time slot dates cannot be modified
+- Management of exams, proctors, curricula, and subjects (normally available for "department" roles) is disabled due to bugs
+- Deleting elements that have relationships with other elements will raise an error (the app won't crash) (fix: delete cascade in database)
 
 ## Authors
 
@@ -113,4 +106,3 @@ Note : de nombreuses fonctionnalités ont été désactivés afin de fournir une
 - Benoît Cheramy • [@beubeu28](https://www.github.com/beubeu28)
 - Mya Dumas-Libre • [@MyaDL](https://www.github.com/MyaDL)
 - Antonin Rathaux • [@Arokiel](https://www.github.com/Arokiel)
-
